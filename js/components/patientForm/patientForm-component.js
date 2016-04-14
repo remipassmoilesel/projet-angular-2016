@@ -34,8 +34,14 @@ var Controller = function ($http, datah, $scope, $mdToast) {
     this.lowestDate = new Date(1900, 01, 01);
     this.highestDate = new Date();
 
+    // par défaut le bouton affiche ce texte
+    this.buttonValidText = "Mettre à jour le patient";
+
     // le modèle manipulé, défini ici uniquement si non fourni en argument
     if (typeof this.patient === "undefined") {
+        
+        this.buttonValidText = "Ajouter le patient";
+        
         this.patient = {
             firstname: "Jean-claude",
             name: "DuGenou",

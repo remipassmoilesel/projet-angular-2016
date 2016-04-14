@@ -1,6 +1,6 @@
-# Projet de Cabinet M�dical 
+# Projet de Cabinet Médical 
 
-Objectif: apprendre � utiliser Angular 1.5
+Objectif: apprendre à utiliser Angular 1.5
 
 Requiert Git, Node et Gulp 
 
@@ -14,4 +14,5 @@ Utilisation:
 	# puis dans un autre terminal
 	$ node serverCabinetInstall.js
 
+/!\ Les fichiers gulpfile.js et serverCabinetMedical.js ont été modifié.
 

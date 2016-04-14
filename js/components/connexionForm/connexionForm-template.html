@@ -1,0 +1,31 @@
+<md-whiteframe class="md-whiteframe-17dp connexionForm">
+
+    <!-- Titre de l'écran de connexion -->
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h3>
+                <span>Le Voyageur de Santé</span>
+            </h3>
+        </div>
+    </md-toolbar>
+
+    <div class="connexionFormBlock">
+        <h4>Connectez vous en tant que secrétaire:</h4>
+        <form id="secretaire" name="input" action="/" method="POST">
+            <input value="Secretaire" type="hidden" name="login"></input>
+            <input type="submit" value="Connection"/>
+        </form>
+    </div>
+
+    <div class="connexionFormBlock">
+        <h4>Connectez vous en tant qu'infirmier:</h4>
+        <form id="infirmier" name="input" action="/INFIRMIERE" method="POST">
+            <label class="login">
+                Identifiant : 
+                <input list="logins" type="text" name="id"></input>
+            </label>
+            <input type="submit" value="Connection"/>
+        </form>
+    </div>
+
+</md-whiteframe>

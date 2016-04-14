@@ -12,16 +12,18 @@ var gulp = require('gulp')
         , upath = require("upath")
         ;
 
-var webpackEntries = ['js/secretary.js', 'js/start.js'];
-var filesToLint = ['js/**/*.js', 'serverCabinetMedical.js'];
-var problemFiles = filesToLint.slice();
+var webpackEntries = ['js/secretary.js'
+]
+var filesToLint = ['js/**/*.js'
+            , 'serverCabinetMedical.js'
+];
 
+var problemFiles = filesToLint.slice();
 function appendProblemFiles(fName) {
     if (problemFiles.indexOf(fName) === -1) {
         problemFiles.push(fName);
     }
 }
-
 function removeProblemFiles(fName) {
     var pos = problemFiles.indexOf(fName)
     if (pos !== -1) {
@@ -48,6 +50,7 @@ function listLinted() {
 }
 
 function linterPipeline() {
+    // console.log( "linterPipeline", problemFiles );
     return gulp.src(problemFiles)
             .pipe(eslint())
             .pipe(listLinted())
@@ -59,10 +62,12 @@ gulp.task('lint', function () {
     return linterPipeline();
 });
 
-gulp.task('watch', function () {
+gulp.task('watch', ['lint'], function () {
+    // console.log("Task lint")
     problemFiles.splice(0, filesToLint.length);
     gulp.watch(filesToLint, function (event) {
         var fName = upath.normalizeSafe(event.path);
+        // console.log( event );
         if (event.type !== 'deleted') {
             appendProblemFiles(fName);
             return linterPipeline();
@@ -70,8 +75,8 @@ gulp.task('watch', function () {
     });
 });
 
-gulp.task("webpack", function (callback) {
 
+gulp.task("webpack", function (callback) {
     var wp =
             gulp.src(webpackEntries)
             .pipe(named())
@@ -90,19 +95,15 @@ gulp.task("webpack", function (callback) {
                         {test: /\.(png|woff|jpg|jpeg|gif)$/, loader: 'url-loader?limit=100000'}
                     ]
                 },
-                plugins: [new ExtractTextPlugin("[name].css")],
+                plugins: [new ExtractTextPlugin("[name].css")
+                ],
                 failOnError: false
-            }));
-
-
+            })); /* End of pipe webpack */
     // Split CSS and JS process
     var css = wp.pipe(filter('*.css'))
             , js = wp.pipe(filter('*.js'));
-
     // CSS process
-    css.pipe(autoprefixer());
-
-
+    css.pipe(autoprefixer())
     // Split dev and dist
     css.pipe(gulp.dest('dev'))
             .pipe(cleanCSS())
@@ -110,91 +111,21 @@ gulp.task("webpack", function (callback) {
             .pipe(gzip())
             .pipe(gulp.dest('dist'));
 
-
     // JS process
     js.pipe(gulp.dest('dev'))
             .pipe(uglify())
             .pipe(gulp.dest('dist'))
             .pipe(gzip())
             .pipe(gulp.dest('dist'));
-    return wp;
-});
-
-/*
- * ////////////////////////////////////////////////////////////////////////////////
- */
-
-/**
- * Tache modifiée pour s'éxecuter plus rapidement. Pas de version de distribution, pas de zip.
- */
-gulp.task("webpack-light", function () {
-
-    var wp =
-            gulp.src(webpackEntries)
-            .pipe(named())
-            .pipe(webpack({
-                progress: false,
-                stats: {
-                    colors: true,
-                    modules: false,
-                    reasons: false
-                },
-                watch: true,
-                module: {
-                    loaders: [
-                        {test: /\.css$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader")},
-                        {test: /\.html$/, loader: 'raw-loader'},
-                        {test: /\.(png|woff|jpg|jpeg|gif)$/, loader: 'url-loader?limit=100000'}
-                    ]
-                },
-                plugins: [new ExtractTextPlugin("[name].css")],
-                failOnError: false
-            }));
-
-
-    // Split CSS and JS process
-    var css = wp.pipe(filter('*.css'))
-            , js = wp.pipe(filter('*.js'));
-
-    // CSS process
-    css.pipe(autoprefixer());
-
-
-    // Split dev and dist
-    css.pipe(gulp.dest('dev'));
-
-    // JS process
-    js.pipe(gulp.dest('dev'));
 
     return wp;
 });
 
-/**
- * Fonction de journalisation de texte. Si inColor = true alors le texte sera écrit en bleu.
- * @type Module safe|Module safe
- */
-var colors = require('colors/safe');
-function log(text, inColor) {
+;
 
-    if (inColor === undefined) {
-        inColor = false;
-    }
-    if (inColor) {
-        text = colors.green(text);
-    }
 
-    console.log(text);
-}
-
-gulp.task('alert-light-webpack', function () {
-    log("Attention: version modifiée du fichier gulp.js", true);
-    log("\n");
+gulp.task('default', ['webpack', 'watch'], function () {
+    console.log("Done ???");
 });
-
-//gulp.task('default', ['webpack', 'lint', 'watch'], function () {
-gulp.task('default', ['alert-light-webpack', 'webpack-light'], function () {
-    console.log("Done.");
-});
-
 
 

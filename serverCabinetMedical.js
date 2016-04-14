@@ -93,6 +93,11 @@ function init(port, applicationServerIP, applicationServerPort) {
 
     app.disable('etag');
     // Define HTTP ressource GET /
+    /**
+     * Réecrite et commentée ci-dessous car les fonctionnalités de liste d'infirmiers 
+     * ne sont pas utilisées et car il y a un problème de parsing 
+     * lorsque l'on insére une balise <script>
+     */
     app.get('/'
             , function (req, res) {											// req contains the HTTP request, res is the response stream
                 // console.log('Getting /');
@@ -102,27 +107,43 @@ function init(port, applicationServerIP, applicationServerPort) {
                                 res.writeHead(500);
                                 return res.end('Error loading start.html : ' + err);
                             }
-                            // Parse it so that we can add secretary and all nurses
-                            var docHTML = domParser.parseFromString(data.toString());
-                            var datalist = docHTML.getElementById('logins');
-                            var L_nurses = doc.getElementsByTagName('infirmier'), nurse;
-                            console.log(L_nurses.length);
-                            for (var i = 0; i < L_nurses.length; i++) {
-                                nurse = L_nurses[i];
-                                var option = docHTML.createElement('option');
-                                option.setAttribute('value', nurse.getAttribute('id'));
-                                option.textContent = nurse.getElementsByTagName('prenom')[0].textContent
-                                        + ' '
-                                        + nurse.getElementsByTagName('nom')[0].textContent
-                                        ;
-                                datalist.appendChild(option);
-                            }
+
                             res.writeHead(200);
-                            res.write(xmlSerializer.serializeToString(docHTML));
+                            res.write(data.toString());
                             res.end();
                         });
             }
     );
+//    app.get('/'
+//            , function (req, res) {											// req contains the HTTP request, res is the response stream
+//                // console.log('Getting /');
+//                fs.readFile(__dirname + '/start.html'
+//                        , function (err, data) {
+//                            if (err) {
+//                                res.writeHead(500);
+//                                return res.end('Error loading start.html : ' + err);
+//                            }
+//                            // Parse it so that we can add secretary and all nurses
+//                            var docHTML = domParser.parseFromString(data.toString());
+//                            var datalist = docHTML.getElementById('logins');
+//                            var L_nurses = doc.getElementsByTagName('infirmier'), nurse;
+//                            console.log(L_nurses.length);
+//                            for (var i = 0; i < L_nurses.length; i++) {
+//                                nurse = L_nurses[i];
+//                                var option = docHTML.createElement('option');
+//                                option.setAttribute('value', nurse.getAttribute('id'));
+//                                option.textContent = nurse.getElementsByTagName('prenom')[0].textContent
+//                                        + ' '
+//                                        + nurse.getElementsByTagName('nom')[0].textContent
+//                                        ;
+//                                datalist.appendChild(option);
+//                            }
+//                            res.writeHead(200);
+//                            res.write(xmlSerializer.serializeToString(docHTML));
+//                            res.end();
+//                        });
+//            }
+//    );
 
     // Define HTTP ressource POST /, contains a login that identify the secretary or one nurse
     app.post('/'
@@ -278,6 +299,9 @@ function init(port, applicationServerIP, applicationServerPort) {
     // Define HTTP ressource POST /affectation, associate a patient with a nurse
     app.post('/affectation'
             , function (req, res) {
+
+                console.log("/affectation, \nreq.body:\n\t", req.body, "\n_______________________");
+
                 if (typeof req.body.infirmier === 'undefined'
                         || typeof req.body.patient === 'undefined') {
                     res.writeHead(500);

@@ -24,7 +24,7 @@
         </infirmier>
     </infirmiers>
     <patients>
-        <patient><nom>Aire</nom><prenom>Axel</prenom><numero>193061305545319</numero><sexe>F</sexe><naissance>1993-06-13T00:00:00.000Z</naissance><visite date="2014-12-08" intervenant="001"/><adresse><etage>4</etage><numero>46</numero><rue>avenue Felix Viallet</rue><ville>Grenoble</ville><codePostal>38031</codePostal></adresse></patient>
+        <patient><nom>Aire</nom><prenom>Axel</prenom><numero>193061305545319</numero><sexe>F</sexe><naissance>1993-06-13T00:00:00.000Z</naissance><visite date="2014-12-08" intervenant="003"/><adresse><etage>4</etage><numero>46</numero><rue>avenue Felix Viallet</rue><ville>Grenoble</ville><codePostal>38031</codePostal></adresse></patient>
         <patient>        
             <nom>Orouge</nom>
             <prenom>Elvire</prenom>
