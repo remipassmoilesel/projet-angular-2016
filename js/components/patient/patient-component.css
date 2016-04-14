@@ -1,5 +1,6 @@
 .patientInfoLabel{
     font-weight: bolder;
+    width: 20%;
 }
 
 .patientInformationsContainer md-content {
@@ -7,12 +8,12 @@
     height: 100%;
 }
 
-.largeContent{
+.patientLargeContent{
     height: 220px;
 }
 
-.smallContent{
-    height: 70px;
+.patientSmallContent{
+    height: 60px;
 }
 
 .patientMale{

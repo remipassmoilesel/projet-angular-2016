@@ -25,10 +25,13 @@ var Controller = function ($http, datah, $scope) {
         firstname: ""
     };
 
+    // listes de tous les infirmiers pour le formulaire
+    this.allNurses = this.datah.getNurses();
+
     // les résultats de recherche
     this.results = [];
 
-   
+
 };
 // injection de dépendance sous forme d'un tableau de chaine de caractères
 Controller.$inject = ["$http", constants.serviceDataHandler, "$scope"];

@@ -2,7 +2,6 @@
     <md-card-title>
         <md-card-title-text>
             <span class="md-headline">{{$ctrl.data.name + ' ' + $ctrl.data.firstname}}</span>
-            <span class="md-subhead">Identifiant: {{$ctrl.data.id}}</span>
         </md-card-title-text>
         <md-card-title-media>
             <div class="md-media-sm card-media">
@@ -11,11 +10,33 @@
             </div>
         </md-card-title-media>
     </md-card-title>
-    <md-card-content>
+    <md-card-content ng-switch="$ctrl.displayMode" class="patientInformationsContainer"
+                     ng-class="{
+                                 nurseLargeContent: $ctrl.displayMode !== 'summary',
+                                         nurseSmallContent: $ctrl.displayMode === 'summary'
+                             }">
+
+        <!-- Affichage des informations de base -->
+        <md-content ng-switch-when="summary" flex style="overflow: hidden;">
+            <table style="width: 100%">
+                <tr ng-repeat="(kinfo, info) in $ctrl.summaryDatas">
+                    <td class="nurseInfoLabel">{{kinfo}}:</td>
+                    <td>{{info}}</td>
+                </tr>
+            </table>
+        </md-content>
+
+        <!-- Affichage patients affectés -->
+        <md-content ng-switch-when="affectedPatients">
+            {{$ctrl}}
+        </md-content>
+
         <!--{{$ctrl}}-->
     </md-card-content>
+    
     <md-card-actions layout="row" layout-align="end center">
-        <md-button>Modifier</md-button>
-        <md-button>Supprimer</md-button>
+        <md-button ng-click="$ctrl.setDisplayMode('summary')" ng-show="$ctrl.displayMode !== 'summary'">
+            Replier</md-button>
+        <md-button ng-click="$ctrl.setDisplayMode('affectedPatients')">Patient affectés</md-button>
     </md-card-actions>
 </md-card>

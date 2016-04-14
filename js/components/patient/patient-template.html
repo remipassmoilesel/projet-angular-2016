@@ -14,14 +14,12 @@
     <!-- La partie centrale, différente selon les actions demandées -->
     <md-card-content ng-switch="$ctrl.displayMode" class="patientInformationsContainer"
                      ng-class="{
-                                 largeContent: $ctrl.displayMode !== 'summary',
-                                         smallContent: $ctrl.displayMode === 'summary'
+                                 patientLargeContent: $ctrl.displayMode !== 'summary',
+                                         patientSmallContent: $ctrl.displayMode === 'summary'
                              }">
 
-
         <!-- Affichage des informations de base -->
-        <md-content ng-switch-when="summary" flex >
-            <!-- eventuellement replacer ng-switch par ng-show pour faciliter les animations -->
+        <md-content ng-switch-when="summary" flex style="overflow: hidden;">
             <table style="width: 100%">
                 <tr ng-repeat="(kinfo, info) in $ctrl.summaryDatas">
                     <td class="patientInfoLabel">{{kinfo}}:</td>
@@ -32,14 +30,16 @@
 
         <!-- Affichage toutes les informations -->
         <md-content ng-switch-when="complete" flex>
-            <form-patient patient="$ctrl.data" disabled="true"></form-patient>
+            <form-patient patient="$ctrl.data" disabled="true" 
+                          nurses = "$ctrl.nurses"></form-patient>
         </md-content>
 
         <!-- Modifier le patient. 
         Les données sont différentes de celles qui sont affichées plus haut-->
         <md-content ng-switch-when="modification" flex >
             <form-patient patient="$ctrl.modificationsData" disabled="false"
-                          on-form-validated="$ctrl.formHasBeenValidated()"></form-patient>
+                          on-form-validated="$ctrl.formHasBeenValidated()"
+                          nurses = "$ctrl.nurses"></form-patient>
         </md-content>
 
         <!-- Affichage toutes les visites -->

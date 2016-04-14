@@ -29,6 +29,10 @@ var Controller = function (datah, $scope, $compile, $mdToast, $mdDialog) {
     this.menuElements.displayAllPatients.action(this,
             this.menuElements.displayAllPatients);
 
+    // premiere mise à jour
+    this.updateNurses();
+    this.updatePatients();
+
 };
 
 // injection de dépendance sous forme d'un tableau de chaine de caractères
@@ -50,7 +54,6 @@ Controller.prototype.updateNonAffectedPatients = function () {
                 // mettre à jour le modèle
                 vm.nonAffectedPatients = response;
             });
-
 };
 
 /**

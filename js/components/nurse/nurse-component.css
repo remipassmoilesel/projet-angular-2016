@@ -1,0 +1,12 @@
+.nurseLargeContent{
+    height: 220px;
+}
+
+.nurseSmallContent{
+    height: 40px;
+}
+
+.nurseInfoLabel{
+    font-weight: bolder;
+    width: 20%;
+}

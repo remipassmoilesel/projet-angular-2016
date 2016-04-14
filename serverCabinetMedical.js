@@ -225,19 +225,20 @@ function init(port, applicationServerIP, applicationServerPort) {
 
     // Suppression de patient
     app.post('/removePatient'
-            , function (req, res) {
-                console.log("/removePatient, \nreq.body:\n\t", req.body, "\n_______________________");
+            , function (request, response) {
+
+                console.log("/removePatient, \nreq.body:\n\t", request.body, "\n_______________________");
 
                 // le numéro du patient qu'on recherche
-                var patientNumber = req.body.patientNumber;
+                var patientNumber = request.body.patientNumber;
                 //var patientNumber = patientToDelete.ssid;
 
                 // verifier qu'il y ai bien un numero de sécurité sociale
                 if (typeof patientNumber === "undefined") {
                     console.error("400 - Patient number invalid: \n", patientNumber);
-                    res.writeHead(400);
-                    res.write("Patient number invalid: \n", patientNumber);
-                    res.end();
+                    response.writeHead(400);
+                    response.write("Patient number invalid: \n", patientNumber);
+                    response.end();
                     return;
                 }
 
@@ -262,14 +263,14 @@ function init(port, applicationServerIP, applicationServerPort) {
                 // pas de patient retiré, erreur
                 if (patientFound === false) {
                     console.error("400 - Patient not found: \n", patientNumber);
-                    res.writeHead(400);
-                    res.write("Patient not found: \n", patientNumber);
-                    res.end( );
+                    response.writeHead(400);
+                    response.write("Patient not found: \n", patientNumber);
+                    response.end( );
                     return;
                 }
 
                 // ecrire le document
-                saveXML(doc, res);
+                saveXML(doc, response);
 
             }
     );

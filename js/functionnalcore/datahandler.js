@@ -190,6 +190,10 @@ DataHandler.prototype.getAllPatients = function () {
 
                             }
 
+                            // Infirmier associé. L'infirmier associé est celui qui apparait dans la 
+                            // première balise visite
+                            patientObj.nurseId = patientObj.visits[0].idNurse || '';
+
                             // ajout du patient à l'objet exporté
                             output.push(patientObj);
                         }
@@ -220,7 +224,7 @@ DataHandler.prototype.getActions = function () {
                         var typesTags = xmlDoc.querySelector("types").getElementsByTagName("type");
                         for (var i = 0; i < typesTags.length; i++) {
                             var t = typesTags[i];
-                            output.types[t.getAttribute("id")] = t.innerHTML.trim().replace(/\s/i, " ");
+                            output.types[t.getAttribute("id")] = t.innerHTML.trim().replace(/\s+/i, " ");
                         }
 
                         // rassembler les différents actes
@@ -235,8 +239,6 @@ DataHandler.prototype.getActions = function () {
                                 description: a.innerHTML.trim().replace(/\s/i, " ")
                             };
                         }
-
-                        console.log(output);
 
                         return output;
                     });
@@ -287,6 +289,7 @@ DataHandler.prototype.addPatient = function (patient) {
      adressFloor: patientTag.querySelector("adresse etage").innerHTML
      };
      */
+
     var dataToSend = {
         patientName: patient.name || '',
         patientForname: patient.firstname || '',
@@ -300,7 +303,22 @@ DataHandler.prototype.addPatient = function (patient) {
         patientAdressNumber: patient.adressNumber || ''
     };
 
-    return this.$http.post("/addPatient", dataToSend);
+    // enregistrer le patient 
+    var vm = this;
+    return this.$http.post("/addPatient", dataToSend)
+
+            // et eventuellement l'affecter
+            .then(function (response) {
+                if (typeof patient.nurseId !== "undefined" && patient.nurseId !== "") {
+
+                    console.log(vm);
+
+                    return vm.$http.post("/affectation", {
+                        patient: patient.ssid,
+                        infirmier: patient.nurseId
+                    });
+                }
+            });
 
 };
 

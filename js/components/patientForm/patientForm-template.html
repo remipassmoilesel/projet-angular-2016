@@ -5,6 +5,7 @@
 
         <table style="width: 100%">
 
+            <!-- Nom du patient -->
             <tr>
                 <td class="formPatientLabel">Nom:</td>
                 <td>
@@ -16,6 +17,7 @@
             </td>
             </tr>
 
+            <!-- Prénom du patient -->
             <tr>
                 <td class="formPatientLabel">Prénom:</td>
                 <td>
@@ -27,6 +29,7 @@
             </td>
             </tr>
 
+            <!-- Genre du patient -->
             <tr>
                 <td class="formPatientLabel">Genre:</td>
 
@@ -46,17 +49,19 @@
             </td>
             </tr>
 
+            <!-- Infirmier associé -->
             <tr>
                 <td class="formPatientLabel">Infirmier associé:</td>
                 <td>
-            <md-input-container>
-                <input name="nurse" ng-model="$ctrl.patient.nurse" ng-pattern="$ctrl.patientInfoPattern" 
-                       ng-minlength="3" ng-maxlength="50"      
-                       ng-disabled="$ctrl.disabled" autocomplete="off"/>
-            </md-input-container>
+            <md-select ng-model="$ctrl.patient.nurseId" style="width: 70%" ng-disabled="$ctrl.disabled">
+                <md-option ng-repeat="nurse in $ctrl.nurses" value="{{nurse.id}}">
+                    {{nurse.name + ' ' + nurse.firstname}} 
+                </md-option>
+            </md-select>
             </td>
             </tr>
 
+            <!-- Date de naissance -->
             <tr>
                 <td class="formPatientLabel">Date de naissance:</td>
                 <td>

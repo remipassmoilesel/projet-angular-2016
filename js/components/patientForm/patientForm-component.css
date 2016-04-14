@@ -1,10 +1,12 @@
 .formPatient{
     overflow: visible;
 }
+
 .formPatient table{
     padding: 0px;
     margin: 0px;
 }
+
 .formPatient table td{
     padding: 5px;
     margin: 0px;
@@ -16,15 +18,11 @@
     font-weight: bolder;
 }
 
-.formPatient md-datepicker{
-    background: white;
-}
-
-.formPatient md-datepicker md-content{
-    background: white;
-}
-
 .formPatient input[disabled]{
+    color: black;
+}
+
+.formPatient md-select[disabled] div{
     color: black;
 }
 

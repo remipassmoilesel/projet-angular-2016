@@ -29,16 +29,12 @@ var Controller = function ($mdDialog, $scope, datah, $mdToast) {
     this.modificationsData = JSON.parse(JSON.stringify(this.data || {}));
     this.modificationsData.birthdate = new Date(this.modificationsData.birthdate);
 
-
     // données formattées à afficher en résumé
-    var d = this.data.birthdate;
-    var prettyBirthdate = d.getUTCDate() + "/" + d.getUTCMonth() + "/" + d.getUTCFullYear();
+    var prettyBirthdate = this.utils.getPrettyDate(this.data.birthdate);
     this.summaryDatas = {
-        "NSS": this.data.ssid,
         "Née le": prettyBirthdate + " (" + this.data.age + " ans)",
         "Adresse": this.data.adressComplete
     };
-
 
     // les modes d'affichage du patient
     this.availablesDisplayModes = ["summary", "complete", "visits", "modification", "$mdToast"];
@@ -105,8 +101,10 @@ Controller.prototype.deletePatient = function () {
 
                             });
 
-                    // notifier dans tous les cas
-                    vm.onPatientModified();
+                    // notification du composant parent si necessaire
+                    if (typeof vm.onPatientModified !== "undefined") {
+                        vm.onPatientModified();
+                    }
                 }
             });
 
@@ -128,7 +126,18 @@ module.exports = function (angularMod) {
     angularMod.component("patient", {
         template: template,
         bindings: {
+            /*
+             * Les données du patient à afficher
+             */
             data: "<",
+            /*
+             * La listes des infirmiers disponibles. La liste est passée ici en paramètre 
+             * pour éviter les appels à répétition 
+             */
+            nurses: "<",
+            /*
+             * Une fonction optionnelle qui sera appelée en cas de modification
+             */
             onPatientModified: "&"
         },
         controller: Controller

@@ -34,7 +34,6 @@
 
         <!-- A etudier: iterer les elements de menu a la maniere des boutons du menu -->
 
-
         <div ng-show="$ctrl.menuElements.displaySearch.visible">
             <h2 class="officePanelTitle">{{$ctrl.menuElements.displaySearch.label}}</h2>
 
@@ -53,6 +52,7 @@
             <h2 class="officePanelTitle">{{$ctrl.menuElements.displayAllPatients.label}}</h2>
 
             <patient data="elmt" ng-repeat="elmt in $ctrl.allPatients"
+                     nurses="$ctrl.allNurses" 
                      on-patient-modified="$ctrl.updatePatients()"></patient>
 
         </div>
@@ -67,7 +67,8 @@
         <div ng-show="$ctrl.menuElements.displayNonAffectedPatients.visible">
             <h2 class="officePanelTitle">{{$ctrl.menuElements.displayNonAffectedPatients.label}}</h2>
 
-            <patient ng-repeat="elmt in $ctrl.nonAffectedPatients" data="elmt"></patient>
+            <patient ng-repeat="elmt in $ctrl.nonAffectedPatients" data="elmt"
+                     nurses="$ctrl.allNurses" ></patient>
 
         </div>
 

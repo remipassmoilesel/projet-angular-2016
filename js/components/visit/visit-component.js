@@ -24,8 +24,6 @@ Controller.$inject = ["$http", constants.serviceDataHandler, "$scope"];
 
 module.exports = function (angularMod) {
 
-    //var datahandler = require("../../functionnalcore/datahandler.js")(angularMod);
-
     angularMod.component("visit", {
         template: template,
         controller: Controller,

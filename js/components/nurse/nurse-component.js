@@ -10,8 +10,41 @@ require('./nurse-component.css');
 var utils = require('../../functionnalcore/utils.js');
 var constants = require('../../functionnalcore/constants.js');
 
-var Controller = function () {
+var Controller = function ($mdDialog, $scope, datah, $mdToast) {
 
+    // utilitaires
+    this.datah = datah;
+    this.$mdDialog = $mdDialog;
+    this.$mdToast = $mdToast;
+    this.$scope = $scope;
+    this.utils = utils;
+    this.smallContent = "100px";
+    this.largeContent = "200px";
+
+    this.summaryDatas = {
+        "Identifiant": this.data.id
+    };
+
+    // les modes d'affichage du patient
+    this.availablesDisplayModes = ["summary", "affectedPatients"];
+    this.setDisplayMode("summary");
+
+};
+
+Controller.$inject = ["$mdDialog", "$scope", constants.serviceDataHandler, "$mdToast"];
+
+/**
+ * Modifier l'affichage du composant. Par exemple: seulement qqu informations, 
+ * ou le tout
+ * @param {type} mode
+ * @returns {undefined}
+ */
+Controller.prototype.setDisplayMode = function (mode) {
+
+    if (this.availablesDisplayModes.indexOf(mode) === -1) {
+        throw constants.INVALID_ARGUMENT + ": " + mode;
+    }
+    this.displayMode = mode;
 };
 
 module.exports = function (angularMod) {
@@ -19,6 +52,7 @@ module.exports = function (angularMod) {
     angularMod.component("nurse", {
         template: template,
         bindings: {
+            // Les informations de l'infirmier a afficher
             data: "<"
         },
         controller: Controller

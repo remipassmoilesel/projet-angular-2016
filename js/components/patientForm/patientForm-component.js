@@ -39,7 +39,7 @@ var Controller = function ($http, datah, $scope, $mdToast) {
         this.patient = {
             firstname: "Jean-claude",
             name: "DuGenou",
-            nurse: "idInfirmier",
+            nurseId: "001",
             gender: "A",
             birthdate: yesterday
         };
@@ -198,8 +198,22 @@ module.exports = function (angularMod) {
         template: template,
         controller: Controller,
         bindings: {
+            /*
+             * Les informations du patient à afficher
+             */
             patient: "<",
+            /*
+             * Si vrai, le formulaire ne fera qu'afficher les informations
+             */
             disabled: "<",
+            /*
+             * La listes des infirmiers disponibles. La liste est passée ici en paramètre 
+             * pour éviter les appels à répétition 
+             */
+            nurses: "<",
+            /*
+             * Fonction optionnelle qui sera appelée lors de l'envoi du formulaire
+             */
             onFormValidated: "&"
         }
     });
