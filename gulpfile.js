@@ -12,7 +12,7 @@ var gulp = require('gulp')
         , upath = require("upath")
         ;
 
-var webpackEntries = ['js/secretary.js', 'js/start.js'];
+var webpackEntries = ['js/secretary.js', 'js/start.js', "js/nurse.js"];
 var filesToLint = ['js/**/*.js', 'serverCabinetMedical.js'];
 var problemFiles = filesToLint.slice();
 
