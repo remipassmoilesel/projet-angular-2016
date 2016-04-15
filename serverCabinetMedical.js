@@ -67,7 +67,7 @@ function init(port, applicationServerIP, applicationServerPort) {
     fs.readFile(__dirname + '/data/cabinetInfirmier.xml'
             , function (err, dataObj) {
                 if (err) {
-                    console.error("Problem reading file /data/cabinetInfirmier.xml", err);
+                    console.error("Error while reading file /data/cabinetInfirmier.xml", err);
                 } else {
                     try {
                         var data = ""; //new String();
@@ -75,7 +75,7 @@ function init(port, applicationServerIP, applicationServerPort) {
                         doc = domParser.parseFromString(data, 'text/xml');
                         console.log("/data/cabinetInfirmier.xml successfully parsed !");
                     } catch (err2) {
-                        console.error('Problem parsing /data/cabinetInfirmier.xml', err2);
+                        console.error('Error while parsing /data/cabinetInfirmier.xml', err2);
                     }
                 }
             }
@@ -92,79 +92,168 @@ function init(port, applicationServerIP, applicationServerPort) {
 
 
     app.disable('etag');
-    // Define HTTP ressource GET /
+
     /**
-     * Réecrite et commentée ci-dessous car les fonctionnalités de liste d'infirmiers 
-     * ne sont pas utilisées et car il y a un problème de parsing 
-     * lorsque l'on insére une balise <script>
+     * Sert le contenu de la page d'accueil.
+     * @param {type} res
+     * @returns {undefined}
+     */
+    function serveStartPage(res) {
+        // console.log('Getting /');
+        fs.readFile(__dirname + '/start.html'
+                , function (err, data) {
+                    if (err) {
+                        res.writeHead(500);
+                        return res.end('Error loading start.html : ' + err);
+                    }
+
+                    res.writeHead(200);
+                    res.write(data.toString());
+                    res.end();
+                });
+    }
+
+    /**
+     * Distribution de la page d'accueil.
      */
     app.get('/'
             , function (req, res) {											// req contains the HTTP request, res is the response stream
-                // console.log('Getting /');
-                fs.readFile(__dirname + '/start.html'
-                        , function (err, data) {
-                            if (err) {
-                                res.writeHead(500);
-                                return res.end('Error loading start.html : ' + err);
-                            }
-
-                            res.writeHead(200);
-                            res.write(data.toString());
-                            res.end();
-                        });
+                serveStartPage(res);
             }
     );
-//    app.get('/'
-//            , function (req, res) {											// req contains the HTTP request, res is the response stream
-//                // console.log('Getting /');
-//                fs.readFile(__dirname + '/start.html'
-//                        , function (err, data) {
-//                            if (err) {
-//                                res.writeHead(500);
-//                                return res.end('Error loading start.html : ' + err);
-//                            }
-//                            // Parse it so that we can add secretary and all nurses
-//                            var docHTML = domParser.parseFromString(data.toString());
-//                            var datalist = docHTML.getElementById('logins');
-//                            var L_nurses = doc.getElementsByTagName('infirmier'), nurse;
-//                            console.log(L_nurses.length);
-//                            for (var i = 0; i < L_nurses.length; i++) {
-//                                nurse = L_nurses[i];
-//                                var option = docHTML.createElement('option');
-//                                option.setAttribute('value', nurse.getAttribute('id'));
-//                                option.textContent = nurse.getElementsByTagName('prenom')[0].textContent
-//                                        + ' '
-//                                        + nurse.getElementsByTagName('nom')[0].textContent
-//                                        ;
-//                                datalist.appendChild(option);
-//                            }
-//                            res.writeHead(200);
-//                            res.write(xmlSerializer.serializeToString(docHTML));
-//                            res.end();
-//                        });
-//            }
-//    );
 
-    // Define HTTP ressource POST /, contains a login that identify the secretary or one nurse
+    /**
+     * Fonction utilitaire de verification d'un couple id/mdp. Procédure simplifiée, 
+     * nécéssiterai + de travail
+     * 
+     * 
+     * Renvoi la ressource autorisée ou undefined.
+     * 
+     * @param {type} doc
+     * @param {type} login
+     * @param {type} passwd
+     * @returns {undefined}
+     */
+    function checkAccess(login, passwd) {
+
+        if (typeof passwd === "undefined" || typeof login === "undefined") {
+            return undefined;
+        }
+
+// formatter les identifiants
+        passwd = passwd.toLowerCase().trim();
+        login = login.toLowerCase().trim();
+
+//        console.log(login);
+//        console.log(passwd);
+//        console.log();
+
+        // ressources
+        var accessTo = undefined;
+        var secretaryPage = __dirname + '/secretary.html';
+        var nursePage = __dirname + '/nurse.html';
+
+        // verifier les secretaires
+        var secretaries = doc.getElementsByTagName("secretaires")[0].getElementsByTagName("secretaire");
+
+        for (var i = 0; i < secretaries.length; i++) {
+            var sc = secretaries[i];
+            var scl = sc.getElementsByTagName("login")[0].textContent;
+            var scp = sc.getElementsByTagName("motdepasse")[0].textContent;
+
+//            console.log(scl);
+//            console.log(scp);
+//            console.log();
+
+            if (scl === login && scp === passwd) {
+                accessTo = secretaryPage;
+                break;
+            }
+        }
+
+        // verifier les infirmieres
+        if (accessTo === undefined) {
+
+            var nurses = doc.getElementsByTagName("infirmiers")[0].getElementsByTagName('infirmier');
+
+//            console.log(nurses);
+
+            for (var i = 0; i < nurses.length; i++) {
+                var ns = nurses[i];
+                var nsl = ns.getElementsByTagName("login")[0].textContent;
+                var nsp = ns.getElementsByTagName("motdepasse")[0].textContent;
+
+                if (nsl === login && nsp === passwd) {
+                    accessTo = nursePage;
+                    break;
+                }
+            }
+        }
+
+        return accessTo;
+
+    }
+
+    /**
+     * Verification des identifiant. Retourne un code 200 si OK, 403 dans tous les autres cas.
+     * 
+     */
+    app.post('/checkAccess'
+            , function (req, res) {
+                console.log("/checkAccess, \nreq.body:\n\t", req.body, "\n_______________________");
+
+                // vérifier le mot de passe et le login
+                var accessTo = checkAccess(req.body.login, req.body.password);
+
+                // distribution de la ressource
+                if (accessTo !== undefined) {
+                    console.log("200 - Access granted: " + req);
+                    res.writeHead(200);
+                    res.end();
+                } else {
+                    console.log("403 - Access denied: " + req);
+                    res.writeHead(403);
+                    res.end();
+                }
+            }
+    );
+
+    /**
+     * Formulaire de connexion. Doit recevoir un login et un mot de passe. La procédure est simplifiée, 
+     * elle necessiterait l'usage de cookies etc...
+     * 
+     */
     app.post('/'
             , function (req, res) {
-                switch (req.body.login) {
-                    case 'Secretaire':
-                        fs.readFile(__dirname + '/secretary.html',
-                                function (err, data) {
-                                    if (err) {
-                                        res.writeHead(500);
-                                        return res.end('Error loading secretary.html : ', err);
-                                    }
-                                    res.writeHead(200);
-                                    res.write(data.toString());
-                                    res.end();
-                                });
-                        break;
-                    default: // Is it a nurse ?
-                        res.writeHead(200);
-                        res.write("Unsupported login : " + req.body.login);
-                        res.end();
+
+                console.log("/, \nreq.body:\n\t", req.body, "\n_______________________");
+
+                // vérifier le mot de passe et le login
+                var accessTo = checkAccess(req.body.login, req.body.password);
+
+                // acces autorisé, distribution de la ressource
+                if (accessTo !== undefined) {
+                    fs.readFile(accessTo,
+                            function (err, data) {
+                                if (err) {
+                                    console.log('500 - Error while loading: ' + accessTo, err);
+                                    serveStartPage(res);
+                                    return;
+                                }
+                                res.writeHead(200);
+                                res.write(data.toString());
+                                res.end();
+                            });
+
+                }
+
+                // acces refusé, renvoi vers la page d'accueil. 
+                // la verification et le retour vers l'utilisateur se fait
+                // normalement en amont
+                else {
+                    console.log("403 - Access denied: " + req);
+                    serveStartPage(res);
+                    return;
                 }
             }
     );
@@ -331,86 +420,8 @@ function init(port, applicationServerIP, applicationServerPort) {
             }
     );
 
-    // Define HTTP ressource POST /INFIRMIERE
-    app.post('/INFIRMIERE'
-            , function (req, res) {
-                res.end("INFIRMIERE " + req.body.id + ". WARNING: You should configure the optimization application server IP and port. //By default, the optimization application server is configured to be the HCI one.");
-            }
-    );
-    app.post('/infirmiereLocale'
-            , function (req, res) {
-                var form = {id: req.body.id
-                    , xml: xmlSerializer.serializeToString(doc)
-                }
-                , url = 'http://' + applicationServer.ip + ':' + applicationServer.port + '/INFIRMIERE'
-                        ;
-                console.log("Contacting", url);
-                request.post({url: url
-                    , form: form}
-                , function (err, httpResponse, body) {
-                    if (err) {
-                        res.writeHead(400);
-                        res.write("Error on the optimization application server: ");
-                        res.end( );
-                    } else {//console.log("we got a body!");
-                        res.end(body);
-                    }
-                }
-                );
-            }
-    );
 
-    app.get('/check'
-            , function (req, res) {
-                var str_xml, str_xsd;
-                var P_xml = new Promise(function (resolve, reject) {
-                    fs.readFile(__dirname + '/data/cabinetInfirmier.xml'
-                            , function (err, dataObj) {
-                                if (err) {
-                                    reject();
-                                } else {
-                                    str_xml = "".concat(dataObj);
-                                    resolve();
-                                }
-                            }
-                    );
-                }
-                )
-                        , P_xsd = new Promise(function (resolve, reject) {
-                            fs.readFile(__dirname + '/data/cabinet.xsd'
-                                    , function (err, dataObj) {
-                                        if (err) {
-                                            reject();
-                                        } else {
-                                            str_xsd = "".concat(dataObj);
-                                            resolve();
-                                        }
-                                    }
-                            );
-                        }
-                        )
-                        , P_all = Promise.all([P_xml, P_xsd])
-                        ; // End of promises
 
-                P_all.then(function () { // If resolved
-                    // Check xml / xsd
-                    console.log('./data/cabinet.xsd');
-                    var xsdDoc = libXML.parseXml(str_xsd);
-                    console.log(1);
-                    var xmlDoc = libXML.parseXml(str_xml);
-                    console.log(2);
-                    xmlDoc.validate(xsdDoc);
-                    console.log(3);
-                    console.log(xmlDoc.validationErrors);
-                    res.end(JSON.stringify(xmlDoc.validationErrors));
-                }
-                , function () { // If rejected
-                    res.end("Error, promises rejected");
-                }
-                );
-
-            }
-    );
 }
 
 
@@ -427,6 +438,12 @@ var port = params.port || "8080"
         , applicationServerIP = params.applicationServerIP || '127.0.0.1'
         , applicationServerPort = params.applicationServerPort || port
         ;
+
 console.log("Usage :\n\tnode staticServeur.js [port:PORT] [applicationServerIP:IP] [applicationServerPort:PORT]\n\tDefault port is 8080.\n\tDefault applicationServerIP is 127.0.0.1.\n\tDefault applicationServerPort is the same port than the one used by this HTTP server.");
 console.log("HTTP server listening on port " + port);
+
+console.log();
+console.log("Attention: version modifiée du serveur original.");
+console.log()
+
 init(port, applicationServerIP, applicationServerPort);

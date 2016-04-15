@@ -6,25 +6,62 @@
         <ville>Grenoble</ville>
         <codePostal>38041</codePostal>
     </adresse>
+    
+    <secretaires>
+        <secretaire>
+            <nom>a</nom>
+            <prenom>b</prenom>
+            <login>a</login>
+            <motdepasse>b</motdepasse>
+        </secretaire>
+        <secretaire>
+            <nom>Germain</nom>
+            <prenom>Germaine</prenom>
+            <login>ggermaine</login>
+            <motdepasse>azerty</motdepasse>
+        </secretaire>
+    </secretaires>
+    
     <infirmiers>
         <infirmier id="001">
             <nom>Versaire</nom>
             <prenom>Annie</prenom>
+            <login>versairea</login>
+            <motdepasse>azerty</motdepasse>
             <photo>images/homer1.gif</photo>
         </infirmier>
         <infirmier id="002">
             <nom>Cent</nom>
             <prenom>Sally</prenom>
+            <login>cents</login>
+            <motdepasse>azerty</motdepasse>
             <photo>images/lisa111.gif</photo>
         </infirmier>
         <infirmier id="003">
             <nom>Nouie</nom>
             <prenom>Eva</prenom>
+            <login>nouiee</login>
+            <motdepasse>azerty</motdepasse>
             <photo>images/maggie111.gif</photo>
         </infirmier>
     </infirmiers>
+    
     <patients>
-        <patient><nom>Aire</nom><prenom>Axel</prenom><numero>193061305545319</numero><sexe>F</sexe><naissance>1993-06-13T00:00:00.000Z</naissance><visite date="2014-12-08" intervenant="003"/><adresse><etage>4</etage><numero>46</numero><rue>avenue Felix Viallet</rue><ville>Grenoble</ville><codePostal>38031</codePostal></adresse></patient>
+        <patient>
+            <nom>Aire</nom>
+            <prenom>Axel</prenom>
+            <numero>193061305545319</numero>
+            <sexe>F</sexe>
+            <naissance>1993-06-13T00:00:00.000Z</naissance>
+            <visite date="2014-12-08" intervenant="003"/>
+            <adresse>
+                <etage>4</etage>
+                <numero>46</numero>
+                <rue>avenue Felix Viallet</rue>
+                <ville>Grenoble</ville>
+                <codePostal>38031</codePostal>
+            </adresse>
+        </patient>
         <patient>        
             <nom>Orouge</nom>
             <prenom>Elvire</prenom>

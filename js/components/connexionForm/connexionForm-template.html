@@ -1,31 +1,45 @@
-<md-whiteframe class="md-whiteframe-17dp connexionForm">
+<md-whiteframe class="md-whiteframe-17dp connexionComponent">
 
     <!-- Titre de l'écran de connexion -->
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <h3>
-                <span>Le Voyageur de Santé</span>
-            </h3>
+            <h3>Connexion</h3>
         </div>
     </md-toolbar>
 
-    <div class="connexionFormBlock">
-        <h4>Connectez vous en tant que secrétaire:</h4>
-        <form id="secretaire" name="input" action="/" method="POST">
-            <input value="Secretaire" type="hidden" name="login"></input>
-            <input type="submit" value="Connection"/>
-        </form>
-    </div>
+    <div class="connexionComponentBlock" layout="col" layout-align="center">
 
-    <div class="connexionFormBlock">
-        <h4>Connectez vous en tant qu'infirmier:</h4>
-        <form id="infirmier" name="input" action="/INFIRMIERE" method="POST">
-            <label class="login">
-                Identifiant : 
-                <input list="logins" type="text" name="id"></input>
-            </label>
-            <input type="submit" value="Connection"/>
+        <!-- Formulaire de verification de mot de passe -->
+        <form name="$ctrl.connexionForm" method="post" action='/'>
+
+            <md-input-container  class="md-block">
+                <label>Identifiant</label>
+                <input md-maxlength="50" required name="login" ng-model="$ctrl.login"
+                       autocomplete="off"/>
+                <div ng-messages="connexionForm.login.$error">
+                    <div ng-message="required">Champs requis.</div>
+                    <div ng-message="md-maxlength">Ce champs doit faire moins de 50 caractères.</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container  class="md-block">
+                <label>Mot de passe</label>
+                <input md-maxlength="50" required name="password" ng-model="$ctrl.password"
+                       autocomplete="off"/>
+                <div ng-messages="connexionForm.password.$error">
+                    <div ng-message="required">Champs requis.</div>
+                    <div ng-message="md-maxlength">Ce champs doit faire moins de 50 caractères.</div>
+                </div>
+            </md-input-container>
+
+            <md-button type="submit">Connexion</md-button>
+
+            <div class="connexionFormMessage">
+                {{$ctrl.errorMessage}}
+            </div>
+
         </form>
+
     </div>
 
 </md-whiteframe>

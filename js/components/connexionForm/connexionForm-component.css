@@ -1,7 +1,12 @@
-.connexionForm{
+.connexionComponent{
 
 }
 
-.connexionFormBlock{
+.connexionComponentBlock{
     margin: 2%;
+}
+
+.connexionFormMessage{
+    color: blue;
+    font-weight: bolder;
 }

@@ -187,7 +187,8 @@ function log(text, inColor) {
 }
 
 gulp.task('alert-light-webpack', function () {
-    log("Attention: version modifiée du fichier gulp.js", true);
+    log("\n");
+    log("Attention: version modifiée du fichier gulp.js original", true);
     log("\n");
 });
 
