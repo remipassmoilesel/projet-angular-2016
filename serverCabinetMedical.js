@@ -99,9 +99,12 @@ function init(port, applicationServerIP, applicationServerPort) {
      * @returns {undefined}
      */
     function serveStartPage(res) {
+
         // console.log('Getting /');
         fs.readFile(__dirname + '/start.html'
                 , function (err, data) {
+
+                    // erreur lors de la lecture
                     if (err) {
                         res.writeHead(500);
                         return res.end('Error loading start.html : ' + err);
@@ -111,6 +114,7 @@ function init(port, applicationServerIP, applicationServerPort) {
                     res.write(data.toString());
                     res.end();
                 });
+
     }
 
     /**
@@ -195,30 +199,6 @@ function init(port, applicationServerIP, applicationServerPort) {
     }
 
     /**
-     * Verification des identifiant. Retourne un code 200 si OK, 403 dans tous les autres cas.
-     * 
-     */
-    app.post('/checkAccess'
-            , function (req, res) {
-                console.log("/checkAccess, \nreq.body:\n\t", req.body, "\n_______________________");
-
-                // vérifier le mot de passe et le login
-                var accessTo = checkAccess(req.body.login, req.body.password);
-
-                // distribution de la ressource
-                if (accessTo !== undefined) {
-                    console.log("200 - Access granted: " + req);
-                    res.writeHead(200);
-                    res.end();
-                } else {
-                    console.log("403 - Access denied: " + req);
-                    res.writeHead(403);
-                    res.end();
-                }
-            }
-    );
-
-    /**
      * Formulaire de connexion. Doit recevoir un login et un mot de passe. La procédure est simplifiée, 
      * elle necessiterait l'usage de cookies etc...
      * 
@@ -247,12 +227,22 @@ function init(port, applicationServerIP, applicationServerPort) {
 
                 }
 
-                // acces refusé, renvoi vers la page d'accueil. 
-                // la verification et le retour vers l'utilisateur se fait
-                // normalement en amont
+                // acces refusé
                 else {
                     console.log("403 - Access denied: " + req);
-                    serveStartPage(res);
+                    fs.readFile(__dirname + '/accessDenied.html'
+                            , function (err, data) {
+                                // erreur lors de la lecture
+                                if (err) {
+                                    res.writeHead(500);
+                                    return res.end('Error loading start.html : ' + err);
+                                }
+
+                                res.writeHead(200);
+                                res.write(data.toString());
+                                res.end();
+                            });
+
                     return;
                 }
             }

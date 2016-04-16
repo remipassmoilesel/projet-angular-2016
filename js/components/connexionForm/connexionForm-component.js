@@ -10,7 +10,8 @@ require('./connexionForm-component.css');
 var utils = require('../../functionnalcore/utils.js');
 var constants = require('../../functionnalcore/constants.js');
 
-var Controller = function ($mdDialog, $scope, datah, $mdToast, $http, $location) {
+var Controller = function ($mdDialog, $scope, datah,
+        $mdToast, $http, $location, $window) {
 
     // utilitaires
     this.datah = datah;
@@ -20,33 +21,42 @@ var Controller = function ($mdDialog, $scope, datah, $mdToast, $http, $location)
     this.$http = $http;
     this.utils = utils;
     this.$location = $location;
+    this.$window = $window;
 
-    this.idControlled = false;
+    this.errorMessage = "";
 
 };
 
-Controller.$inject = ["$mdDialog", "$scope", constants.serviceDataHandler, "$mdToast", "$http", "$location"];
+Controller.$inject = ["$mdDialog", "$scope", constants.serviceDataHandler,
+    "$mdToast", "$http", "$location", "$window"];
 
+Controller.prototype.alert = function () {
+    this.$window.alert("Hello !");
+};
 /**
- * Valide le formulaire de connexion et redirige 
- * l'utilsateur vers la page à laquelle il a accès.
+ * Le but premier était de vérifier les identifiants de manière asynchrone 
+ * grace a la requete checkId mais le déclenchement traditionnel de formulaire
+ * semble difficile à controler avec angular, et je ne peux pas modifier toute 
+ * l'architecture du projet.
  * @returns {undefined}
  */
 Controller.prototype.validConnexionForm = function () {
 
     this.errorMessage = "";
-    this.idControlled = false;
 
     var vm = this;
+    // verifier les identifiants
     this.$http.post("/checkAccess", {
         login: this.login,
         password: this.password
     })
-            // connexion autorisée
+            // les identifiants sont bons
             .then(function (response) {
-                vm.idControlled = true;
+                console.log(response);
+                //vm.connexionForm.submit.triggerHandler('click');
             })
 
+            // les identifiants sont mauvais
             .catch(function (response) {
                 vm.errorMessage = "Identifiants invalides";
             });
