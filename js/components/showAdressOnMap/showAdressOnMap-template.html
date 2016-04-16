@@ -1,0 +1,32 @@
+<div layout="column" class="adressOnMapComponent" ng-cloak>
+
+    <table flex>
+
+        <!-- affichage des informations -->
+        <tr><td>
+                <b>Adresse:</b> {{$ctrl.adress}}
+            </td>
+
+            <td rowspan="2">
+        <md-button flex ng-click="$ctrl.resolveAdress()"
+                   class="md-raised md-primary">{{$ctrl.buttonText}}</md-button></td>
+        </tr>
+
+        <tr><td>
+
+                <span ng-show="$ctrl.errorMessage === ''">
+                    <b>Coordonnées:</b> {{$ctrl.adressPosition[0] + ", " + $ctrl.adressPosition[1]}}
+                </span>
+
+                <span ng-show="$ctrl.errorMessage !== ''" class="adressOnMapErrorMessage">
+                    {{$ctrl.errorMessage}}
+                </span>
+
+            </td></tr>
+
+    </table>
+
+    <!-- carte -->
+    <div class="map" id='mapId' style="height: 400px" flex></div>
+
+</div>

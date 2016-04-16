@@ -1,0 +1,19 @@
+.adressOnMapComponent table {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.adressOnMapErrorMessage{
+    font-weight: bolder;
+    color: darkgray;
+}
+
+.adressOnMapComponent table td{
+    padding: 5px;
+}
+
+
+.adressOnMapComponent .map{
+    padding: 5px;
+    border: solid gray 2px;
+}

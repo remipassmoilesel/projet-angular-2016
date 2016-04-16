@@ -1,9 +1,12 @@
-
-<div>
+<md-content>
     <ul>
         <li>Nom du cabinet: {{$ctrl.informations.name}}</li>
         <li>Adresse: {{$ctrl.informations.adressComplete}}</li>
         <li>Nombre de patients enregistrés: {{$ctrl.totalPatients}}</li>
         <li>Nombre d'infirmiers: {{$ctrl.totalNurses}}</li>
     </ul>
-</div>
+
+    <show-adress-on-map adress="$ctrl.informations.adressComplete">
+    </show-adress-on-map>
+
+</md-content>

@@ -44,3 +44,6 @@ require("./components/searchForm/searchForm-component.js")(officeModule);
 
 // recherche de patients
 require("./components/visit/visit-component.js")(officeModule);
+
+// affichage dans une carte
+require("./components/showAdressOnMap/showAdressOnMap-component.js")(officeModule);

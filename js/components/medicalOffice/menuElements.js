@@ -35,7 +35,7 @@ function MenuElements() {
         label: "Liste de tous les infirmiers",
         action: this.displayAllNurses
     };
-    this.displayOfficeInfos = {
+    this.displayOfficeInformations = {
         label: "Informations sur le cabinet",
         action: this.displayOfficeInformations
     };
