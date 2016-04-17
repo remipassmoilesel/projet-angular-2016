@@ -111,6 +111,29 @@ Controller.prototype.deletePatient = function () {
 };
 
 /**
+ * Demande confirmation puis supprime un utilisateur.
+ * @returns {undefined}
+ */
+Controller.prototype.showPatientAdressInDialog = function () {
+
+    // confirmer la suppression avec une boite de dialogue
+    var vm = this;
+    this.$mdDialog.show({
+        controller: function () {
+            this.adress = vm.data.adressComplete + ",France";
+            this.patientIdentity = vm.data.name + " " + vm.data.firstName;
+            this.hide = function (answer) {
+                vm.$mdDialog.hide(answer);
+            };
+        },
+        controllerAs: "$ctrl",
+        template: require("./mapDialog.html"),
+        clickOutsideToClose: true
+    });
+
+};
+
+/**
  * L'utilisateur vient de modifier le patient, notifier le parent si necessaire
  * @returns {undefined}
  */

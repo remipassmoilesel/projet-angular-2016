@@ -1,5 +1,7 @@
 <div layout="column" class="adressOnMapComponent" ng-cloak>
 
+
+
     <table flex>
 
         <!-- affichage des informations -->
@@ -27,6 +29,8 @@
     </table>
 
     <!-- carte -->
-    <div class="map" id='mapId' style="height: 400px" flex></div>
+    <div class="map" id="{{$ctrl.mapid}}" style="height: {{$ctrl.mapHeight}}" flex>
+
+    </div>
 
 </div>
