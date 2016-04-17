@@ -24,7 +24,6 @@ var Controller = function ($mdDialog, $scope, datah, $mdToast) {
     this.smallContent = "100px";
     this.largeContent = "200px";
 
-
     // copie des données pour modification dans le formulaire
     this.modificationsData = JSON.parse(JSON.stringify(this.data || {}));
     this.modificationsData.birthdate = new Date(this.modificationsData.birthdate);
@@ -120,8 +119,8 @@ Controller.prototype.showPatientAdressInDialog = function () {
     var vm = this;
     this.$mdDialog.show({
         controller: function () {
-            this.adress = vm.data.adressComplete + ",France";
-            this.patientIdentity = vm.data.name + " " + vm.data.firstName;
+            this.adress = vm.data.adressComplete + ", France";
+            this.patientIdentity = vm.data.name + " " + vm.data.firstname;
             this.hide = function (answer) {
                 vm.$mdDialog.hide(answer);
             };
@@ -147,22 +146,22 @@ Controller.prototype.formHasBeenValidated = function () {
 module.exports = function (angularMod) {
 
     angularMod.component("patient", {
-        template: template,
         bindings: {
-            /*
+            /**
              * Les données du patient à afficher
              */
             data: "<",
-            /*
+            /**
              * La listes des infirmiers disponibles. La liste est passée ici en paramètre 
              * pour éviter les appels à répétition 
              */
             nurses: "<",
-            /*
+            /**
              * Une fonction optionnelle qui sera appelée en cas de modification
              */
-            onPatientModified: "&"
+            onPatientModified: "&",
         },
-        controller: Controller
+        controller: Controller,
+        template: template
     });
 };

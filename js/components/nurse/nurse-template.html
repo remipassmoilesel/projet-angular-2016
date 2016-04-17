@@ -2,6 +2,7 @@
     <md-card-title>
         <md-card-title-text>
             <span class="md-headline">{{$ctrl.data.name + ' ' + $ctrl.data.firstname}}</span>
+            <span class="md-subhead">Identifiant: {{$ctrl.data.id}}</span>
         </md-card-title-text>
         <md-card-title-media>
             <div class="md-media-sm card-media">
@@ -18,22 +19,20 @@
 
         <!-- Affichage des informations de base -->
         <md-content ng-switch-when="summary" flex style="overflow: hidden;">
-            <table style="width: 100%">
-                <tr ng-repeat="(kinfo, info) in $ctrl.summaryDatas">
-                    <td class="nurseInfoLabel">{{kinfo}}:</td>
-                    <td>{{info}}</td>
-                </tr>
-            </table>
+
         </md-content>
 
         <!-- Affichage patients affectés -->
         <md-content ng-switch-when="affectedPatients">
-            {{$ctrl}}
+            <ul>
+                <li ng-repeat="patient in $ctrl.affectedPatients">{{patient.name}} {{patient.firstname}}</li>
+            </ul>
+            <span ng-show="$ctrl.affectedPatients.length === 0">Aucun patient affecté</span>
         </md-content>
 
         <!--{{$ctrl}}-->
     </md-card-content>
-    
+
     <md-card-actions layout="row" layout-align="end center">
         <md-button ng-click="$ctrl.setDisplayMode('summary')" ng-show="$ctrl.displayMode !== 'summary'">
             Replier</md-button>

@@ -15,6 +15,9 @@ require("angular-messages");
 // Transition douces animées
 require("angular-animate");
 
+// Transition douces animées
+require("angular-route");
+
 // déclarer un module pour le cabinet médical, avec comme dépendance angular-material
 var officeModule = angular.module("officeModule", [angularMaterial, 'ngMessages', 'ngAnimate']);
 

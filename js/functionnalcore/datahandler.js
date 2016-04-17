@@ -192,7 +192,7 @@ DataHandler.prototype.getAllPatients = function () {
 
                             // Infirmier associé. L'infirmier associé est celui qui apparait dans la 
                             // première balise visite
-                            patientObj.nurseId = patientObj.visits[0].idNurse || '';
+                            patientObj.nurseId = patientObj.visits[0] ? patientObj.visits[0].idNurse || '' : '';
 
                             // ajout du patient à l'objet exporté
                             output.push(patientObj);
@@ -373,6 +373,10 @@ DataHandler.prototype.searchPatients = function (wanted) {
             testsPartA.push((wanted.firstname || '').toLocaleLowerCase());
             testsPartB.push((p.firstname || '').toLocaleLowerCase());
 
+            // numero infirmier
+            testsPartA.push((wanted.nurseId || '').toLocaleLowerCase());
+            testsPartB.push((p.nurseId || '').toLocaleLowerCase());
+
             // iterer les tests
             for (var j = 0; j < testsPartA.length; j++) {
                 var a = testsPartA[j];
@@ -460,7 +464,6 @@ DataHandler.prototype.deletePatient = function (patientToDelete) {
                 patientNumber: patientToDelete.ssid
             });
 };
-
 
 module.exports = function (angularMod) {
     var id = constants.serviceDataHandler;

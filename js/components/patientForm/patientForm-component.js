@@ -27,6 +27,8 @@ var Controller = function ($http, datah, $scope, $mdToast) {
 
     // pattern affectant les champs de texte
     this.patientInfoPattern = constants.patientInformationPattern;
+    this.ssidPattern = constants.ssidPattern;
+    this.postcodePattern = constants.postcodePattern;
 
     // dates utilisées dans les vérifications de formulaires
     var yesterday = new Date();
@@ -39,16 +41,23 @@ var Controller = function ($http, datah, $scope, $mdToast) {
 
     // le modèle manipulé, défini ici uniquement si non fourni en argument
     if (typeof this.patient === "undefined") {
-        
+
         this.buttonValidText = "Ajouter le patient";
-        
+
         this.patient = {
-            firstname: "Jean-claude",
-            name: "DuGenou",
-            nurseId: "001",
-            gender: "A",
-            birthdate: yesterday
+            name: "Toutseul",
+            firstname: "Jean-Claude",
+            gender: "H",
+            birthdate: yesterday,
+            ssid: "12345679123456",
+            adressComplete: '',
+            adressNumber: '',
+            adressStreet: '',
+            adressPostcode: '',
+            adressCity: '',
+            adressFloor: ''
         };
+
     }
 
     // l'état du fomulaire, défini uniquement si non fourni en argument
@@ -69,6 +78,10 @@ var Controller = function ($http, datah, $scope, $mdToast) {
         'firstname': {
             label: 'Prénom invalide',
             message: 'Seuls les caractères suivants sont autorisés: [a-zA-Z ]'
+        },
+        'ssidExist': {
+            label: 'Patient existant',
+            message: 'Ce numéro de sécurité sociale existe déjà'
         }
 
     };
@@ -105,19 +118,22 @@ Controller.prototype.validFormAndSendData = function () {
      */
     var patt = new RegExp(this.patientInfoPattern);
 
+    // verifier le nom
     if (typeof this.patient.name === "undefined" || patt.test(this.patient.name) === false) {
         this.showFormError("name");
         return;
     }
 
+    // vérifier le nom
     if (typeof this.patient.firstname === "undefined" || patt.test(this.patient.firstname) === false) {
         this.showFormError("firstname");
         return;
     }
 
-    //TODO
-    // verifier que le patient n'existe pas déjà
-    // .... faire les autres tests
+    // verifier si le patient existe deja
+    if (this.allowModifyExistingPatient === "false") {
+        this.showFormError("ssidExist");
+    }
 
     this.showAlert("Enregistrement en cours...");
 
@@ -150,9 +166,6 @@ Controller.prototype.showFormError = function (element) {
                 hideDelay: 6000,
                 position: 'top right',
                 controller: function () {
-                    console.log(element);
-                    console.log(vm.formErrors);
-                    console.log(vm.formErrors[element]);
                     this.formErrorLabel = vm.formErrors[element].label;
                     this.formErrorMessage = vm.formErrors[element].message;
                     this.hide = vm.$mdToast.hide;
@@ -220,7 +233,11 @@ module.exports = function (angularMod) {
             /*
              * Fonction optionnelle qui sera appelée lors de l'envoi du formulaire
              */
-            onFormValidated: "&"
+            onFormValidated: "&",
+            /**
+             * Si faux, le formulaire empêche de modifier un patient
+             */
+            allowModifyExistingPatient: "@"
         }
     });
 };

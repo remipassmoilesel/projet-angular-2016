@@ -15,7 +15,9 @@ module.exports = {
     /*
      * Expressions régulières courantes
      */
-    patientInformationPattern: '^ *[a-zA-Z éàï-]+ *$',
+    patientInformationPattern: '^ *([a-zA-Z éàï-]+) *$',
+    ssidPattern: '^ *([0-9]{15}) *$',
+    postcodePattern: '^ *([0-9]{5}) *$',
     /*
      * Exceptions. Stocker les exceptions en tant que constante permet de faire 
      * des récupération fines d'exception avec des tests (ex: e === NO_PATIENT_DEFINED)

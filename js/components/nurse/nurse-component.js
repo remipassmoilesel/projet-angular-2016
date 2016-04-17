@@ -21,13 +21,14 @@ var Controller = function ($mdDialog, $scope, datah, $mdToast) {
     this.smallContent = "100px";
     this.largeContent = "200px";
 
-    this.summaryDatas = {
-        "Identifiant": this.data.id
-    };
-
-    // les modes d'affichage du patient
+    // les modes d'affichage de l'infirmier
     this.availablesDisplayModes = ["summary", "affectedPatients"];
     this.setDisplayMode("summary");
+
+    var vm = this;
+    datah.searchPatients({nurseId: this.data.id}).then(function (patients) {
+        vm.affectedPatients = patients;
+    });
 
 };
 

@@ -43,8 +43,11 @@
 
         <div ng-show="$ctrl.menuElements.displayAddPatientForm.visible">
             <h2 class="officePanelTitle">{{$ctrl.menuElements.displayAddPatientForm.label}}</h2>
+
             {{$ctrl.menuElements.addPatientForm}}
-            <form-patient></form-patient>
+
+            <form-patient allow-modify-existing-patient="false" nurses="$ctrl.allNurses">
+            </form-patient>
 
         </div>
 

@@ -2,7 +2,7 @@
 
 Objectif: apprendre à utiliser Angular 1.5
 
-Requiert Git, Node et Gulp 
+Requiert Git, Node et Gulp. Optimisé pour le navigateur Google Chrome.
 
 Utilisation:
 
@@ -14,5 +14,5 @@ Utilisation:
 	# puis dans un autre terminal
 	$ node serverCabinetInstall.js
 
-/!\ Les fichiers gulpfile.js et serverCabinetMedical.js ont été modifié.
+### /!\ Les fichiers gulpfile.js et serverCabinetMedical.js ont été modifié.
 

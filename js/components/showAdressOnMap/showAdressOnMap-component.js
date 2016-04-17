@@ -1,7 +1,7 @@
 /**
  * Afficher une adresse dans une carte interactive.
  * 
- * L'adresse doit etre formattée comme suit:
+ * L'adresse doit de préférence etre formattée comme suit:
  * numéro_rue type_voie nom_rue, code_postal, ville, pays
  * 
  * @type Module formNewPatient-template|Module formNewPatient-template

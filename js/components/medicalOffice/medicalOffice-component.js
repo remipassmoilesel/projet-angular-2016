@@ -26,8 +26,8 @@ var Controller = function (datah, $scope, $compile, $mdToast, $mdDialog) {
     this.menuElements = require("./menuElements.js");
 
     // affichage lors de la création du composant
-    this.menuElements.displayOfficeInformations.action(this,
-            this.menuElements.displayOfficeInformations);
+    this.menuElements.displayAllNurses.action(this,
+            this.menuElements.displayAllNurses);
 
     // premiere mise à jour
     this.updateNurses();
