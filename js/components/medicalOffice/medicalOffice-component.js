@@ -7,17 +7,16 @@
 var template = require('./medicalOffice-template.html');
 require('./medicalOffice-component.css');
 // utilitaires et constantes
-var utils = require('../../functionnalcore/utils.js');
-var constants = require('../../functionnalcore/constants.js');
+var utils = require('../../utils/utils.js');
+var constants = require('../../utils/constants.js');
 
-var Controller = function (datah, $scope, $compile, $mdToast, $mdDialog) {
+var Controller = function (datah, $scope, $compile, serviceMdToast) {
 
     // conserver une reference vers les services
     this.datah = datah;
     this.$scope = $scope;
     this.$compile = $compile;
-    this.$mdToast = $mdToast;
-    this.$mdDialog = $mdDialog;
+    this.serviceMdToast = serviceMdToast;
 
     /* 
      Les élements affichés dans le menu et les fonctions associées permettant 
@@ -36,7 +35,7 @@ var Controller = function (datah, $scope, $compile, $mdToast, $mdDialog) {
 };
 
 // injection de dépendance sous forme d'un tableau de chaine de caractères
-Controller.$inject = [constants.serviceDataHandler, "$scope", "$compile", "$mdToast", "$mdDialog"];
+Controller.$inject = [constants.serviceDataHandler, "$scope", "$compile", constants.serviceMdToast];
 
 /**
  * Réclame les données sur les patients au serveur 
@@ -134,7 +133,7 @@ Controller.prototype.newWomanRequest = function (ctx, funcPromise, cbSuccess, cb
                 // notification de reprise si nécéssaire
                 if (typeof ctx.requestAttempts[funcPromise] !== "undefined" &&
                         ctx.requestAttempts[funcPromise] > 4) {
-                    ctx.showAlert("Serveur à nouveau disponible.");
+                    ctx.serviceMdToast.showServerErrorEnd();
                 }
 
                 // remettre à zéro les compteurs
@@ -165,7 +164,7 @@ Controller.prototype.newWomanRequest = function (ctx, funcPromise, cbSuccess, cb
 
                 // notification si arrêt prolongé du service
                 if (ctx.requestAttempts[funcPromise] === 4) {
-                    ctx.showAlert("Serveur indisponible pour le moment.", 10000);
+                    ctx.serviceMdToast.showSer;
                 }
 
                 // execution du cbCatch
@@ -184,7 +183,7 @@ Controller.prototype.newWomanRequest = function (ctx, funcPromise, cbSuccess, cb
  */
 Controller.prototype.showAlert = function (message, delay) {
 
-    this.$mdToast.show(
+    this.svcMdDialog.show(
             this.$mdToast.simple()
             .textContent(message)
             .position("top right")

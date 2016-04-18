@@ -8,8 +8,8 @@ var template = require('./jsonPrettyPrint-template.html');
 require('./jsonPrettyPrint-component.css');
 
 // utilitaires et constantes
-var utils = require('../../functionnalcore/utils');
-var constants = require('../../functionnalcore/constants.js');
+var utils = require('../../utils/utils');
+var constants = require('../../utils/constants.js');
 
 var circular = require('circular-json');
 
@@ -29,7 +29,7 @@ Controller.$inject = ["$http", constants.serviceDataHandler, "$scope"];
 
 module.exports = function (angularMod) {
 
-    //var datahandler = require("../../functionnalcore/datahandler.js")(angularMod);
+    //var datahandler = require("../../utils/datahandler.js")(angularMod);
 
     angularMod.component("jsonPrettyPrint", {
         template: template,

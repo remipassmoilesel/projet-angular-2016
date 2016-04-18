@@ -6,58 +6,36 @@
 // récuperer le template et le css
 var template = require('./patientForm-template.html');
 require('./patientForm-component.css');
-
 // utilitaires et constantes
-var utils = require('../../functionnalcore/utils');
-var constants = require('../../functionnalcore/constants.js');
+var utils = require('../../utils/utils');
+var constants = require('../../utils/constants.js');
+//var datahandler = require("../../utils/datahandler.js")(angularMod);
 
-//var datahandler = require("../../functionnalcore/datahandler.js")(angularMod);
-
-var Controller = function ($http, datah, $scope, $mdToast) {
+var Controller = function ($http, datah, $scope, mdToastService) {
 
     // conserver les références des services
     this.$http = $http;
     this.datah = datah;
     this.utils = utils;
     this.$scope = $scope;
-    this.$mdToast = $mdToast;
-
+    this.mdToastService = mdToastService;
     // identifiant unique de formulaire
     this.formId = new Date().getTime();
-
     // pattern affectant les champs de texte
     this.patientInfoPattern = constants.patientInformationPattern;
     this.ssidPattern = constants.ssidPattern;
     this.postcodePattern = constants.postcodePattern;
-
     // dates utilisées dans les vérifications de formulaires
     var yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
     this.lowestDate = new Date(1900, 01, 01);
     this.highestDate = new Date();
-
     // par défaut le bouton affiche ce texte
     this.buttonValidText = "Mettre à jour le patient";
 
-    // le modèle manipulé, défini ici uniquement si non fourni en argument
+    // si aucun patient n'est fourni, alors c'est un formulaire d'ajout. Changer le texte du bouton.
     if (typeof this.patient === "undefined") {
-
         this.buttonValidText = "Ajouter le patient";
-
-        this.patient = {
-            name: "Toutseul",
-            firstname: "Jean-Claude",
-            gender: "H",
-            birthdate: yesterday,
-            ssid: "12345679123456",
-            adressComplete: '',
-            adressNumber: '',
-            adressStreet: '',
-            adressPostcode: '',
-            adressCity: '',
-            adressFloor: ''
-        };
-
     }
 
     // l'état du fomulaire, défini uniquement si non fourni en argument
@@ -67,10 +45,13 @@ var Controller = function ($http, datah, $scope, $mdToast) {
 
     // genres lisibles
     var genders = {"H": "Homme", "F": "Femme", "A": "Autre", "I": "Indéterminé"};
-    this.prettyGender = genders[this.patient.gender] || genders["I"];
-
+    this.prettyGender = this.patient ? genders[this.patient.gender] || genders["I"] : genders["I"];
     // messages d'erreur
     this.formErrors = {
+        'fillForm': {
+            label: 'Formulaire invalide',
+            message: 'Vous devez remplir le formulaire.'
+        },
         'name': {
             label: 'Nom invalide',
             message: 'Seuls les caractères suivants sont autorisés: [a-zA-Z ]'
@@ -79,32 +60,20 @@ var Controller = function ($http, datah, $scope, $mdToast) {
             label: 'Prénom invalide',
             message: 'Seuls les caractères suivants sont autorisés: [a-zA-Z ]'
         },
+        'ssidInvalid': {
+            label: 'Numéro de sécurité sociale invalide',
+            message: 'Ce numéro est invalide. Le code doit faire 15 chiffres.'
+        },
         'ssidExist': {
             label: 'Patient existant',
             message: 'Ce numéro de sécurité sociale existe déjà'
         }
 
     };
-
 };
+
 // injection de dépendance sous forme d'un tableau de chaine de caractères
-Controller.$inject = ["$http", constants.serviceDataHandler, "$scope", "$mdToast"];
-
-/**
- * Afficher une petite pop up d'information
- * @param {type} message
- * @param {type} delay
- * @returns {undefined}
- */
-Controller.prototype.showAlert = function (message, delay) {
-
-    this.$mdToast.show(
-            this.$mdToast.simple()
-            .textContent(message)
-            .position("top right")
-            .hideDelay(delay || 2000)
-            );
-};
+Controller.$inject = ["$http", constants.serviceDataHandler, "$scope", constants.serviceMdToast];
 
 /**
  * Valider le formulaire et l'envoyer
@@ -113,45 +82,77 @@ Controller.prototype.showAlert = function (message, delay) {
 Controller.prototype.validFormAndSendData = function () {
 
     // vérfier les informations
+    if (typeof this.patient === "undefined") {
+        this.showFormError("fillForm");
+        return;
+    }
     /*
      * /!\ Penser à vérifier si les variables sont indéfinies, ou le test regex passera
      */
-    var patt = new RegExp(this.patientInfoPattern);
-
+    var simpleInfoPattern = new RegExp(this.patientInfoPattern);
     // verifier le nom
-    if (typeof this.patient.name === "undefined" || patt.test(this.patient.name) === false) {
+    if (typeof this.patient.name === "undefined" || simpleInfoPattern.test(this.patient.name) === false) {
         this.showFormError("name");
         return;
     }
 
     // vérifier le nom
-    if (typeof this.patient.firstname === "undefined" || patt.test(this.patient.firstname) === false) {
+    if (typeof this.patient.firstname === "undefined" || simpleInfoPattern.test(this.patient.firstname) === false) {
         this.showFormError("firstname");
         return;
     }
 
-    // verifier si le patient existe deja
-    if (this.allowModifyExistingPatient === "false") {
-        this.showFormError("ssidExist");
+    // vérifier le ssid
+    var ssidPattern = new RegExp(this.ssidPattern);
+    if (typeof this.patient.ssid === "undefined" || ssidPattern.test(this.patient.ssid) === false) {
+        this.showFormError("ssidInvalid");
+        return;
     }
 
-    this.showAlert("Enregistrement en cours...");
-
-    // envoyer le patient
+    // ajout du patient, déclenché plus bas en fonction de l'autorisation de modification
     var vm = this;
-    this.datah.addPatient(this.patient).then(function (response) {
-        vm.showAlert("Enregistrement réussi.");
-    }).catch(function (response) {
-        vm.showAlert("Erreur lors de l'enregistrement.");
-    });
+    var pushDatas = function () {
 
-    // notification du composant parent si necessaire
-    if (typeof this.onFormValidated !== "undefined") {
-        this.onFormValidated();
+        vm.mdToastService.showMessage("Enregistrement en cours...");
+
+        // envoyer le patient
+        vm.datah.addPatient(vm.patient).then(
+                // réussi
+                        function (response) {
+                            vm.mdToastService.showMessage("Enregistrement réussi.", undefined, true);
+                        })
+                        // non réussi
+                        .catch(function (response) {
+                            vm.mdToastService.showMessage("Erreur lors de l'enregistrement.", undefined, true);
+                        });
+
+                // notification du composant parent si necessaire
+                if (typeof this.onFormValidated !== "undefined") {
+                    vm.onFormValidated();
+                }
+            };
+
+    // Si la modification n'est pas autorisée, verifier si le patient existe deja
+
+    if (this.allowModifyExistingPatient === "false") {
+        this.datah.searchPatients({ssid: this.patient.ssid})
+                .then(function (response) {
+
+                    if (response.length > 0) {
+                        vm.showFormError("ssidExist");
+                    } else {
+                        pushDatas();
+                    }
+                });
     }
+
+    // si la modification est autorisée, effectuer la requete sans verification
+    else {
+        pushDatas();
+    }
+
+
 };
-
-
 /**
  * 
  * @param {type} message
@@ -161,55 +162,22 @@ Controller.prototype.validFormAndSendData = function () {
 Controller.prototype.showFormError = function (element) {
 
     var vm = this;
-    this.$mdToast.show(
+    this.mdToastService.showToast(
             {
                 hideDelay: 6000,
                 position: 'top right',
                 controller: function () {
                     this.formErrorLabel = vm.formErrors[element].label;
                     this.formErrorMessage = vm.formErrors[element].message;
-                    this.hide = vm.$mdToast.hide;
                 },
                 controllerAs: "$ctrl",
                 template: require("./patientFormToast.html"),
                 locals: {
                     element: element
                 }
-            })
-            // fin de l'affichage
-            .then(function () {
-                vm.formErrorShowed = false;
             });
 };
 
-/**
- * Controlleur de popup "toast" qui permet d'afficher un message après une saisie incorrecte.
- */
-var FormErrorToastController = function ($mdToast, element) {
-
-    console.log(this);
-    console.log(element);
-
-    this.$mdToast = $mdToast;
-
-    // nom
-    if ("name" === element) {
-        this.formErrorLabel = "Nom invalide";
-        this.formErrorMessage = "Seuls les caractères suivants sont autorisés: [a-zA-Z ]";
-    }
-    // prénom
-    else if ("firstname" === element) {
-        this.formErrorLabel = "Prénom invalide";
-        this.formErrorMessage = "Seuls les caractères suivants sont autorisés: [a-zA-Z ]";
-    }
-    // element non reconnu: erreur
-    else {
-        throw constants.INVALID_ARGUMENT + ": " + element;
-    }
-
-    console.log(this);
-};
-FormErrorToastController.$inject = ['$mdToast'];
 
 module.exports = function (angularMod) {
 

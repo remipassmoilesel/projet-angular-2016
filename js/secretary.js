@@ -15,14 +15,14 @@ require("angular-messages");
 // Transition douces animées
 require("angular-animate");
 
-// Transition douces animées
+// gestion des urls
 require("angular-route");
 
 // déclarer un module pour le cabinet médical, avec comme dépendance angular-material
 var officeModule = angular.module("officeModule", [angularMaterial, 'ngMessages', 'ngAnimate']);
 
 // enregistrer le service de traitement des données
-require("./functionnalcore/datahandler.js")(officeModule);
+require("./utils/datahandler.js")(officeModule);
 
 // définir le composant cabinet medical
 require("./components/medicalOffice/medicalOffice-component.js")(officeModule);
@@ -50,3 +50,7 @@ require("./components/visit/visit-component.js")(officeModule);
 
 // affichage dans une carte
 require("./components/showAdressOnMap/showAdressOnMap-component.js")(officeModule);
+
+// service d'affichage de message
+require("./utils/mdtoast-service.js")(officeModule);
+

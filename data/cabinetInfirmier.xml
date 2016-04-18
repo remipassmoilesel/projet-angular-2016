@@ -139,5 +139,5 @@
             </visite>
 
         </patient>
-    </patients>
+    <patient><nom>aaaa</nom><prenom>aaaaa</prenom><numero>111111111111111</numero><sexe></sexe><naissance></naissance><visite date="2014-12-08"/><adresse><etage></etage><numero></numero><rue></rue><ville></ville><codePostal></codePostal></adresse></patient></patients>
 </cabinet>

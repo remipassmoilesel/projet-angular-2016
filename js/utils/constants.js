@@ -12,6 +12,7 @@ module.exports = {
      * Noms de services enregistrés dans angular
      */
     serviceDataHandler: "datahandler",
+    serviceMdToast: "mdToastService",
     /*
      * Expressions régulières courantes
      */

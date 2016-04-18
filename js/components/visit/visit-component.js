@@ -8,8 +8,8 @@ var template = require('./visit-template.html');
 require('./visit-component.css');
 
 // utilitaires et constantes
-var utils = require('../../functionnalcore/utils');
-var constants = require('../../functionnalcore/constants.js');
+var utils = require('../../utils/utils');
+var constants = require('../../utils/constants.js');
 
 var Controller = function ($http, datah, $scope) {
 

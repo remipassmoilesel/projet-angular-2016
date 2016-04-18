@@ -129,6 +129,10 @@ gulp.task("webpack", function (callback) {
  */
 gulp.task("webpack-light", function () {
 
+    log("\n");
+    log("Attention: version modifiée du fichier gulp.js original", true);
+    log("\n");
+
     var wp =
             gulp.src(webpackEntries)
             .pipe(named())
@@ -186,14 +190,8 @@ function log(text, inColor) {
     console.log(text);
 }
 
-gulp.task('alert-light-webpack', function () {
-    log("\n");
-    log("Attention: version modifiée du fichier gulp.js original", true);
-    log("\n");
-});
-
 //gulp.task('default', ['webpack', 'lint', 'watch'], function () {
-gulp.task('default', ['alert-light-webpack', 'webpack-light'], function () {
+gulp.task('default', ['webpack-light'], function () {
     console.log("Done.");
 });
 

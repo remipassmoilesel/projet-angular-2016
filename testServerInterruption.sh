@@ -4,16 +4,16 @@
 
 echo "Test d'interruption de service."
 
-echo "Le service de donnée va être interrompu 5s, dans 5s, pour tester la manière dont réagit le cabinet medical." 
+echo "Le service de donnée va être interrompu pour tester la manière dont réagit le cabinet medical." 
 echo "Le cabinet doit avertir l'utilisteur lors de l'interruption et lors de la reprise."
 
 sleep 5
 
-echo "Interruption du service"
+echo "Interruption du service. CLiquez sur un des liens de la page et attendez."
 
 mv data/cabinetInfirmier.xml data/cabinetInfirmier.xml.disabled
 
-sleep 5
+sleep 10
 
 echo "Reprise du service"
 

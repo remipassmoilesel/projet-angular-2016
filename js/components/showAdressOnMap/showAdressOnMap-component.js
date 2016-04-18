@@ -12,8 +12,8 @@ var template = require('./showAdressOnMap-template.html');
 require('./showAdressOnMap-component.css');
 
 // utilitaires et constantes
-var utils = require('../../functionnalcore/utils');
-var constants = require('../../functionnalcore/constants.js');
+var utils = require('../../utils/utils');
+var constants = require('../../utils/constants.js');
 
 // outil cartographique
 var L = require("leaflet");

@@ -377,6 +377,10 @@ DataHandler.prototype.searchPatients = function (wanted) {
             testsPartA.push((wanted.nurseId || '').toLocaleLowerCase());
             testsPartB.push((p.nurseId || '').toLocaleLowerCase());
 
+            // numero sécurité sociale
+            testsPartA.push((wanted.ssid || '').toLocaleLowerCase());
+            testsPartB.push((p.ssid || '').toLocaleLowerCase());
+
             // iterer les tests
             for (var j = 0; j < testsPartA.length; j++) {
                 var a = testsPartA[j];

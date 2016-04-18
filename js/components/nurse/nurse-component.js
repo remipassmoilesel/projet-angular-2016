@@ -7,8 +7,8 @@ var template = require('./nurse-template.html');
 require('./nurse-component.css');
 
 // utilitaires et constantes
-var utils = require('../../functionnalcore/utils.js');
-var constants = require('../../functionnalcore/constants.js');
+var utils = require('../../utils/utils.js');
+var constants = require('../../utils/constants.js');
 
 var Controller = function ($mdDialog, $scope, datah, $mdToast) {
 
