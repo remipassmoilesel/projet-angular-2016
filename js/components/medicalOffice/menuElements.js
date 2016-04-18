@@ -1,23 +1,23 @@
-
 /**
  * Objet rassemblant toutes les méthodes d'affichage des elements de menu.
- * 
- * Toutes ses méthode prennent en paramètre le controleur source et l'objet parent (contenant 
+ *
+ * Toutes ses méthode prennent en paramètre le controleur source et l'objet parent (contenant
  * description et eventuellements caractéristiques supplémentaires.
- * 
+ *
  * Les actions n'ont pas été intégrées au controlleur pour éviter les problèmes de contexte
  * d'appel des fonctions (cause ng-click)
- * 
- * Pas non plus la possiblité d'utiliser call sur les fonctions, c'est apparement interdit dans un 
+ *
+ * Pas non plus la possiblité d'utiliser call sur les fonctions, c'est apparement interdit dans un
  * composant angular.
- * 
+ *
  * @returns {nm$_medicalOffice-component.DisplayActions}
  */
 function MenuElements() {
 
     this.displaySearch = {
         label: "Rechercher",
-        action: this.displaySearch
+        action: this.displaySearch,
+        url: "/search:name:fistname"
     };
     this.displayAddPatientForm = {
         label: "Ajouter un patient",
@@ -44,7 +44,7 @@ function MenuElements() {
 
 /**
  * Afficher les informations du le cabinet
- * 
+ *
  * @param {type} ctrl
  * @param {type} ownerElement
  * @returns {undefined}

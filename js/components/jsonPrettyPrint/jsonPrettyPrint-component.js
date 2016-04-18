@@ -1,5 +1,6 @@
 /**
- * Afficher un objet JSON de manière lisible
+ * Afficher un objet JSON de manière lisible. Supporte les références circulaires.
+ *
  * @type Module formNewPatient-template|Module formNewPatient-template
  */
 
@@ -13,7 +14,7 @@ var constants = require('../../utils/constants.js');
 
 var circular = require('circular-json');
 
-var Controller = function ($http, datah, $scope) {
+var JsonPrettyPrintController = function ($http, datah, $scope) {
 
     // conserver les références des services
     this.$http = $http;
@@ -25,15 +26,15 @@ var Controller = function ($http, datah, $scope) {
 
 };
 // injection de dépendance sous forme d'un tableau de chaine de caractères
-Controller.$inject = ["$http", constants.serviceDataHandler, "$scope"];
+JsonPrettyPrintController.$inject = ["$http", constants.serviceDataHandler, "$scope"];
 
 module.exports = function (angularMod) {
 
-    //var datahandler = require("../../utils/datahandler.js")(angularMod);
+    //var datahandler = require("../../utils/datahandler-service.js")(angularMod);
 
     angularMod.component("jsonPrettyPrint", {
         template: template,
-        controller: Controller,
+        controller: JsonPrettyPrintController,
         bindings: {
             show: "<"
         }

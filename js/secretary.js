@@ -1,4 +1,3 @@
-
 // feuille de style principale
 require("../css/secretary.css");
 
@@ -18,39 +17,48 @@ require("angular-animate");
 // gestion des urls
 require("angular-route");
 
+/*
+ *
+ */
+
 // déclarer un module pour le cabinet médical, avec comme dépendance angular-material
-var officeModule = angular.module("officeModule", [angularMaterial, 'ngMessages', 'ngAnimate']);
+var medicalOfficeModule = angular.module("officeModule", [angularMaterial, 'ngMessages', 'ngAnimate','ngRoute']);
+
+// service de gestion des routes
+require("./utils/route-service.js")(medicalOfficeModule);
 
 // enregistrer le service de traitement des données
-require("./utils/datahandler.js")(officeModule);
+require("./utils/datahandler-service.js")(medicalOfficeModule);
 
 // définir le composant cabinet medical
-require("./components/medicalOffice/medicalOffice-component.js")(officeModule);
+require("./components/medicalOffice/medicalOffice-component.js")(medicalOfficeModule);
 
 // définir le composant infirmier
-require("./components/nurse/nurse-component.js")(officeModule);
+require("./components/nurse/nurse-component.js")(medicalOfficeModule);
 
 // définir le composant patient
-require("./components/patient/patient-component.js")(officeModule);
+require("./components/patient/patient-component.js")(medicalOfficeModule);
 
 // définir le composant patient
-require("./components/patientForm/patientForm-component.js")(officeModule);
+require("./components/patientForm/patientForm-component.js")(medicalOfficeModule);
 
 // affichage d'informations sur le cabinet
-require("./components/displayOfficeInformations/displayOfficeInformations-component.js")(officeModule);
+require("./components/displayOfficeInformations/displayOfficeInformations-component.js")(medicalOfficeModule);
 
 // affichage d'informations sur le cabinet
-require("./components/jsonPrettyPrint/jsonPrettyPrint-component.js")(officeModule);
+require("./components/jsonPrettyPrint/jsonPrettyPrint-component.js")(medicalOfficeModule);
 
 // recherche de patients
-require("./components/searchForm/searchForm-component.js")(officeModule);
+require("./components/searchForm/searchForm-component.js")(medicalOfficeModule);
 
 // recherche de patients
-require("./components/visit/visit-component.js")(officeModule);
+require("./components/visit/visit-component.js")(medicalOfficeModule);
 
 // affichage dans une carte
-require("./components/showAdressOnMap/showAdressOnMap-component.js")(officeModule);
+require("./components/showAdressOnMap/showAdressOnMap-component.js")(medicalOfficeModule);
 
 // service d'affichage de message
-require("./utils/mdtoast-service.js")(officeModule);
+require("./utils/mdtoast-service.js")(medicalOfficeModule);
+
+
 

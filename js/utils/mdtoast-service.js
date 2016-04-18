@@ -1,11 +1,10 @@
-
 /**
  * Service d'affichage de message via MD-TOAST. Permet d'éviter des affichages multiples
  * intempestifs.
- * 
+ *
  * A l'avenir il serait pratique d'attribuer un "poids" aux mdtoast pour qu'il y ai une gestion plus
  * fine des priorités.
- * 
+ *
  */
 
 var constants = require("./constants.js");
@@ -21,11 +20,11 @@ MdToastService.$inject = ["$http", "$mdToast", "$interval"];
 
 MdToastService.prototype.showMessage = function (message, hiddingDelay, forceDisplay) {
     return this.showToast(
-            this.$mdToast.simple()
+        this.$mdToast.simple()
             .textContent(message)
             .hideDelay(hiddingDelay || 3000),
-            forceDisplay
-            );
+        forceDisplay
+    );
 };
 
 /**
@@ -57,13 +56,13 @@ MdToastService.prototype.showToast = function (toast, forceDisplay) {
 
         return this.$mdToast.show(toast)
 
-                .then(function () {
-                    vm.mdToastVisible = false;
-                })
+            .then(function () {
+                vm.mdToastVisible = false;
+            })
 
-                .catch(function () {
-                    vm.mdToastVisible = false;
-                });
+            .catch(function () {
+                vm.mdToastVisible = false;
+            });
 
     }
 
@@ -71,11 +70,11 @@ MdToastService.prototype.showToast = function (toast, forceDisplay) {
     else {
         console.log("Message non affiché: ", toast);
         return new Promise(
-                function (resolve, reject) {
-                    if (typeof reject !== "undefined") {
-                        reject("Message non-displayed");
-                    }
-                });
+            function (resolve, reject) {
+                if (typeof reject !== "undefined") {
+                    reject("Message non-displayed");
+                }
+            });
     }
 
 };

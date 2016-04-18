@@ -19,7 +19,7 @@ var constants = require('../../utils/constants.js');
 var L = require("leaflet");
 require('leaflet/dist/leaflet.css');
 
-var Controller = function ($http, datah, $scope, $timeout) {
+var ShowAdressOnMapController = function ($http, datah, $scope, $timeout) {
 
 
     // conserver les références des services
@@ -60,9 +60,9 @@ var Controller = function ($http, datah, $scope, $timeout) {
 };
 
 // injection de dépendance sous forme d'un tableau de chaine de caractères
-Controller.$inject = ["$http", constants.serviceDataHandler, "$scope", "$timeout"];
+ShowAdressOnMapController.$inject = ["$http", constants.serviceDataHandler, "$scope", "$timeout"];
 
-Controller.prototype.initializeMap = function () {
+ShowAdressOnMapController.prototype.initializeMap = function () {
 
     // creation de la carte
     this.map = L.map(this.mapid);
@@ -96,7 +96,7 @@ Controller.prototype.initializeMap = function () {
  * Résout l'adresse et l'affiche sur la carte.
  * @returns {undefined}
  */
-Controller.prototype.resolveAdress = function () {
+ShowAdressOnMapController.prototype.resolveAdress = function () {
 
     var vm = this;
 
@@ -150,7 +150,7 @@ Controller.prototype.resolveAdress = function () {
  * @param {type} message
  * @returns {undefined}
  */
-Controller.prototype.showGeocodingErrorMessage = function (error) {
+ShowAdressOnMapController.prototype.showGeocodingErrorMessage = function (error) {
 
     if (error) {
         this.errorMessage = "Erreur lors de l'affichage de la carte. Veuillez réessayer.";
@@ -167,7 +167,7 @@ Controller.prototype.showGeocodingErrorMessage = function (error) {
  * passée en parametre
  * @returns {undefined}
  */
-Controller.prototype.setMapView = function (lat, lng, zoom, messageHtml) {
+ShowAdressOnMapController.prototype.setMapView = function (lat, lng, zoom, messageHtml) {
 
     // zoom par défaut
     zoom = zoom || 15;
@@ -192,7 +192,7 @@ module.exports = function (angularMod) {
     //Syntaxe composant
     angularMod.component("showAdressOnMap", {
         template: template,
-        controller: Controller,
+        controller: ShowAdressOnMapController,
         bindings: {
             adress: "<",
             mapHeight: "@"

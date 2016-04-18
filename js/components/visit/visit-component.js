@@ -11,7 +11,7 @@ require('./visit-component.css');
 var utils = require('../../utils/utils');
 var constants = require('../../utils/constants.js');
 
-var Controller = function ($http, datah, $scope) {
+var VisitController = function ($http, datah, $scope) {
 
     // conserver les références des services
     this.$http = $http;
@@ -20,13 +20,13 @@ var Controller = function ($http, datah, $scope) {
 
 };
 // injection de dépendance sous forme d'un tableau de chaine de caractères
-Controller.$inject = ["$http", constants.serviceDataHandler, "$scope"];
+VisitController.$inject = ["$http", constants.serviceDataHandler, "$scope"];
 
 module.exports = function (angularMod) {
 
     angularMod.component("visit", {
         template: template,
-        controller: Controller,
+        controller: VisitController,
         bindings: {
             data: "<"
         }

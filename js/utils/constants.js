@@ -13,6 +13,7 @@ module.exports = {
      */
     serviceDataHandler: "datahandler",
     serviceMdToast: "mdToastService",
+    serviceRoutes: "serviceRoutes",
     /*
      * Expressions régulières courantes
      */

@@ -11,7 +11,7 @@ require('./searchForm-component.css');
 var utils = require('../../utils/utils');
 var constants = require('../../utils/constants.js');
 
-var Controller = function ($http, datah, $scope) {
+var SearchFormController = function ($http, datah, $scope) {
 
     // conserver les références des services
     this.$http = $http;
@@ -34,13 +34,13 @@ var Controller = function ($http, datah, $scope) {
 
 };
 // injection de dépendance sous forme d'un tableau de chaine de caractères
-Controller.$inject = ["$http", constants.serviceDataHandler, "$scope"];
+SearchFormController.$inject = ["$http", constants.serviceDataHandler, "$scope"];
 
 /**
  * Recherche un patient  ou un infirmier et affiche des résultats
  * @returns {undefined}
  */
-Controller.prototype.search = function () {
+SearchFormController.prototype.search = function () {
 
     // enlever les précédents résultats
     this.nurseResults = [];
@@ -84,7 +84,7 @@ Controller.prototype.search = function () {
  * @param {type} timeDisplayMs
  * @returns {undefined}
  */
-Controller.prototype.showFormMessage = function (msg, timeDisplayMs) {
+SearchFormController.prototype.showFormMessage = function (msg, timeDisplayMs) {
 
     // afficher le message
     this.controllerMessageSpace = msg;
@@ -105,7 +105,7 @@ module.exports = function (angularMod) {
 
     angularMod.component("searchForm", {
         template: template,
-        controller: Controller,
+        controller: SearchFormController,
         bindings: {
         }
     });

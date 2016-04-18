@@ -19,7 +19,7 @@ require("angular-animate");
 var welcomeModule = angular.module("welcomeModule", [angularMaterial, 'ngMessages', 'ngAnimate']);
 
 // enregistrer le service de traitement des données
-require("./utils/datahandler.js")(welcomeModule);
+require("./utils/datahandler-service.js")(welcomeModule);
 
 // ecran de connection
 require("./components/connexionForm/connexionForm-component.js")(welcomeModule);

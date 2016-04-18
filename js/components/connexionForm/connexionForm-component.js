@@ -10,7 +10,7 @@ require('./connexionForm-component.css');
 var utils = require('../../utils/utils.js');
 var constants = require('../../utils/constants.js');
 
-var Controller = function ($mdDialog, $scope, datah,
+var ConnexionFormController = function ($mdDialog, $scope, datah,
         $mdToast, $http, $location, $window) {
 
     // utilitaires
@@ -27,10 +27,10 @@ var Controller = function ($mdDialog, $scope, datah,
 
 };
 
-Controller.$inject = ["$mdDialog", "$scope", constants.serviceDataHandler,
+ConnexionFormController.$inject = ["$mdDialog", "$scope", constants.serviceDataHandler,
     "$mdToast", "$http", "$location", "$window"];
 
-Controller.prototype.alert = function () {
+ConnexionFormController.prototype.alert = function () {
     this.$window.alert("Hello !");
 };
 /**
@@ -40,7 +40,7 @@ Controller.prototype.alert = function () {
  * l'architecture du projet.
  * @returns {undefined}
  */
-Controller.prototype.validConnexionForm = function () {
+ConnexionFormController.prototype.validConnexionForm = function () {
 
     this.errorMessage = "";
 
@@ -70,6 +70,6 @@ module.exports = function (angularMod) {
         template: template,
         bindings: {
         },
-        controller: Controller
+        controller: ConnexionFormController
     });
 };

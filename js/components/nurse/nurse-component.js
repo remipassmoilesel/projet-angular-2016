@@ -10,7 +10,7 @@ require('./nurse-component.css');
 var utils = require('../../utils/utils.js');
 var constants = require('../../utils/constants.js');
 
-var Controller = function ($mdDialog, $scope, datah, $mdToast) {
+var NurseController = function ($mdDialog, $scope, datah, $mdToast) {
 
     // utilitaires
     this.datah = datah;
@@ -32,7 +32,7 @@ var Controller = function ($mdDialog, $scope, datah, $mdToast) {
 
 };
 
-Controller.$inject = ["$mdDialog", "$scope", constants.serviceDataHandler, "$mdToast"];
+NurseController.$inject = ["$mdDialog", "$scope", constants.serviceDataHandler, "$mdToast"];
 
 /**
  * Modifier l'affichage du composant. Par exemple: seulement qqu informations, 
@@ -40,7 +40,7 @@ Controller.$inject = ["$mdDialog", "$scope", constants.serviceDataHandler, "$mdT
  * @param {type} mode
  * @returns {undefined}
  */
-Controller.prototype.setDisplayMode = function (mode) {
+NurseController.prototype.setDisplayMode = function (mode) {
 
     if (this.availablesDisplayModes.indexOf(mode) === -1) {
         throw constants.INVALID_ARGUMENT + ": " + mode;
@@ -56,6 +56,6 @@ module.exports = function (angularMod) {
             // Les informations de l'infirmier a afficher
             data: "<"
         },
-        controller: Controller
+        controller: NurseController
     });
 };

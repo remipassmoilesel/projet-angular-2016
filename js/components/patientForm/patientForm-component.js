@@ -9,9 +9,9 @@ require('./patientForm-component.css');
 // utilitaires et constantes
 var utils = require('../../utils/utils');
 var constants = require('../../utils/constants.js');
-//var datahandler = require("../../utils/datahandler.js")(angularMod);
+//var datahandler = require("../../utils/datahandler-service.js")(angularMod);
 
-var Controller = function ($http, datah, $scope, mdToastService) {
+var PatientFormController = function ($http, datah, $scope, mdToastService) {
 
     // conserver les références des services
     this.$http = $http;
@@ -73,13 +73,13 @@ var Controller = function ($http, datah, $scope, mdToastService) {
 };
 
 // injection de dépendance sous forme d'un tableau de chaine de caractères
-Controller.$inject = ["$http", constants.serviceDataHandler, "$scope", constants.serviceMdToast];
+PatientFormController.$inject = ["$http", constants.serviceDataHandler, "$scope", constants.serviceMdToast];
 
 /**
  * Valider le formulaire et l'envoyer
  * @returns {undefined}
  */
-Controller.prototype.validFormAndSendData = function () {
+PatientFormController.prototype.validFormAndSendData = function () {
 
     // vérfier les informations
     if (typeof this.patient === "undefined") {
@@ -159,7 +159,7 @@ Controller.prototype.validFormAndSendData = function () {
  * @param {type} delay
  * @returns {undefined}
  */
-Controller.prototype.showFormError = function (element) {
+PatientFormController.prototype.showFormError = function (element) {
 
     var vm = this;
     this.mdToastService.showToast(
@@ -183,7 +183,7 @@ module.exports = function (angularMod) {
 
     angularMod.component("formPatient", {
         template: template,
-        controller: Controller,
+        controller: PatientFormController,
         bindings: {
             /*
              * Les informations du patient à afficher

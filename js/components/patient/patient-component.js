@@ -13,7 +13,7 @@ var utils = require('../../utils/utils.js');
 var constants = require('../../utils/constants.js');
 
 
-var Controller = function ($mdDialog, $scope, datah, $mdToast) {
+var PatientController = function ($mdDialog, $scope, datah, $mdToast) {
 
     // utilitaires
     this.datah = datah;
@@ -41,7 +41,7 @@ var Controller = function ($mdDialog, $scope, datah, $mdToast) {
 
     this.actions = datah.getActions();
 };
-Controller.$inject = ["$mdDialog", "$scope", constants.serviceDataHandler, "$mdToast"];
+PatientController.$inject = ["$mdDialog", "$scope", constants.serviceDataHandler, "$mdToast"];
 
 /**
  * Modifier l'affichage du composant. Par exemple: seulement qqu informations, 
@@ -49,7 +49,7 @@ Controller.$inject = ["$mdDialog", "$scope", constants.serviceDataHandler, "$mdT
  * @param {type} mode
  * @returns {undefined}
  */
-Controller.prototype.setDisplayMode = function (mode) {
+PatientController.prototype.setDisplayMode = function (mode) {
 
     if (this.availablesDisplayModes.indexOf(mode) === -1) {
         throw constants.INVALID_ARGUMENT + ": " + mode;
@@ -60,7 +60,7 @@ Controller.prototype.setDisplayMode = function (mode) {
  * Demande confirmation puis supprime un utilisateur.
  * @returns {undefined}
  */
-Controller.prototype.deletePatient = function () {
+PatientController.prototype.deletePatient = function () {
 
     // confirmer la suppression avec une boite de dialogue
     var vm = this;
@@ -113,7 +113,7 @@ Controller.prototype.deletePatient = function () {
  * Demande confirmation puis supprime un utilisateur.
  * @returns {undefined}
  */
-Controller.prototype.showPatientAdressInDialog = function () {
+PatientController.prototype.showPatientAdressInDialog = function () {
 
     // confirmer la suppression avec une boite de dialogue
     var vm = this;
@@ -136,7 +136,7 @@ Controller.prototype.showPatientAdressInDialog = function () {
  * L'utilisateur vient de modifier le patient, notifier le parent si necessaire
  * @returns {undefined}
  */
-Controller.prototype.formHasBeenValidated = function () {
+PatientController.prototype.formHasBeenValidated = function () {
     // notification du composant parent si necessaire
     if (typeof this.onPatientModified !== "undefined") {
         this.onPatientModified();
@@ -161,7 +161,7 @@ module.exports = function (angularMod) {
              */
             onPatientModified: "&",
         },
-        controller: Controller,
+        controller: PatientController,
         template: template
     });
 };
