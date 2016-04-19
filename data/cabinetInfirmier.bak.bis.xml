@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?><cabinet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.ujf-grenoble.fr/l3miage/cabinet" xsi:schemaLocation="http://www.ujf-grenoble.fr/l3miage/cabinet ../schema/cabinet.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<cabinet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.ujf-grenoble.fr/l3miage/cabinet"
+         xsi:schemaLocation="http://www.ujf-grenoble.fr/l3miage/cabinet ../schema/cabinet.xsd">
     <nom>Soins à Grenoble</nom>
     <adresse>
         <numero>60</numero>
@@ -47,6 +49,7 @@
     </infirmiers>
 
     <patients>
+    <patients>
         <patient>
             <nom>Aire</nom>
             <prenom>Axel</prenom>
@@ -76,12 +79,35 @@
             n°1 ce jour là.
             Lors de la derniere visite, l'intervenant doit aussi enlever les 25 points de suture de son operation.
             -->
-            <visite date="2014-12-08" intervenant="003">
+            <visite date="2014-12-08" intervenant="001">
                 <acte id="109"/>
             </visite>
 
         </patient>
-        
+        <patient>
+            <nom>Orouge</nom>
+            <prenom>Elvire</prenom>
+            <sexe>F</sexe>
+            <naissance>1980-03-08</naissance>
+            <!-- Femme, nee en mars 80 en France, à Lyon (n° 23 dans le rhône)
+            52e naissance (cle calculee: 19)-->
+            <numero>280036902305219</numero>
+            <adresse>
+                <rue>Rond-Point de la Croix de Vie</rue>
+                <ville>La Tronche</ville>
+                <codePostal>38700</codePostal>
+            </adresse>
+            <!--
+            Elvire a ete gravement brulee, et l'intervenant doit changer son
+            pansement tous les 2 jours
+            (Pansement de brûlure etendue ou de plaie chimique ou thermique etendue,
+                sur une surface superieure à 5 % de la surface corporelle.....)
+            -->
+            <visite date="2014-12-08" intervenant="003">
+                <acte id="300"/>
+            </visite>
+
+        </patient>
         <patient>
             <nom>Oscare</nom>
             <prenom>Pien</prenom>
@@ -125,7 +151,7 @@
             Le jeune Xavier est en cours de desensibilation alergique.
             Il doit recevoir tous les jours, l'injection de plusieurs allergenes, etc.
             -->
-            <visite date="2014-12-08" intervenant="002">
+            <visite date="2014-12-08" intervenant="001">
                 <acte id="111"/>
             </visite>
 
@@ -144,7 +170,7 @@
                 <ville>Montbonnot-Saint-Martin</ville>
                 <codePostal>38330</codePostal>
             </adresse>
-            <visite date="2014-12-08" intervenant="003">
+            <visite date="2014-12-08" intervenant="001">
                 <acte id="401"/>
             </visite>
 

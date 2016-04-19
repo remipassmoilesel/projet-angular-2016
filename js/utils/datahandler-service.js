@@ -1,11 +1,11 @@
 /**
- * 
- * Equivalent renommé du Noyau Fonctionnel du TP. Permet de manipuler 
+ *
+ * Equivalent renommé du Noyau Fonctionnel du TP. Permet de manipuler
  * les données (consultation et modification)
- * 
- * La fonction asyncXmlParse est juste une fonction utilitaire qui permet de 
+ *
+ * La fonction asyncXmlParse est juste une fonction utilitaire qui permet de
  * réduire un peu le code.
- * 
+ *
  */
 
 
@@ -19,7 +19,7 @@ DataHandler.$inject = ["$http"];
 
 /**
  * Fonction utilitaire permettant d'harmoniser le code des promesses pour les différentes extractions XML
- * 
+ *
  * @param {type} $http
  * @param {type} dataLocation
  * @param {type} callbackThen
@@ -31,15 +31,15 @@ DataHandler.prototype.asyncXmlParse = function (dataLocation) {
     // appel asynchrone des données
     return this.$http.get(dataLocation)
 
-            // appel réussi
-            .then(function (response) {
+        // appel réussi
+        .then(function (response) {
 
-                // parser les données
-                var parser = new DOMParser();
-                var xmlDoc = parser.parseFromString(response.data, "text/xml");
+            // parser les données
+            var parser = new DOMParser();
+            var xmlDoc = parser.parseFromString(response.data, "text/xml");
 
-                return xmlDoc;
-            });
+            return xmlDoc;
+        });
 
 };
 
@@ -72,21 +72,21 @@ DataHandler.prototype.getOfficeInformations = function () {
 
     var self = this;
     return this.asyncXmlParse(
-            // document à parser
-            constants.dataOffice).then(
-            // cb en cas de succès
-                    function (xmlDoc) {
-                        // iterer et formatter les infirmiers
-                        return {
-                            name: xmlDoc.querySelector("cabinet nom").innerHTML,
-                            adressComplete: self.agregate(xmlDoc
-                                    , "cabinet adresse numero"
-                                    , "cabinet adresse rue"
-                                    , "cabinet adresse ville"
-                                    , "cabinet adresse codePostal")
-                        };
-                    });
-        };
+        // document à parser
+        constants.dataOffice).then(
+        // cb en cas de succès
+        function (xmlDoc) {
+            // iterer et formatter les infirmiers
+            return {
+                name: xmlDoc.querySelector("cabinet nom").innerHTML,
+                adressComplete: self.agregate(xmlDoc
+                    , "cabinet adresse numero"
+                    , "cabinet adresse rue"
+                    , "cabinet adresse ville"
+                    , "cabinet adresse codePostal")
+            };
+        });
+};
 
 /**
  * Renvoi une promesse qui retourne un tableaux d'objet sur les infirmiers
@@ -95,28 +95,28 @@ DataHandler.prototype.getOfficeInformations = function () {
 DataHandler.prototype.getNurses = function () {
 
     return this.asyncXmlParse(
-            // document à parser
-            constants.dataOffice).then(
-            // cb en cas de succès
-                    function (xmlDoc) {
+        // document à parser
+        constants.dataOffice).then(
+        // cb en cas de succès
+        function (xmlDoc) {
 
-                        var output = [];
-                        var nurseTags = xmlDoc.querySelector("infirmiers").getElementsByTagName("infirmier");
+            var output = [];
+            var nurseTags = xmlDoc.querySelector("infirmiers").getElementsByTagName("infirmier");
 
-                        // récupérer les informations sur les infirmiers
-                        for (var i = 0; i < nurseTags.length; i++) {
-                            var tag = nurseTags[i];
-                            output.push({
-                                name: tag.querySelector("nom").innerHTML,
-                                firstname: tag.querySelector("prenom").innerHTML,
-                                imagePath: tag.querySelector("photo").innerHTML,
-                                id: tag.getAttribute("id")
-                            });
-                        }
+            // récupérer les informations sur les infirmiers
+            for (var i = 0; i < nurseTags.length; i++) {
+                var tag = nurseTags[i];
+                output.push({
+                    name: tag.querySelector("nom").innerHTML,
+                    firstname: tag.querySelector("prenom").innerHTML,
+                    imagePath: tag.querySelector("photo").innerHTML,
+                    id: tag.getAttribute("id")
+                });
+            }
 
-                        return output;
-                    });
-        };
+            return output;
+        });
+};
 
 
 /**
@@ -127,80 +127,80 @@ DataHandler.prototype.getAllPatients = function () {
 
     var vm = this;
     return this.asyncXmlParse(
-            // document à parser
-            constants.dataOffice).then(
-            // cb en cas de succès
-                    function (xmlDoc) {
+        // document à parser
+        constants.dataOffice).then(
+        // cb en cas de succès
+        function (xmlDoc) {
 
-                        var output = [];
+            var output = [];
 
-                        var patientTagArray = xmlDoc.querySelector("patients").getElementsByTagName("patient");
+            var patientTagArray = xmlDoc.querySelector("patients").getElementsByTagName("patient");
 
-                        // itérer les patients
-                        for (var i = 0; i < patientTagArray.length; i++) {
-                            var patientTag = patientTagArray[i];
+            // itérer les patients
+            for (var i = 0; i < patientTagArray.length; i++) {
+                var patientTag = patientTagArray[i];
 
-                            // récuperer les informations sur le patient
-                            var tmp;
-                            var patientObj = {
-                                name: patientTag.querySelector("nom").innerHTML,
-                                firstname: patientTag.querySelector("prenom").innerHTML,
-                                gender: patientTag.querySelector("sexe").innerHTML,
-                                birthdate: new Date(patientTag.querySelector("naissance").innerHTML),
-                                ssid: patientTag.querySelector("numero").innerHTML,
-                                adressComplete: vm.agregate(xmlDoc
-                                        , "adresse numero"
-                                        , "adresse rue"
-                                        , "adresse codePostal"
-                                        , "adresse ville"),
-                                adressNumber: (tmp = patientTag.querySelector("adresse numero")) !== null ? tmp.innerHTML : '',
-                                adressStreet: (tmp = patientTag.querySelector("adresse rue")) !== null ? tmp.innerHTML : '',
-                                adressPostcode: (tmp = patientTag.querySelector("adresse codePostal")) !== null ? tmp.innerHTML : '',
-                                adressCity: (tmp = patientTag.querySelector("adresse ville")) !== null ? tmp.innerHTML : '',
-                                adressFloor: (tmp = patientTag.querySelector("adresse etage")) !== null ? tmp.innerHTML : ''
-                            };
+                // récuperer les informations sur le patient
+                var tmp;
+                var patientObj = {
+                    name: patientTag.querySelector("nom").innerHTML,
+                    firstname: patientTag.querySelector("prenom").innerHTML,
+                    gender: patientTag.querySelector("sexe").innerHTML,
+                    birthdate: new Date(patientTag.querySelector("naissance").innerHTML),
+                    ssid: patientTag.querySelector("numero").innerHTML,
+                    adressComplete: vm.agregate(patientTag
+                        , "adresse numero"
+                        , "adresse rue"
+                        , "adresse codePostal"
+                        , "adresse ville"),
+                    adressNumber: (tmp = patientTag.querySelector("adresse numero")) !== null ? tmp.innerHTML : '',
+                    adressStreet: (tmp = patientTag.querySelector("adresse rue")) !== null ? tmp.innerHTML : '',
+                    adressPostcode: (tmp = patientTag.querySelector("adresse codePostal")) !== null ? tmp.innerHTML : '',
+                    adressCity: (tmp = patientTag.querySelector("adresse ville")) !== null ? tmp.innerHTML : '',
+                    adressFloor: (tmp = patientTag.querySelector("adresse etage")) !== null ? tmp.innerHTML : ''
+                };
 
-                            // calcul de l'age
-                            patientObj.age = ((new Date().getTime()
-                                    - patientObj.birthdate.getTime()) / 31536000000).toFixed(0);
+                // calcul de l'age
+                patientObj.age = typeof patientObj.birthdate !== "undefined" ? ((new Date().getTime()
+                - patientObj.birthdate.getTime()) / 31536000000).toFixed(0) : "X";
 
-                            // itérer les visites par patient
-                            patientObj.visits = [];
-                            var visitTagArray = patientTag.getElementsByTagName("visite");
-                            for (var j = 0; j < visitTagArray.length; j++) {
-                                var visitTag = visitTagArray[j];
+                // itérer les visites par patient
+                patientObj.visits = [];
+                var visitTagArray = patientTag.getElementsByTagName("visite");
+                for (var j = 0; j < visitTagArray.length; j++) {
+                    var visitTag = visitTagArray[j];
 
-                                // récuperer les informations sur la visite
-                                var visitObj = {
-                                    date: visitTag.getAttribute("date"),
-                                    idNurse: visitTag.getAttribute("intervenant")
-                                };
+                    // récuperer les informations sur la visite
+                    var visitObj = {
+                        date: visitTag.getAttribute("date"),
+                        idNurse: visitTag.getAttribute("intervenant")
+                    };
 
-                                // itérer les actes médicaux
-                                visitObj.actions = [];
-                                var actionTagArray = visitTag.getElementsByTagName("acte");
-                                for (var k = 0; k < actionTagArray.length; k++) {
-                                    var actionTag = actionTagArray[k];
+                    // itérer les actes médicaux
+                    visitObj.actions = [];
+                    var actionTagArray = visitTag.getElementsByTagName("acte");
+                    for (var k = 0; k < actionTagArray.length; k++) {
+                        var actionTag = actionTagArray[k];
 
-                                    visitObj.actions.push(actionTag.getAttribute("id"));
-                                }
+                        visitObj.actions.push(actionTag.getAttribute("id"));
+                    }
 
-                                // ajout de la visite à l'objet patient
-                                patientObj.visits.push(visitObj);
+                    // ajout de la visite à l'objet patient
+                    patientObj.visits.push(visitObj);
 
-                            }
+                }
 
-                            // Infirmier associé. L'infirmier associé est celui qui apparait dans la 
-                            // première balise visite
-                            patientObj.nurseId = patientObj.visits[0] ? patientObj.visits[0].idNurse || '' : '';
+                // Infirmier associé. L'infirmier associé est celui qui apparait dans la
+                // première balise visite
+                patientObj.nurseId = patientObj.visits[0] ? patientObj.visits[0].idNurse || '' : '';
 
-                            // ajout du patient à l'objet exporté
-                            output.push(patientObj);
-                        }
+                // ajout du patient à l'objet exporté
+                output.push(patientObj);
+            }
 
-                        return output;
-                    });
-        };
+            return output;
+        });
+};
 
 /**
  * Retourne une promesse contenant tous les actes médicaux
@@ -210,39 +210,39 @@ DataHandler.prototype.getActions = function () {
 
     var vm = this;
     return this.asyncXmlParse(
-            // document à parser
-            constants.dataActions).then(
-            // cb en cas de succès
-                    function (xmlDoc) {
+        // document à parser
+        constants.dataActions).then(
+        // cb en cas de succès
+        function (xmlDoc) {
 
-                        var output = {};
+            var output = {};
 
-                        //console.log(xmlDoc.querySelector("types"));
+            //console.log(xmlDoc.querySelector("types"));
 
-                        // rassembler les types d'actes
-                        output.types = {};
-                        var typesTags = xmlDoc.querySelector("types").getElementsByTagName("type");
-                        for (var i = 0; i < typesTags.length; i++) {
-                            var t = typesTags[i];
-                            output.types[t.getAttribute("id")] = t.innerHTML.trim().replace(/\s+/i, " ");
-                        }
+            // rassembler les types d'actes
+            output.types = {};
+            var typesTags = xmlDoc.querySelector("types").getElementsByTagName("type");
+            for (var i = 0; i < typesTags.length; i++) {
+                var t = typesTags[i];
+                output.types[t.getAttribute("id")] = t.innerHTML.trim().replace(/\s+/i, " ");
+            }
 
-                        // rassembler les différents actes
-                        output.actions = {};
-                        var actionTags = xmlDoc.querySelector("actes").getElementsByTagName("acte");
-                        for (var i = 0; i < actionTags.length; i++) {
-                            var a = actionTags[i];
-                            output.actions[a.getAttribute("id")] = {
-                                type: a.getAttribute("type"),
-                                key: a.getAttribute("clé"),
-                                coeff: a.getAttribute("coef"),
-                                description: a.innerHTML.trim().replace(/\s/i, " ")
-                            };
-                        }
+            // rassembler les différents actes
+            output.actions = {};
+            var actionTags = xmlDoc.querySelector("actes").getElementsByTagName("acte");
+            for (var i = 0; i < actionTags.length; i++) {
+                var a = actionTags[i];
+                output.actions[a.getAttribute("id")] = {
+                    type: a.getAttribute("type"),
+                    key: a.getAttribute("clé"),
+                    coeff: a.getAttribute("coef"),
+                    description: a.innerHTML.trim().replace(/\s/i, " ")
+                };
+            }
 
-                        return output;
-                    });
-        };
+            return output;
+        });
+};
 
 /**
  * Ajoute un patient et retourne la promesse de la requête
@@ -307,20 +307,32 @@ DataHandler.prototype.addPatient = function (patient) {
     var vm = this;
     return this.$http.post("/addPatient", dataToSend)
 
-            // et eventuellement l'affecter
-            .then(function (response) {
-                if (typeof patient.nurseId !== "undefined" && patient.nurseId !== "") {
+        // et eventuellement l'affecter
+        .then(function (response) {
+            if (typeof patient.nurseId !== "undefined" && patient.nurseId !== "") {
 
-                    console.log(vm);
-
-                    return vm.$http.post("/affectation", {
-                        patient: patient.ssid,
-                        infirmier: patient.nurseId
-                    });
-                }
-            });
+                // TODO A verifier
+                return vm.affectPatient(patient.ssid, patient.nurseId);
+            }
+        });
 
 };
+
+DataHandler.prototype.affectPatient = function (patientId, nurseId) {
+
+    if (typeof patientId === "undefined") {
+        throw constants.NO_PATIENT_DEFINED;
+    }
+    if (typeof nurseId === "undefined") {
+        throw constants.NO_NURSE_DEFINED;
+    }
+
+    return this.$http.post("/affectation", {
+        patient: patientId,
+        infirmier: nurseId
+    });
+
+}
 
 /**
  * Renvoi une promesse qui retourne un tableaux d'objet sur les patients sans infirmiers
@@ -333,7 +345,8 @@ DataHandler.prototype.getNonAffectedPatients = function () {
         var output = [];
         for (var i = 0; i < patients.length; i++) {
             var pat = patients[i];
-            if (pat.visits.length < 1) {
+
+            if (pat.nurseId === '') {
                 output.push(pat);
             }
         }
@@ -463,10 +476,10 @@ DataHandler.prototype.deletePatient = function (patientToDelete) {
 
     // requete de suppression
     return this.$http.post(
-            "/removePatient",
-            {
-                patientNumber: patientToDelete.ssid
-            });
+        "/removePatient",
+        {
+            patientNumber: patientToDelete.ssid
+        });
 };
 
 module.exports = function (angularMod) {

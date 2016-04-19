@@ -1,11 +1,11 @@
 {
   "name": "CabinetMedical",
-  "email": "alexandre.demeure@inria.fr",
-  "url": "http://iihm.imag.fr/demeure",
+  "email": "remi.passmoilesel@gmail.com",
+  "url": "http://github.com/remipassmoilesel/projetAngular2015",
   "version": "0.0.3",
   "repository": {
     "type": "git",
-    "url": "https://github.com/AlexDmr/amorcePAI"
+    "url": "https://github.com/remipassmoilesel/projetAngular2015"
   },
   "main": "serverCabinetMedical.js",
   "dependencies": {
@@ -22,6 +22,7 @@
     "http-static-gzip-regexp": "0.0.2",
     "leaflet": "^0.7.7",
     "multer": "^1.0.3",
+    "ng-draggable": "^1.0.0",
     "request": "^2.61.0",
     "xmldom": "^0.1.19"
   },

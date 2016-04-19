@@ -6,30 +6,30 @@
 // récuperer le template et le css
 var template = require('./patientForm-template.html');
 require('./patientForm-component.css');
-// utilitaires et constantes
-var utils = require('../../utils/utils');
-var constants = require('../../utils/constants.js');
-//var datahandler = require("../../utils/datahandler-service.js")(angularMod);
+var constants = require('../../utils/constants');
 
 var PatientFormController = function ($http, datah, $scope, mdToastService) {
 
     // conserver les références des services
     this.$http = $http;
     this.datah = datah;
-    this.utils = utils;
     this.$scope = $scope;
     this.mdToastService = mdToastService;
+
     // identifiant unique de formulaire
     this.formId = new Date().getTime();
+
     // pattern affectant les champs de texte
     this.patientInfoPattern = constants.patientInformationPattern;
     this.ssidPattern = constants.ssidPattern;
     this.postcodePattern = constants.postcodePattern;
+
     // dates utilisées dans les vérifications de formulaires
     var yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
     this.lowestDate = new Date(1900, 01, 01);
     this.highestDate = new Date();
+    
     // par défaut le bouton affiche ce texte
     this.buttonValidText = "Mettre à jour le patient";
 
@@ -117,33 +117,33 @@ PatientFormController.prototype.validFormAndSendData = function () {
 
         // envoyer le patient
         vm.datah.addPatient(vm.patient).then(
-                // réussi
-                        function (response) {
-                            vm.mdToastService.showMessage("Enregistrement réussi.", undefined, true);
-                        })
-                        // non réussi
-                        .catch(function (response) {
-                            vm.mdToastService.showMessage("Erreur lors de l'enregistrement.", undefined, true);
-                        });
+            // réussi
+            function (response) {
+                vm.mdToastService.showMessage("Enregistrement réussi.", undefined, true);
+            })
+            // non réussi
+            .catch(function (response) {
+                vm.mdToastService.showMessage("Erreur lors de l'enregistrement.", undefined, true);
+            });
 
-                // notification du composant parent si necessaire
-                if (typeof this.onFormValidated !== "undefined") {
-                    vm.onFormValidated();
-                }
-            };
+        // notification du composant parent si necessaire
+        if (typeof this.onFormValidated !== "undefined") {
+            vm.onFormValidated();
+        }
+    };
 
     // Si la modification n'est pas autorisée, verifier si le patient existe deja
 
     if (this.allowModifyExistingPatient === "false") {
         this.datah.searchPatients({ssid: this.patient.ssid})
-                .then(function (response) {
+            .then(function (response) {
 
-                    if (response.length > 0) {
-                        vm.showFormError("ssidExist");
-                    } else {
-                        pushDatas();
-                    }
-                });
+                if (response.length > 0) {
+                    vm.showFormError("ssidExist");
+                } else {
+                    pushDatas();
+                }
+            });
     }
 
     // si la modification est autorisée, effectuer la requete sans verification
@@ -154,7 +154,7 @@ PatientFormController.prototype.validFormAndSendData = function () {
 
 };
 /**
- * 
+ *
  * @param {type} message
  * @param {type} delay
  * @returns {undefined}
@@ -163,19 +163,19 @@ PatientFormController.prototype.showFormError = function (element) {
 
     var vm = this;
     this.mdToastService.showToast(
-            {
-                hideDelay: 6000,
-                position: 'top right',
-                controller: function () {
-                    this.formErrorLabel = vm.formErrors[element].label;
-                    this.formErrorMessage = vm.formErrors[element].message;
-                },
-                controllerAs: "$ctrl",
-                template: require("./patientFormToast.html"),
-                locals: {
-                    element: element
-                }
-            });
+        {
+            hideDelay: 6000,
+            position: 'top right',
+            controller: function () {
+                this.formErrorLabel = vm.formErrors[element].label;
+                this.formErrorMessage = vm.formErrors[element].message;
+            },
+            controllerAs: "$ctrl",
+            template: require("./patientFormToast.html"),
+            locals: {
+                element: element
+            }
+        });
 };
 
 

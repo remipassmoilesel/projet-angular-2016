@@ -17,15 +17,22 @@ require("angular-animate");
 // gestion des urls
 require("angular-route");
 
+// gestion des urls
+require("ng-draggable");
+
 /*
  *
  */
 
-// déclarer un module pour le cabinet médical, avec comme dépendance angular-material
-var medicalOfficeModule = angular.module("officeModule", [angularMaterial, 'ngMessages', 'ngAnimate','ngRoute']);
+// déclarer le module cabinet medical, avec ses dépendances
+var medicalOfficeModule = angular.module("officeModule", ['ngRoute', angularMaterial,
+    'ngMessages', 'ngAnimate', "ngDraggable"]);
 
-// service de gestion des routes
-require("./utils/route-service.js")(medicalOfficeModule);
+// utilitaires divers
+require("./utils/utils-service.js")(medicalOfficeModule);
+
+// déclaration des routes du module
+require("./secretary-views/secretary-routes.js")(medicalOfficeModule);
 
 // enregistrer le service de traitement des données
 require("./utils/datahandler-service.js")(medicalOfficeModule);

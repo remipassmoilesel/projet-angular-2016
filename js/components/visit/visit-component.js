@@ -7,8 +7,6 @@
 var template = require('./visit-template.html');
 require('./visit-component.css');
 
-// utilitaires et constantes
-var utils = require('../../utils/utils');
 var constants = require('../../utils/constants.js');
 
 var VisitController = function ($http, datah, $scope) {

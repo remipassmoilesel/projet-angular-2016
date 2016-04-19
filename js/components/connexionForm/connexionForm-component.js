@@ -7,7 +7,6 @@ var template = require('./connexionForm-template.html');
 require('./connexionForm-component.css');
 
 // utilitaires et constantes
-var utils = require('../../utils/utils.js');
 var constants = require('../../utils/constants.js');
 
 var ConnexionFormController = function ($mdDialog, $scope, datah,
@@ -19,7 +18,6 @@ var ConnexionFormController = function ($mdDialog, $scope, datah,
     this.$mdToast = $mdToast;
     this.$scope = $scope;
     this.$http = $http;
-    this.utils = utils;
     this.$location = $location;
     this.$window = $window;
 

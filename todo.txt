@@ -1,0 +1,11 @@
+Fix on patient modified liste de tous les patients
+
+Remplacer tous les appels standard utils par des services angular
+
+Afficher les visites et les soins
+
+Verifier le CSS de chaque composant
+
+Verifier les commentaires
+
+Changer le message d'erreur si l'adresse est mal géocodée

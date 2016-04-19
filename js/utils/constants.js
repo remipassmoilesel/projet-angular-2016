@@ -11,9 +11,10 @@ module.exports = {
     /*
      * Noms de services enregistrés dans angular
      */
-    serviceDataHandler: "datahandler",
-    serviceMdToast: "mdToastService",
-    serviceRoutes: "serviceRoutes",
+    serviceDataHandler: "serviceDatahandler",
+    serviceMdToast: "serviceMdToast",
+    serviceSecretaryRoutes: "serviceSecretaryRoutes",
+    serviceUtils: "serviceUtils",
     /*
      * Expressions régulières courantes
      */
@@ -25,6 +26,7 @@ module.exports = {
      * des récupération fines d'exception avec des tests (ex: e === NO_PATIENT_DEFINED)
      */
     NO_PATIENT_DEFINED: "NO_PATIENT_DEFINED",
+    NO_NURSE_DEFINED: "NO_NURSE_DEFINED",
     INVALID_ARGUMENT: "INVALID_ARGUMENT",
     /**
      * Afficher toutes les constantes et leurs types, hors fonctions.

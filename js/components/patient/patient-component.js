@@ -9,18 +9,17 @@ require('./patient-component.css');
 
 
 // utilitaires et constantes
-var utils = require('../../utils/utils.js');
 var constants = require('../../utils/constants.js');
 
 
-var PatientController = function ($mdDialog, $scope, datah, $mdToast) {
+var PatientController = function ($mdDialog, $scope, datah, utils, serviceMdToast) {
 
     // utilitaires
     this.datah = datah;
     this.$mdDialog = $mdDialog;
-    this.$mdToast = $mdToast;
     this.$scope = $scope;
     this.utils = utils;
+    this.serviceMdToast = serviceMdToast;
     this.smallContent = "100px";
     this.largeContent = "200px";
 
@@ -36,15 +35,51 @@ var PatientController = function ($mdDialog, $scope, datah, $mdToast) {
     };
 
     // les modes d'affichage du patient
-    this.availablesDisplayModes = ["summary", "complete", "visits", "modification", "$mdToast"];
+    this.availablesDisplayModes = ["summary", "complete", "visits", "modification"];
     this.setDisplayMode("summary");
 
     this.actions = datah.getActions();
 };
-PatientController.$inject = ["$mdDialog", "$scope", constants.serviceDataHandler, "$mdToast"];
+PatientController.$inject = ["$mdDialog", "$scope", constants.serviceDataHandler,
+    constants.serviceUtils, constants.serviceMdToast];
 
 /**
- * Modifier l'affichage du composant. Par exemple: seulement qqu informations, 
+ * Fonction déclenchée lors d'un drop d'objet
+ * @param nurse
+ * @param event
+ */
+PatientController.prototype.dropHappened = function (nurse, event) {
+
+    console.log("");
+    console.log("Affectation:");
+    console.log("PatientController.prototype.dropHappened");
+    console.log(nurse.name);
+    console.log(this.data.name);
+    console.log(this.data.ssid, nurse.id);
+
+    // vérifier l'objet passé en paramètre, il doit s'agir d'un infirmier
+    if (typeof nurse === "undefined" || typeof nurse.id === "undefined") {
+        throw constants.INVALID_ARGUMENT;
+    }
+
+    var vm = this;
+    this.datah.affectPatient(this.data.ssid, nurse.id)
+        .then(function () {
+            vm.serviceMdToast.showMessage(
+                "Nouvelle attribution: " + vm.data.name + " / " + nurse.name);
+
+            vm.onPatientModified();
+        })
+        .catch(function(){
+            vm.serviceMdToast.showMessage(
+                "Erreur lors de l'affectation. Veuillez recommencer.");
+        });
+
+
+}
+
+/**
+ * Modifier l'affichage du composant. Par exemple: seulement qqu informations,
  * les visites, le formulaire de modification, ...
  * @param {type} mode
  * @returns {undefined}
@@ -65,47 +100,43 @@ PatientController.prototype.deletePatient = function () {
     // confirmer la suppression avec une boite de dialogue
     var vm = this;
     this.$mdDialog.show({
-        controller: function () {
-            this.data = vm.data;
-            this.hide = function (answer) {
-                vm.$mdDialog.hide(answer);
-            };
-        },
-        controllerAs: "$ctrl",
-        template: require("./suppressionDialog.html"),
-        clickOutsideToClose: false
-    })
+            controller: function () {
+                this.data = vm.data;
+                this.hide = function (answer) {
+                    vm.$mdDialog.hide(answer);
+                };
+            },
+            controllerAs: "$ctrl",
+            template: require("./suppressionDialog.html"),
+            clickOutsideToClose: false
+        })
 
-            // boite fermée, vérifier la réponse
-            .then(function (answer) {
-                if (answer === true) {
+        // boite fermée, vérifier la réponse
+        .then(function (answer) {
+            if (answer === true) {
 
-                    // supprimer le patient
-                    vm.datah.deletePatient(vm.data)
+                // supprimer le patient
+                vm.datah.deletePatient(vm.data)
 
-                            // suppression effective
-                            .then(function (response) {
-                                console.log(response);
-                                utils.simpleToast(vm.$mdToast, "Suppression effective.");
-                            })
+                    // suppression effective
+                    .then(function (response) {
+                        vm.serviceMdToast.showMessage("Suppression effective.");
+                    })
 
-                            // erreur lors de la suppression
-                            .catch(function (response) {
+                    // erreur lors de la suppression
+                    .catch(function (response) {
+                        vm.serviceMdToast.showMessage(
+                            "Erreur lors de la suppression. Veuillez réessayer.",
+                            6000, true);
 
-                                console.log(response);
+                    });
 
-                                utils.simpleToast(vm.$mdToast,
-                                        "Erreur lors de la suppression. Veuillez réessayer.",
-                                        6000);
-
-                            });
-
-                    // notification du composant parent si necessaire
-                    if (typeof vm.onPatientModified !== "undefined") {
-                        vm.onPatientModified();
-                    }
+                // notification du composant parent si necessaire
+                if (typeof vm.onPatientModified !== "undefined") {
+                    vm.onPatientModified();
                 }
-            });
+            }
+        });
 
 };
 
@@ -152,8 +183,8 @@ module.exports = function (angularMod) {
              */
             data: "<",
             /**
-             * La listes des infirmiers disponibles. La liste est passée ici en paramètre 
-             * pour éviter les appels à répétition 
+             * La listes des infirmiers disponibles. La liste est passée ici en paramètre
+             * pour éviter les appels à répétition
              */
             nurses: "<",
             /**

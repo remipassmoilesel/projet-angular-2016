@@ -11,8 +11,6 @@
 var template = require('./showAdressOnMap-template.html');
 require('./showAdressOnMap-component.css');
 
-// utilitaires et constantes
-var utils = require('../../utils/utils');
 var constants = require('../../utils/constants.js');
 
 // outil cartographique
@@ -25,7 +23,6 @@ var ShowAdressOnMapController = function ($http, datah, $scope, $timeout) {
     // conserver les références des services
     this.$http = $http;
     this.datah = datah;
-    this.utils = utils;
     this.$scope = $scope;
 
     // identifiant dynamique

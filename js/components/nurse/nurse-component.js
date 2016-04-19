@@ -7,7 +7,6 @@ var template = require('./nurse-template.html');
 require('./nurse-component.css');
 
 // utilitaires et constantes
-var utils = require('../../utils/utils.js');
 var constants = require('../../utils/constants.js');
 
 var NurseController = function ($mdDialog, $scope, datah, $mdToast) {
@@ -17,7 +16,6 @@ var NurseController = function ($mdDialog, $scope, datah, $mdToast) {
     this.$mdDialog = $mdDialog;
     this.$mdToast = $mdToast;
     this.$scope = $scope;
-    this.utils = utils;
     this.smallContent = "100px";
     this.largeContent = "200px";
 

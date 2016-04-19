@@ -8,7 +8,6 @@ var template = require('./displayOfficeInformations-template.html');
 require('./displayOfficeInformations-component.css');
 
 // utilitaires et constantes
-var utils = require('../../utils/utils');
 var constants = require('../../utils/constants.js');
 
 var DisplayOfficeInfosController = function ($http, datah, $scope) {
@@ -16,7 +15,6 @@ var DisplayOfficeInfosController = function ($http, datah, $scope) {
     // conserver les références des services
     this.$http = $http;
     this.datah = datah;
-    this.utils = utils;
     this.$scope = $scope;
 
     // recuperer les informations (adresse, ...)

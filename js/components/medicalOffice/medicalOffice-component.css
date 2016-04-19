@@ -12,6 +12,13 @@
     margin-bottom: 15px;
 }
 
+.medicalOfficeMenu h1 {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bolder;
+    color: white;
+}
+
 .medicalOfficeDebugIndicator{
     margin-bottom: 25px;
     font-size: 11px;
@@ -25,7 +32,8 @@
     text-align: left;
 }
 
-.officePanelTitle{
+.medicalOfficeWorkspace h1{
     text-align: center;
     color: darkgray;
+    font-size: 25px;
 }

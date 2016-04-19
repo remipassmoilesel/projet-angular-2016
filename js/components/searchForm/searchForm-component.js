@@ -7,8 +7,6 @@
 var template = require('./searchForm-template.html');
 require('./searchForm-component.css');
 
-// utilitaires et constantes
-var utils = require('../../utils/utils');
 var constants = require('../../utils/constants.js');
 
 var SearchFormController = function ($http, datah, $scope) {
@@ -16,7 +14,6 @@ var SearchFormController = function ($http, datah, $scope) {
     // conserver les références des services
     this.$http = $http;
     this.datah = datah;
-    this.utils = utils;
     this.$scope = $scope;
 
     // les informations a rechercher 

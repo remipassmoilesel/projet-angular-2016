@@ -1,16 +1,23 @@
 <md-card>
     <md-card-title>
+
+        <!-- nom de l'infirmiere -->
         <md-card-title-text>
             <span class="md-headline">{{$ctrl.data.name + ' ' + $ctrl.data.firstname}}</span>
             <span class="md-subhead">Identifiant: {{$ctrl.data.id}}</span>
         </md-card-title-text>
+
+        <!-- Photo -->
         <md-card-title-media>
             <div class="md-media-sm card-media">
-                <img ng-src="{{$ctrl.data.imagePath}}" 
-                     alt ="Photo de {{$ctrl.data.name + ' ' + $ctrl.data.firstname}}"/>
+                <img ng-src="{{$ctrl.data.imagePath}}"
+                     alt="Photo de {{$ctrl.data.name + ' ' + $ctrl.data.firstname}}"/>
             </div>
         </md-card-title-media>
+
     </md-card-title>
+
+    <!-- Contenu -->
     <md-card-content ng-switch="$ctrl.displayMode" class="patientInformationsContainer"
                      ng-class="{
                                  nurseLargeContent: $ctrl.displayMode !== 'summary',
@@ -33,9 +40,12 @@
         <!--{{$ctrl}}-->
     </md-card-content>
 
+    <!-- Boutons de modes d'affichage -->
     <md-card-actions layout="row" layout-align="end center">
         <md-button ng-click="$ctrl.setDisplayMode('summary')" ng-show="$ctrl.displayMode !== 'summary'">
-            Replier</md-button>
+            Replier
+        </md-button>
         <md-button ng-click="$ctrl.setDisplayMode('affectedPatients')">Patient affectés</md-button>
     </md-card-actions>
+
 </md-card>
