@@ -73,32 +73,38 @@ Utils.prototype.dateObjectToString = function (objectDate) {
  * @param cbSuccess Executée en cas de succés
  * @param cbCatch Executée en cas d'echec
  */
-Utils.prototype.newDistantRepetedRequest = function (ctx, toastService, funcPromise, cbSuccess, cbCatch) {
+Utils.prototype.newDistantRepetedRequest = function (toastService, funcPromise, cbSuccess, cbCatch) {
+
+    console.log("newDistantRepetedRequest");
+    console.log(toastService);
 
     var vm = this;
 
     // initialisation de tableaux de variables pour suivre les requetes en cours
-    if (typeof ctx.utilsRequestAttempts === "undefined"
-        || typeof ctx.utilsRequestIntervals === "undefined") {
-        ctx.utilsRequestAttempts = [];
-        ctx.utilsRequestIntervals = [];
+    if (typeof funcPromise.utilsRequestAttempts === "undefined"
+        || typeof funcPromise.utilsRequestIntervals === "undefined") {
+        funcPromise.utilsRequestAttempts = [];
+        funcPromise.utilsRequestIntervals = [];
     }
 
-    funcPromise.apply(ctx)
+    console.log("funcPromise");
+    console.log(funcPromise);
+
+    funcPromise()
 
         // requete réussie
         .then(function (response) {
 
             // notification de reprise si nécéssaire
-            if (typeof ctx.utilsRequestAttempts[funcPromise] !== "undefined" &&
-                ctx.utilsRequestAttempts[funcPromise] > 4) {
+            if (typeof funcPromise.utilsRequestAttempts[funcPromise] !== "undefined" &&
+                funcPromise.utilsRequestAttempts[funcPromise] > 4) {
                 toastService.showServerErrorEnd();
             }
 
             // remettre à zéro les compteurs
-            ctx.utilsRequestAttempts[funcPromise] = 0;
-            clearInterval(ctx.utilsRequestIntervals[funcPromise]);
-            ctx.utilsRequestIntervals[funcPromise] = undefined;
+            funcPromise.utilsRequestAttempts[funcPromise] = 0;
+            clearInterval(funcPromise.utilsRequestIntervals[funcPromise]);
+            funcPromise.utilsRequestIntervals[funcPromise] = undefined;
 
             cbSuccess(response);
 
@@ -110,20 +116,20 @@ Utils.prototype.newDistantRepetedRequest = function (ctx, toastService, funcProm
             console.log("Request fail: ", funcPromise, response);
 
             // lancer un compteur si aucun compteur correspondant n'est encore lancé
-            if (typeof ctx.utilsRequestIntervals[funcPromise] === "undefined") {
+            if (typeof funcPromise.utilsRequestIntervals[funcPromise] === "undefined") {
 
-                ctx.utilsRequestAttempts[funcPromise] = 1;
+                funcPromise.utilsRequestAttempts[funcPromise] = 1;
 
-                ctx.utilsRequestIntervals[funcPromise] = setInterval(function () {
+                funcPromise.utilsRequestIntervals[funcPromise] = setInterval(function () {
                     // re-executer funcPromise
-                    vm.newDistantRepetedRequest(ctx, funcPromise, cbSuccess, cbCatch);
+                    vm.newDistantRepetedRequest(toastService, funcPromise, cbSuccess, cbCatch);
                 }, 700);
             }
 
-            ctx.utilsRequestAttempts[funcPromise]++;
+            funcPromise.utilsRequestAttempts[funcPromise]++;
 
             // notification si arrêt prolongé du service
-            if (ctx.utilsRequestAttempts[funcPromise] === 4) {
+            if (funcPromise.utilsRequestAttempts[funcPromise] === 4) {
                 toastService.showServerError();
             }
 

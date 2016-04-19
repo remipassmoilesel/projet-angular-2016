@@ -1,0 +1,14 @@
+<div class="smallNurse" layout-align="center center"
+               ng-drag-data="$ctrl.data" ng-center-anchor="true"
+               ng-drag="true">
+
+    <!-- nom de l'infirmiere -->
+    <b>{{$ctrl.data.name + " " + $ctrl.data.firstname}}</b>
+    <br/>
+
+    <!-- Patients affectés -->
+        <span ng-if="$ctrl.data.patientNbr">
+            (Patients: {{$ctrl.data.patientNbr}})
+        </span>
+
+</div>

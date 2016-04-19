@@ -67,5 +67,8 @@ require("./components/showAdressOnMap/showAdressOnMap-component.js")(medicalOffi
 // service d'affichage de message
 require("./utils/mdtoast-service.js")(medicalOfficeModule);
 
+// affichage d'infirmier
+require("./components/smallNurse/smallNurse-component.js")(medicalOfficeModule);
+
 
 

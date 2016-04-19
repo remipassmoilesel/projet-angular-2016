@@ -1,0 +1,12 @@
+
+<p style="text-align: center">Pour attribuer un patient vous pouvez faire<br/>
+    glisser un des infirmiers ci-dessous:</p>
+
+<!-- Liste des infirmières -->
+<div layout="col" layout-align="center center">
+    <small-nurse data="nrs" ng-repeat="nrs in $ctrl.allNurses"></small-nurse>
+</div>
+
+<!-- Liste des patients -->
+<patient ng-repeat="elmt in $ctrl.nonAffectedPatients" data="elmt"
+         nurses="$ctrl.allNurses" on-patient-modified="$ctrl.updateDatas()"></patient>
