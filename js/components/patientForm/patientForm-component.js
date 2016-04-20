@@ -75,7 +75,7 @@ var PatientFormController = function ($http, datah, $scope, mdToastService, $tim
     var vm = this;
     $timeout(function () {
         vm.nurses.push({
-            name: "Patient sans infirmier",
+            name: "Aucun",
             id: ""
         });
     });

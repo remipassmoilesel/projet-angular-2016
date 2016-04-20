@@ -64,7 +64,7 @@ PatientController.prototype.dropHappened = function (nurse, event) {
 
             vm.onPatientModified();
         })
-        .catch(function(){
+        .catch(function () {
             vm.serviceMdToast.showMessage(
                 "Erreur lors de l'affectation. Veuillez recommencer.");
         });
@@ -144,7 +144,8 @@ PatientController.prototype.showPatientAdressInDialog = function () {
     var vm = this;
     this.$mdDialog.show({
         controller: function () {
-            this.adress = vm.data.adressComplete + ", France";
+            this.adress = vm.data.adressNumber + " " + vm.data.adressStreet + ", "
+                + " " + vm.data.adressPostcode + " " + vm.data.adressCity + ", France";
             this.patientIdentity = vm.data.name + " " + vm.data.firstname;
             this.hide = function (answer) {
                 vm.$mdDialog.hide(answer);

@@ -1,9 +1,9 @@
 /**
  * Afficher une adresse dans une carte interactive.
- * 
+ *
  * L'adresse doit de préférence etre formattée comme suit:
  * numéro_rue type_voie nom_rue, code_postal, ville, pays
- * 
+ *
  * @type Module formNewPatient-template|Module formNewPatient-template
  */
 
@@ -18,7 +18,6 @@ var L = require("leaflet");
 require('leaflet/dist/leaflet.css');
 
 var ShowAdressOnMapController = function ($http, datah, $scope, $timeout) {
-
 
     // conserver les références des services
     this.$http = $http;
@@ -51,8 +50,6 @@ var ShowAdressOnMapController = function ($http, datah, $scope, $timeout) {
     }, function () {
         vm.resolveAdress();
     });
-
-
 
 };
 
@@ -104,56 +101,70 @@ ShowAdressOnMapController.prototype.resolveAdress = function () {
 
     // résoudre la position géographique de l'adresse
     this.$http({
-        url: 'http://nominatim.openstreetmap.org/search',
-        mehtod: "GET",
-        params: {
-            q: this.adress,
-            format: "json"
-        }
-    })
+            url: 'http://nominatim.openstreetmap.org/search',
+            mehtod: "GET",
+            params: {
+                q: this.adress,
+                format: "json"
+            }
+        })
 
-            // résolue avec succès, peut être....
-            .then(function (response) {
+        // résolue avec succès, peut être....
+        .then(function (response) {
 
-                if (response.data.length < 1) {
-                    vm.showGeocodingErrorMessage(true);
-                    return;
-                }
+            if (response.data.length < 1) {
+                console.log("ShowAdressOnMapController.prototype.resolveAdress = function () {");
+                console.log(response);
+                vm.showGeocodingErrorMessage("notFound");
+                return;
+            }
 
-                vm.showGeocodingErrorMessage(false);
+            vm.showGeocodingErrorMessage("reset");
 
-                // stocker l'adresse
-                vm.adressPosition = [
-                    response.data[0].lat,
-                    response.data[0].lon];
+            // stocker l'adresse
+            vm.adressPosition = [
+                response.data[0].lat,
+                response.data[0].lon];
 
-                // modifier la carte
-                vm.setMapView(
-                        vm.adressPosition[0],
-                        vm.adressPosition[1]
-                        );
+            // modifier la carte
+            vm.setMapView(
+                vm.adressPosition[0],
+                vm.adressPosition[1]
+            );
 
-            })
+        })
 
-            // erreur lors de la résolution
-            .catch(function (response) {
-                vm.showGeocodingErrorMessage(true);
-            });
+        // erreur lors de la résolution
+        .catch(function (response) {
+            console.log("ShowAdressOnMapController.prototype.resolveAdress = function () {");
+            console.log(response);
+            vm.showGeocodingErrorMessage("serverError");
+        });
 
 };
 
 /**
- * Afficher un message d'erreur en cas de probleme de geocodage ou le reinitialiser 
+ * Afficher un message d'erreur en cas de probleme de geocodage ou le reinitialiser
  * @param {type} message
  * @returns {undefined}
  */
-ShowAdressOnMapController.prototype.showGeocodingErrorMessage = function (error) {
+ShowAdressOnMapController.prototype.showGeocodingErrorMessage = function (messageType) {
 
-    if (error) {
+    if (messageType === "serverError") {
         this.errorMessage = "Erreur lors de l'affichage de la carte. Veuillez réessayer.";
         this.buttonText = "Rafraichir";
         this.adressPosition = undefined;
-    } else {
+    }
+
+    else if (messageType === "notFound") {
+        this.errorMessage = "Adresse non trouvée. Tentez votre " +
+            "chance <a href='https://www.google.fr/maps/place/" + this.adress + "'" +
+            " target='_blank'>ailleurs</a>.";
+        this.buttonText = "Rafraichir";
+        this.adressPosition = undefined;
+    }
+
+    else {
         this.errorMessage = "";
         this.buttonText = "Recentrer la carte";
     }

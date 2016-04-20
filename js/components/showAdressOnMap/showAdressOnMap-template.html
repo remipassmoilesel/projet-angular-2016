@@ -18,8 +18,9 @@
                     <b>Coordonnées:</b> {{$ctrl.adressPosition[0] + ", " + $ctrl.adressPosition[1]}}
                 </span>
 
-                <span ng-show="$ctrl.errorMessage !== ''" class="adressOnMapErrorMessage">
-                    {{$ctrl.errorMessage}}
+                <span ng-show="$ctrl.errorMessage !== ''" class="adressOnMapErrorMessage"
+                        ng-bind-html="$ctrl.errorMessage">
+
                 </span>
 
             </td></tr>

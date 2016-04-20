@@ -20,13 +20,16 @@ require("angular-route");
 // gestion des urls
 require("ng-draggable");
 
+// injection de HTML
+require("angular-sanitize");
+
 /*
  *
  */
 
 // déclarer le module cabinet medical, avec ses dépendances
 var medicalOfficeModule = angular.module("officeModule", ['ngRoute', angularMaterial,
-    'ngMessages', 'ngAnimate', "ngDraggable"]);
+    'ngMessages', 'ngAnimate', "ngDraggable", "ngSanitize"]);
 
 // utilitaires divers
 require("./utils/utils-service.js")(medicalOfficeModule);
