@@ -14,18 +14,39 @@ module.exports = {
         constants.serviceDataHandler,
         constants.serviceUtils,
         constants.serviceMdToast,
+
         function (datah, utils, toasts) {
 
             var vm = this;
-            utils.newDistantRepetedRequest(
-                toasts,
-                function () {
-                    return datah.getAllPatients();
-                },
-                function (response) {
-                    // mettre à jour le modèle
-                    vm.allPatients = response;
-                });
+            this.updateDatas = function () {
+
+                // mise à jour des infirmières
+                utils.newDistantRepetedRequest(
+                    toasts,
+                    function () {
+                        return datah.getNurses();
+                    },
+                    function (response) {
+
+                        // mettre à jour le modèle
+                        vm.allNurses = response;
+
+                        // mise à jour des patients
+                        utils.newDistantRepetedRequest(
+                            toasts,
+                            function () {
+                                return datah.getAllPatients();
+                            },
+                            function (response) {
+                                // mettre à jour le modèle
+                                vm.allPatients = response;
+                            });
+                    });
+
+            }
+
+            // première mise à jour
+            this.updateDatas();
 
         }]
 };

@@ -35,7 +35,7 @@ SecretaryRoutes.prototype.registerRoutesIn = function (angularMod) {
     };
 
     // creer un nom de controlleur dynamique
-    var controllerNameOf = function(elmt){
+    var controllerNameOf = function (elmt) {
         return "ViewControllerOf_" + (elmt.urlSimpleAccess.replace(/[^\w\s]/gi, ''));
     }
 
@@ -71,11 +71,13 @@ SecretaryRoutes.prototype.registerRoutesIn = function (angularMod) {
                 var route = elmt.urlPatterns[r];
 
                 // parametres de la route
-                var params = {
-                    template: makeViewTemplate(elmt),
-                    controller: controllerNameOf(elmt),
-                    controllerAs: "$ctrl"
-                };
+                var params = {};
+                params.template = makeViewTemplate(elmt);
+
+                if (typeof elmt.controller !== "undefined") {
+                    params.controllerAs = "$ctrl";
+                    params.controller = controllerNameOf(elmt);
+                }
 
                 // creation de la route
                 $routeProvider.when(route, params);

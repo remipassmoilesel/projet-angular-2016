@@ -248,6 +248,7 @@ function init(port, applicationServerIP, applicationServerPort) {
             }
     );
 
+
     // Define HTTP ressource PORT /addPatient, may contains new patient information
     app.post('/addPatient'
             , function (req, res) {

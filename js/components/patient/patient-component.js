@@ -39,6 +39,7 @@ var PatientController = function ($mdDialog, $scope, datah, utils, serviceMdToas
     this.setDisplayMode("summary");
 
     this.actions = datah.getActions();
+
 };
 PatientController.$inject = ["$mdDialog", "$scope", constants.serviceDataHandler,
     constants.serviceUtils, constants.serviceMdToast];
@@ -49,13 +50,6 @@ PatientController.$inject = ["$mdDialog", "$scope", constants.serviceDataHandler
  * @param event
  */
 PatientController.prototype.dropHappened = function (nurse, event) {
-
-    console.log("");
-    console.log("Affectation:");
-    console.log("PatientController.prototype.dropHappened");
-    console.log(nurse.name);
-    console.log(this.data.name);
-    console.log(this.data.ssid, nurse.id);
 
     // vérifier l'objet passé en paramètre, il doit s'agir d'un infirmier
     if (typeof nurse === "undefined" || typeof nurse.id === "undefined") {
@@ -168,6 +162,7 @@ PatientController.prototype.showPatientAdressInDialog = function () {
  * @returns {undefined}
  */
 PatientController.prototype.formHasBeenValidated = function () {
+
     // notification du composant parent si necessaire
     if (typeof this.onPatientModified !== "undefined") {
         this.onPatientModified();

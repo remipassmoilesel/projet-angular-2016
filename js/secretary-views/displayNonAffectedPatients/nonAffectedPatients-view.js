@@ -22,7 +22,7 @@ module.exports = {
             var vm = this;
 
             /**
-             * Mise à jour des données de la vue
+             * Mise à jour des données 
              */
             this.updateDatas = function () {
 

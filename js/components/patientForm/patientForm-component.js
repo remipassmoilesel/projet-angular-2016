@@ -29,7 +29,7 @@ var PatientFormController = function ($http, datah, $scope, mdToastService) {
     yesterday.setDate(yesterday.getDate() - 1);
     this.lowestDate = new Date(1900, 01, 01);
     this.highestDate = new Date();
-    
+
     // par défaut le bouton affiche ce texte
     this.buttonValidText = "Mettre à jour le patient";
 
@@ -44,7 +44,7 @@ var PatientFormController = function ($http, datah, $scope, mdToastService) {
     }
 
     // genres lisibles
-    var genders = {"H": "Homme", "F": "Femme", "A": "Autre", "I": "Indéterminé"};
+    var genders = {"M": "Homme", "F": "Femme", "A": "Autre", "I": "Indéterminé"};
     this.prettyGender = this.patient ? genders[this.patient.gender] || genders["I"] : genders["I"];
     // messages d'erreur
     this.formErrors = {
@@ -70,6 +70,16 @@ var PatientFormController = function ($http, datah, $scope, mdToastService) {
         }
 
     };
+
+    // option de désaffectation
+    if (typeof this.nurses !== "undefined") {
+        this.nurses.push({
+            name: "Patient sans infirmier",
+            id: ""
+        });
+    }
+
+    console.log(this.nurses);
 };
 
 // injection de dépendance sous forme d'un tableau de chaine de caractères
@@ -120,16 +130,18 @@ PatientFormController.prototype.validFormAndSendData = function () {
             // réussi
             function (response) {
                 vm.mdToastService.showMessage("Enregistrement réussi.", undefined, true);
+
+                // notification du composant parent
+                if (typeof vm.onFormValidated !== "undefined") {
+                    vm.onFormValidated();
+                }
             })
             // non réussi
             .catch(function (response) {
                 vm.mdToastService.showMessage("Erreur lors de l'enregistrement.", undefined, true);
             });
 
-        // notification du composant parent si necessaire
-        if (typeof this.onFormValidated !== "undefined") {
-            vm.onFormValidated();
-        }
+
     };
 
     // Si la modification n'est pas autorisée, verifier si le patient existe deja
@@ -193,19 +205,20 @@ module.exports = function (angularMod) {
              * Si vrai, le formulaire ne fera qu'afficher les informations
              */
             disabled: "<",
-            /*
-             * La listes des infirmiers disponibles. La liste est passée ici en paramètre 
-             * pour éviter les appels à répétition 
+            /**
+             * La listes des infirmiers disponibles. La liste est passée ici en paramètre
+             * pour éviter des appels à répétition en cas d'affichage par exemple d'une
+             * centaine de patients.
              */
             nurses: "<",
-            /*
-             * Fonction optionnelle qui sera appelée lors de l'envoi du formulaire
-             */
-            onFormValidated: "&",
             /**
              * Si faux, le formulaire empêche de modifier un patient
              */
-            allowModifyExistingPatient: "@"
+            allowModifyExistingPatient: "@",
+            /*
+             * Fonction optionnelle qui sera appelée lors de l'envoi du formulaire
+             */
+            onFormValidated: "&"
         }
     });
 };

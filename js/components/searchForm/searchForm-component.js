@@ -72,8 +72,6 @@ SearchFormController.prototype.search = function () {
 
         vm.datah.searchNurses(wantedNurse).then(function (nurses) {
 
-            console.log(vm);
-
             if (nurses.length > 0) {
                 vm.nurseResults = nurses;
             }

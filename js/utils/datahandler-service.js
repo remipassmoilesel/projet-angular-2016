@@ -143,21 +143,21 @@ DataHandler.prototype.getAllPatients = function () {
                 // récuperer les informations sur le patient
                 var tmp;
                 var patientObj = {
-                    name: patientTag.querySelector("nom").innerHTML,
-                    firstname: patientTag.querySelector("prenom").innerHTML,
-                    gender: patientTag.querySelector("sexe").innerHTML,
-                    birthdate: new Date(patientTag.querySelector("naissance").innerHTML),
-                    ssid: patientTag.querySelector("numero").innerHTML,
+                    name: patientTag.querySelector("nom").innerHTML.trim(),
+                    firstname: patientTag.querySelector("prenom").innerHTML.trim(),
+                    gender: patientTag.querySelector("sexe").innerHTML.trim(),
+                    birthdate: new Date(patientTag.querySelector("naissance").innerHTML.trim()),
+                    ssid: patientTag.querySelector("numero").innerHTML.trim(),
                     adressComplete: vm.agregate(patientTag
                         , "adresse numero"
                         , "adresse rue"
                         , "adresse codePostal"
                         , "adresse ville"),
-                    adressNumber: (tmp = patientTag.querySelector("adresse numero")) !== null ? tmp.innerHTML : '',
-                    adressStreet: (tmp = patientTag.querySelector("adresse rue")) !== null ? tmp.innerHTML : '',
-                    adressPostcode: (tmp = patientTag.querySelector("adresse codePostal")) !== null ? tmp.innerHTML : '',
-                    adressCity: (tmp = patientTag.querySelector("adresse ville")) !== null ? tmp.innerHTML : '',
-                    adressFloor: (tmp = patientTag.querySelector("adresse etage")) !== null ? tmp.innerHTML : ''
+                    adressNumber: (tmp = patientTag.querySelector("adresse numero")) !== null ? tmp.innerHTML.trim() : '',
+                    adressStreet: (tmp = patientTag.querySelector("adresse rue")) !== null ? tmp.innerHTML.trim() : '',
+                    adressPostcode: (tmp = patientTag.querySelector("adresse codePostal")) !== null ? tmp.innerHTML.trim() : '',
+                    adressCity: (tmp = patientTag.querySelector("adresse ville")) !== null ? tmp.innerHTML.trim() : '',
+                    adressFloor: (tmp = patientTag.querySelector("adresse etage")) !== null ? tmp.innerHTML.trim() : ''
                 };
 
                 // calcul de l'age
@@ -379,20 +379,20 @@ DataHandler.prototype.searchPatients = function (wanted) {
             var testsPartB = [];
 
             // nom
-            testsPartA.push((wanted.name || '').toLocaleLowerCase());
-            testsPartB.push((p.name || '').toLocaleLowerCase());
+            testsPartA.push((wanted.name || '').toLocaleLowerCase().trim());
+            testsPartB.push((p.name || '').toLocaleLowerCase().trim());
 
             // prénom
-            testsPartA.push((wanted.firstname || '').toLocaleLowerCase());
-            testsPartB.push((p.firstname || '').toLocaleLowerCase());
+            testsPartA.push((wanted.firstname || '').toLocaleLowerCase().trim());
+            testsPartB.push((p.firstname || '').toLocaleLowerCase().trim());
 
             // numero infirmier
-            testsPartA.push((wanted.nurseId || '').toLocaleLowerCase());
-            testsPartB.push((p.nurseId || '').toLocaleLowerCase());
+            testsPartA.push((wanted.nurseId || '').toLocaleLowerCase().trim());
+            testsPartB.push((p.nurseId || '').toLocaleLowerCase().trim());
 
             // numero sécurité sociale
-            testsPartA.push((wanted.ssid || '').toLocaleLowerCase());
-            testsPartB.push((p.ssid || '').toLocaleLowerCase());
+            testsPartA.push((wanted.ssid || '').toLocaleLowerCase().trim());
+            testsPartB.push((p.ssid || '').toLocaleLowerCase().trim());
 
             // iterer les tests
             for (var j = 0; j < testsPartA.length; j++) {
@@ -403,7 +403,7 @@ DataHandler.prototype.searchPatients = function (wanted) {
                 if (a.length > 0 && b.length > 0) {
 
                     // test
-                    if (a.includes(b) || b.includes(a)) {
+                    if (a === b) {
                         output.push(p);
                         break;
                     }
@@ -439,16 +439,16 @@ DataHandler.prototype.searchNurses = function (wanted) {
             var testsPartB = [];
 
             // nom
-            testsPartA.push((wanted.name || '').toLocaleLowerCase());
-            testsPartB.push((p.name || '').toLocaleLowerCase());
+            testsPartA.push((wanted.name || '').toLocaleLowerCase().trim());
+            testsPartB.push((p.name || '').toLocaleLowerCase().trim());
 
             // prénom
-            testsPartA.push((wanted.firstname || '').toLocaleLowerCase());
-            testsPartB.push((p.firstname || '').toLocaleLowerCase());
+            testsPartA.push((wanted.firstname || '').toLocaleLowerCase().trim());
+            testsPartB.push((p.firstname || '').toLocaleLowerCase().trim());
 
             // identifiant
-            testsPartA.push((wanted.id || '').toLocaleLowerCase());
-            testsPartB.push((p.id || '').toLocaleLowerCase());
+            testsPartA.push((wanted.id || '').toLocaleLowerCase().trim());
+            testsPartB.push((p.id || '').toLocaleLowerCase().trim());
 
             // iterer les tests
             for (var j = 0; j < testsPartA.length; j++) {
@@ -459,7 +459,7 @@ DataHandler.prototype.searchNurses = function (wanted) {
                 if (a.length > 0 && b.length > 0) {
 
                     // test
-                    if (a.includes(b) || b.includes(a)) {
+                    if (a === b) {
                         output.push(p);
                         break;
                     }

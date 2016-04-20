@@ -9,10 +9,10 @@
             <tr>
                 <td class="formPatientLabel">Nom:</td>
                 <td>
-                    <md-input-container layout>
+                    <md-input-container>
                         <input ng-model="$ctrl.patient.name" ng-pattern="$ctrl.patientInfoPattern"
                                md-minlength="3" md-maxlength="50" ng-disabled="$ctrl.disabled"
-                               autocomplete="off" layout-fill/>
+                               autocomplete="off"/>
                     </md-input-container>
                 </td>
             </tr>
@@ -21,9 +21,9 @@
             <tr>
                 <td class="formPatientLabel">Prénom:</td>
                 <td>
-                    <md-input-container layout>
+                    <md-input-container>
                         <input ng-model="$ctrl.patient.firstname" ng-pattern="$ctrl.patientInfoPattern"
-                               md-minlength="3" md-maxlength="50" layout-fill
+                               md-minlength="3" md-maxlength="50"
                                ng-disabled="$ctrl.disabled" autocomplete="off"/>
                     </md-input-container>
                 </td>
@@ -33,18 +33,18 @@
             <tr>
                 <td class="formPatientLabel">Genre:</td>
 
-                <td ng-switch="$ctrl.disabled" layout>
+                <td ng-switch="$ctrl.disabled">
 
                     <md-input-container ng-switch-when="true" ng-model="$ctrl.patient.gender">
-                        <input ng-disabled="$ctrl.disabled" layout-fill
+                        <input ng-disabled="$ctrl.disabled"
                                ng-model="$ctrl.prettyGender"/>
                     </md-input-container>
 
                     <md-radio-group ng-switch-default ng-model="$ctrl.patient.gender" name="gender"
-                                    layout="row">
-                        <md-radio-button value="F" ng-disabled="$ctrl.disabled">Femme</md-radio-button>
-                        <md-radio-button value="H" ng-disabled="$ctrl.disabled">Homme</md-radio-button>
-                        <md-radio-button value="A" ng-disabled="$ctrl.disabled">Autre</md-radio-button>
+                    ="row">
+                    <md-radio-button value="F" ng-disabled="$ctrl.disabled">Femme</md-radio-button>
+                    <md-radio-button value="M" ng-disabled="$ctrl.disabled">Homme</md-radio-button>
+                    <md-radio-button value="A" ng-disabled="$ctrl.disabled">Autre</md-radio-button>
                     </md-radio-group>
 
                 </td>
@@ -53,8 +53,8 @@
             <!-- Infirmier associé -->
             <tr>
                 <td class="formPatientLabel">Infirmier associé:</td>
-                <td layout>
-                    <md-select ng-model="$ctrl.patient.nurseId" ng-disabled="$ctrl.disabled" layout-fill>
+                <td>
+                    <md-select ng-model="$ctrl.patient.nurseId" ng-disabled="$ctrl.disabled">
                         <md-option ng-repeat="nurse in $ctrl.nurses"
                                    value="{{nurse.id}}">
                             {{nurse.name + ' ' + nurse.firstname}}
@@ -81,9 +81,9 @@
                 <td class="formPatientLabel">Numéro de sécurité sociale:</td>
                 <td>
 
-                    <md-input-container layout>
+                    <md-input-container>
                         <input ng-model="$ctrl.patient.ssid" ng-pattern="$ctrl.ssidPattern"
-                               md-minlength="15" md-maxlength="15" layout-fill
+                               md-minlength="15" md-maxlength="15"
                                ng-disabled="$ctrl.disabled" autocomplete="off"/>
                     </md-input-container>
 
@@ -94,9 +94,9 @@
             <tr>
                 <td class="formPatientLabel">Numéro (adresse):</td>
                 <td>
-                    <md-input-container layout>
+                    <md-input-container>
                         <input ng-model="$ctrl.patient.adressNumber" ng-pattern="$ctrl.ssidPattern"
-                               md-minlength="3" md-maxlength="10" layout-fill
+                               md-minlength="3" md-maxlength="10"
                                ng-disabled="$ctrl.disabled" autocomplete="off"/>
                     </md-input-container>
 
@@ -107,9 +107,9 @@
             <tr>
                 <td class="formPatientLabel">Rue:</td>
                 <td>
-                    <md-input-container layout>
+                    <md-input-container>
                         <input ng-model="$ctrl.patient.adressStreet" ng-pattern="$ctrl.patientInfoPattern"
-                               md-minlength="3" md-maxlength="50" layout-fill
+                               md-minlength="3" md-maxlength="50"
                                ng-disabled="$ctrl.disabled" autocomplete="off"/>
                     </md-input-container>
                 </td>
@@ -119,9 +119,9 @@
             <tr>
                 <td class="formPatientLabel">Code postal:</td>
                 <td>
-                    <md-input-container layout>
+                    <md-input-container>
                         <input ng-model="$ctrl.patient.adressPostcode" ng-pattern="$ctrl.postcodePattern"
-                               md-minlength="5" md-maxlength="5" layout-fill
+                               md-minlength="5" md-maxlength="5"
                                ng-disabled="$ctrl.disabled" autocomplete="off"/>
                     </md-input-container>
                 </td>
@@ -132,9 +132,9 @@
                 <td class="formPatientLabel">Etage:</td>
                 <td>
 
-                    <md-input-container layout>
+                    <md-input-container>
                         <input ng-model="$ctrl.patient.adressFloor" ng-pattern="$ctrl.postalcodePattern"
-                               md-minlength="3" md-maxlength="50" layout-fill
+                               md-minlength="3" md-maxlength="50"
                                ng-disabled="$ctrl.disabled" autocomplete="off"/>
                     </md-input-container>
 
@@ -145,9 +145,9 @@
             <tr>
                 <td class="formPatientLabel">Ville:</td>
                 <td>
-                    <md-input-container layout>
+                    <md-input-container>
                         <input ng-model="$ctrl.patient.adressCity" ng-pattern="$ctrl.patientInfoPattern"
-                               md-minlength="3" md-maxlength="50" layout-fill
+                               md-minlength="3" md-maxlength="50"
                                ng-disabled="$ctrl.disabled" autocomplete="off"/>
                     </md-input-container>
 
@@ -168,7 +168,7 @@
     </form>
 
     <!-- un peu de marge -->
-    <div style="height: 100px">&nbsp;</div>
+    <div style="height: 50px">&nbsp;</div>
 
     <!--        <div>
                 {{$ctrl}}

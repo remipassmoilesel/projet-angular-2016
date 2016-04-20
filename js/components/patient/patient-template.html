@@ -3,7 +3,7 @@
     <!-- La partie haute avec le nom du patient -->
     <md-card-title>
         <md-card-title-text 
-            ng-class="{'patientFemale': $ctrl.data.gender === 'F', 'patientMale': $ctrl.data.gender === 'H', 'patientOther': $ctrl.data.gender === 'A'}">
+            ng-class="{'patientFemale': $ctrl.data.gender === 'F', 'patientMale': $ctrl.data.gender === 'M', 'patientOther': $ctrl.data.gender === 'A'}">
             <span class="md-headline">
                 {{$ctrl.data.name + ' ' + $ctrl.data.firstname}}
             </span>
@@ -20,7 +20,7 @@
 
         <!-- Affichage des informations de base -->
         <md-content ng-switch-when="summary" flex style="overflow: hidden;">
-            <table style="width: 100%">
+            <table style="width: 100%; ">
                 <tr ng-repeat="(kinfo, info) in $ctrl.summaryDatas">
                     <td class="patientInfoLabel">{{kinfo}}:</td>
                     <td>{{info}}</td>
