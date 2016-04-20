@@ -54,7 +54,8 @@
             <tr>
                 <td class="formPatientLabel">Infirmier associé:</td>
                 <td>
-                    <md-select ng-model="$ctrl.patient.nurseId" ng-disabled="$ctrl.disabled">
+                    <md-select ng-model="$ctrl.patient.nurseId" ng-disabled="$ctrl.disabled"
+                            style="width: 200px">
                         <md-option ng-repeat="nurse in $ctrl.nurses"
                                    value="{{nurse.id}}">
                             {{nurse.name + ' ' + nurse.firstname}}

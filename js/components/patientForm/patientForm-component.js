@@ -8,7 +8,7 @@ var template = require('./patientForm-template.html');
 require('./patientForm-component.css');
 var constants = require('../../utils/constants');
 
-var PatientFormController = function ($http, datah, $scope, mdToastService) {
+var PatientFormController = function ($http, datah, $scope, mdToastService, $timeout) {
 
     // conserver les références des services
     this.$http = $http;
@@ -71,19 +71,21 @@ var PatientFormController = function ($http, datah, $scope, mdToastService) {
 
     };
 
-    // option de désaffectation
-    if (typeof this.nurses !== "undefined") {
-        this.nurses.push({
+    // option de désaffectation, à ajouter tardivement
+    var vm = this;
+    $timeout(function () {
+        vm.nurses.push({
             name: "Patient sans infirmier",
             id: ""
         });
-    }
+    });
 
-    console.log(this.nurses);
+
 };
 
 // injection de dépendance sous forme d'un tableau de chaine de caractères
-PatientFormController.$inject = ["$http", constants.serviceDataHandler, "$scope", constants.serviceMdToast];
+PatientFormController.$inject = ["$http", constants.serviceDataHandler, "$scope",
+    constants.serviceMdToast, "$timeout"];
 
 /**
  * Valider le formulaire et l'envoyer

@@ -11,4 +11,10 @@
             (Patients: {{$ctrl.data.patientNbr}})
         </span>
 
+    <md-tooltip md-direction="bottom">
+        {{$ctrl.data.name + " " + $ctrl.data.firstname}},
+        Identifiant: {{$ctrl.data.id}},
+        Patients affectés: {{$ctrl.data.patientNbr}}.
+    </md-tooltip>
+
 </div>
