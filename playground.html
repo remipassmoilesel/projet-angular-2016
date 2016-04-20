@@ -27,8 +27,19 @@ Fichier utilisé pour essais
 <script src="node_modules/angular-route/angular-route.js"></script>
 <script>
 
+    var data = 1;
+    var obj = {
+        data: this.data
+    }
+
+    console.log(data);
+    console.log(obj);
+
+
     var array = [];
     console.log(typeof array);
+
+
 
 
     var mod = angular.module('routingDemoApp', ['ngRoute']);

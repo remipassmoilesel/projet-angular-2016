@@ -446,6 +446,10 @@ DataHandler.prototype.searchNurses = function (wanted) {
             testsPartA.push((wanted.firstname || '').toLocaleLowerCase());
             testsPartB.push((p.firstname || '').toLocaleLowerCase());
 
+            // identifiant
+            testsPartA.push((wanted.id || '').toLocaleLowerCase());
+            testsPartB.push((p.id || '').toLocaleLowerCase());
+
             // iterer les tests
             for (var j = 0; j < testsPartA.length; j++) {
                 var a = testsPartA[j];

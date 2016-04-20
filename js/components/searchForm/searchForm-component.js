@@ -9,29 +9,26 @@ require('./searchForm-component.css');
 
 var constants = require('../../utils/constants.js');
 
-var SearchFormController = function ($http, datah, $scope) {
+var SearchFormController = function ($http, datah, $scope, $rootScope, $timeout) {
 
     // conserver les références des services
     this.$http = $http;
     this.datah = datah;
     this.$scope = $scope;
+    this.$timeout = $timeout;
 
-    // les informations a rechercher 
-    this.person = {
-        name: "",
-        firstname: ""
-    };
+    var vm = this;
 
     // listes de tous les infirmiers pour le formulaire
-    this.allNurses = this.datah.getNurses();
+    this.datah.getNurses().then(function (response) {
+        vm.allNurses = response;
+    })
 
-    // les résultats de recherche
-    this.results = [];
-
+    this.search();
 
 };
 // injection de dépendance sous forme d'un tableau de chaine de caractères
-SearchFormController.$inject = ["$http", constants.serviceDataHandler, "$scope"];
+SearchFormController.$inject = ["$http", constants.serviceDataHandler, "$scope", "$rootScope", "$timeout"];
 
 /**
  * Recherche un patient  ou un infirmier et affiche des résultats
@@ -44,17 +41,38 @@ SearchFormController.prototype.search = function () {
     this.patientResults = [];
     this.showFormMessage("");
 
-    // vérifier le format des champs
-    if (this.person.name.length < 1 &&
-            this.person.firstname.length < 1) {
+    // vérifier les champs
+    var formIsOk = false;
+    var toCheck = [this.personName, this.personFirstname, this.personId];
+    for (var i in toCheck) {
+        var tc = toCheck[i];
+        if (typeof tc !== "undefined" && tc.length > 0) {
+            formIsOk = true;
+        }
+    }
+
+    if (formIsOk === false) {
         this.showFormMessage("Vous devez remplir au moins un des champs.");
         return;
     }
 
-    var vm = this;
-    this.datah.searchPatients(this.person).then(function (patients) {
+    var wantedPatient = {
+        name: this.personName,
+        firstname: this.personFirstName,
+        ssid: this.personId,
+    };
+    var wantedNurse = {
+        name: this.personName,
+        firstname: this.personFirstName,
+        id: this.personId,
+    };
 
-        vm.datah.searchNurses(vm.person).then(function (nurses) {
+    var vm = this;
+    this.datah.searchPatients(wantedPatient).then(function (patients) {
+
+        vm.datah.searchNurses(wantedNurse).then(function (nurses) {
+
+            console.log(vm);
 
             if (nurses.length > 0) {
                 vm.nurseResults = nurses;
@@ -67,11 +85,10 @@ SearchFormController.prototype.search = function () {
             else {
                 vm.showFormMessage("Aucun résultat ne correspond à vos critères.", 5000);
             }
+
         });
 
     });
-
-
 
 };
 
@@ -98,12 +115,38 @@ SearchFormController.prototype.showFormMessage = function (msg, timeDisplayMs) {
 
 };
 
+SearchFormController.prototype.getSearchUrl = function () {
+
+    var output = "#/search";
+    var params = [this.personName, this.personFirstname, this.personId];
+
+    for (var i = 0; i < params.length; i++) {
+
+        var p = params[i];
+
+        if (typeof p !== "undefined" && p.length > 0) {
+            output += "/" + p;
+        }
+        else {
+            // l'espace sera ignoré dans la recherche
+            output += "/ ";
+        }
+
+    }
+
+    return output;
+}
+
 module.exports = function (angularMod) {
 
     angularMod.component("searchForm", {
         template: template,
         controller: SearchFormController,
         bindings: {
+            personName: "@",
+            personFirstname: "@",
+            personId: "@"
         }
     });
+
 };

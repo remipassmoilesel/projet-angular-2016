@@ -22,8 +22,11 @@ module.exports = {
         "$routeParams",
 
         function (datah, utils, serviceMdToast, $routeParams) {
-            console.log("/search/");
-            console.log("$routeParams");
-            console.log($routeParams);
+
+            // récuperer les arguments de l'url pour les transmettre à la recherche
+            this.personName = $routeParams['name'] || '';
+            this.personFirstname = $routeParams['firstname'] || '';
+            this.personId = $routeParams['id'] || '';
+
         }]
 };

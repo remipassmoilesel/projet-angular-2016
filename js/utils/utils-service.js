@@ -75,9 +75,6 @@ Utils.prototype.dateObjectToString = function (objectDate) {
  */
 Utils.prototype.newDistantRepetedRequest = function (toastService, funcPromise, cbSuccess, cbCatch) {
 
-    console.log("newDistantRepetedRequest");
-    console.log(toastService);
-
     var vm = this;
 
     // initialisation de tableaux de variables pour suivre les requetes en cours
@@ -86,9 +83,6 @@ Utils.prototype.newDistantRepetedRequest = function (toastService, funcPromise, 
         funcPromise.utilsRequestAttempts = [];
         funcPromise.utilsRequestIntervals = [];
     }
-
-    console.log("funcPromise");
-    console.log(funcPromise);
 
     funcPromise()
 

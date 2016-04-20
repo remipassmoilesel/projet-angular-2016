@@ -184,7 +184,8 @@ module.exports = function (angularMod) {
             data: "<",
             /**
              * La listes des infirmiers disponibles. La liste est passée ici en paramètre
-             * pour éviter les appels à répétition
+             * pour éviter des appels à répétition en cas d'affichage par exemple d'une
+             * centaine de patients.
              */
             nurses: "<",
             /**

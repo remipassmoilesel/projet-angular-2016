@@ -1,5 +1,5 @@
 .nurseLargeContent{
-    height: 180px;
+    height: 150px;
 }
 
 .nurseSmallContent{
@@ -9,4 +9,12 @@
 .nurseInfoLabel{
     font-weight: bolder;
     width: 20%;
+}
+
+.nursePatientLink{
+    text-decoration: none;
+}
+
+.nursePatientLink:hover{
+    text-decoration: underline;
 }

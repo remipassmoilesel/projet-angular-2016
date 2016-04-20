@@ -33,7 +33,9 @@
         <md-content ng-switch-when="affectedPatients">
             <ul>
                 <li ng-repeat="patient in $ctrl.affectedPatients">
-                    <a href="#/search/{{patient.ssid}}">{{patient.name}} {{patient.firstname}}</a>
+                    <a href="#/search/{{patient.name}}/{{patient.firstname}}/{{patient.ssid}}"
+                        class="nursePatientLink">
+                        {{patient.name}} {{patient.firstname}} ({{patient.ssid}})</a>
                 </li>
             </ul>
             <span ng-show="$ctrl.affectedPatients.length === 0">Aucun patient affecté</span>
