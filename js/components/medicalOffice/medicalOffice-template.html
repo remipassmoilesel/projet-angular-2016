@@ -16,7 +16,7 @@
             prennent en paramètre leur controleur et leur element d'appartance.
             -->
             <md-button ng-repeat="(k, element) in $ctrl.menuElements" class="medicalOfficeMenuButton"
-                       ng-href="{{'#' + element.url}}">
+                       ng-href="{{'#' + element.urlSimpleAccess}}">
                 {{element.label}}
             </md-button>
 

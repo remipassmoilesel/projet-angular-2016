@@ -1,5 +1,5 @@
 /**
- * Afficher une infirmière sous un plus petit format
+ * Afficher une infirmière sous un plus petit format, potentiellement draggable (l'infirmière, ha ha ...)
  *
  * @type 
  */

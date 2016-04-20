@@ -1,6 +1,8 @@
 /**
  * Gestion des vues et des routes du cabinet médical.
  *
+ * Les routes et les controlleurs sont déclarés dynamiquement.
+ *
  * @constructor
  */
 
@@ -32,37 +34,60 @@ SecretaryRoutes.prototype.registerRoutesIn = function (angularMod) {
             + elmt.template;
     };
 
+    // creer un nom de controlleur dynamique
+    var controllerNameOf = function(elmt){
+        return "ViewControllerOf_" + (elmt.urlSimpleAccess.replace(/[^\w\s]/gi, ''));
+    }
+
     var vm = this;
 
-    // enregistrer les routes dans le composant
+    // déclarer dynamiquement les controlleurs
+    for (var elmtK in vm.views) {
+        var elmt = vm.views[elmtK];
+
+        // declarer le controlleur, au nom de l'url simple
+        if (typeof elmt.controller !== "undefined") {
+            angularMod.controller(controllerNameOf(elmt),
+                elmt.controller);
+        }
+    }
+
+
+    // declarer dynamiquement les routes
     angularMod.config(['$routeProvider', function ($routeProvider) {
 
         // iterer les vues diponibles pour établir les routes possibles
         for (var elmtK in vm.views) {
-
             var elmt = vm.views[elmtK];
 
-            // parametres de la route
-            var params = {
-                template: makeViewTemplate(elmt),
-                controller: elmt.controller,
-                controllerAs: "$ctrl"
-            };
-
-            // injection de dépendances si necessaire
-            if (typeof elmt.dependencies !== "undefined") {
-                params.resolve = elmt.dependencies;
+            // verifier les patterns de routes
+            if (elmt.urlPatterns instanceof Array !== true) {
+                throw constants.INVALID_ARGUMENT;
             }
 
-            // creation de la route
-            $routeProvider.when(elmt.url, params);
+            // iterer les differentes routes possibe pour les déclarer
+            for (var r in elmt.urlPatterns) {
+
+                var route = elmt.urlPatterns[r];
+
+                // parametres de la route
+                var params = {
+                    template: makeViewTemplate(elmt),
+                    controller: controllerNameOf(elmt),
+                    controllerAs: "$ctrl"
+                };
+
+                // creation de la route
+                $routeProvider.when(route, params);
+
+            }
 
         }
 
         // route par défaut sur le premier element de la liste
         $routeProvider
             .otherwise({
-                redirectTo: vm.views[Object.keys(vm.views)[0]].url,
+                redirectTo: vm.views[Object.keys(vm.views)[0]].urlSimpleAccess,
             });
     }]);
 }

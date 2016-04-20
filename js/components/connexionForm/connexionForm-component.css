@@ -10,3 +10,10 @@
     color: blue;
     font-weight: bolder;
 }
+
+.connexionIndication{
+    color: darkgray;
+    font-size: 14px;
+    font-weight: bolder;
+    margin: 3%;
+}

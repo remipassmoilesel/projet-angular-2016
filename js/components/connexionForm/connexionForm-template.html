@@ -7,8 +7,10 @@
         </div>
     </md-toolbar>
 
-    <div class="connexionComponentBlock" layout="col" layout-align="center" 
-         action="/" method="post">
+    <div class="connexionComponentBlock" style="text-align: center">
+
+        <div class="connexionIndication">
+            Entrez vos identifiants d'infirmier ou de secrétaire.</div>
 
         <!-- Formulaire de verification de mot de passe -->
         <form name="$ctrl.connexionForm" method="post" action="/">
@@ -26,7 +28,7 @@
             <md-input-container  class="md-block">
                 <label>Mot de passe</label>
                 <input md-maxlength="50" required name="password" ng-model="$ctrl.password"
-                       autocomplete="off"/>
+                       autocomplete="off" type="password"/>
                 <div ng-messages="connexionForm.password.$error">
                     <div ng-message="required">Champs requis.</div>
                     <div ng-message="md-maxlength">Ce champs doit faire moins de 50 caractères.</div>

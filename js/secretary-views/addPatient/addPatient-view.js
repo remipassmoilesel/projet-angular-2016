@@ -6,26 +6,27 @@ var constants = require('../../utils/constants.js');
 
 module.exports = {
     label: "Ajouter un patient",
-    urlPattern: "/addPatient",
-    url: "/addPatient",
+    urlPatterns: ["/addPatient"],
+    urlSimpleAccess: "/addPatient",
     template: require("./addPatient-template.html"),
-    controller: function (datah, utils, toasts) {
 
-        var vm = this;
-        utils.newDistantRepetedRequest(
-            toasts,
-            function () {
-                return datah.getNurses();
-            },
-            function (response) {
-                // mettre à jour le modèle
-                vm.allNurses = response;
-            });
+    controller: [
+        constants.serviceDataHandler,
+        constants.serviceUtils,
+        constants.serviceMdToast,
+        function (datah, utils, toasts) {
 
-    },
-    dependencies: {
-        datah: constants.serviceDataHandler,
-        utils: constants.serviceUtils,
-        toasts: constants.serviceMdToast
-    }
+            var vm = this;
+            utils.newDistantRepetedRequest(
+                toasts,
+                function () {
+                    return datah.getNurses();
+                },
+                function (response) {
+                    // mettre à jour le modèle
+                    vm.allNurses = response;
+                });
+
+        }]
+
 };
