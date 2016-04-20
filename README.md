@@ -21,7 +21,7 @@ Réalisé conjointement avec:
     https://github.com/AmiraHamrouni
 
 ## Caractéristiques
-.. Utilisation de la syntaxe de composant d'Angular
-.. Utilisation d'Angular Matérial: toasts, rsrag and drop, formulaires, ...
-.. Utilisation des routes: instanciation dynamique de route et utilisation des paramètres de route
+* Utilisation de la syntaxe de composant d'Angular
+* Utilisation d'Angular Matérial: toasts, rsrag and drop, formulaires, ...
+* Utilisation des routes: instanciation dynamique de route et utilisation des paramètres de route
 

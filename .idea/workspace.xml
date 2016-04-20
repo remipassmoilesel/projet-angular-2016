@@ -3,17 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="efd32969-4cd0-4224-a4b1-b7d17d7c6522" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/components/nurse/nurse-component.css" afterPath="$PROJECT_DIR$/js/components/nurse/nurse-component.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/components/nurse/nurse-template.html" afterPath="$PROJECT_DIR$/js/components/nurse/nurse-template.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/components/patient/patient-component.js" afterPath="$PROJECT_DIR$/js/components/patient/patient-component.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/components/searchForm/searchForm-component.css" afterPath="$PROJECT_DIR$/js/components/searchForm/searchForm-component.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/components/searchForm/searchForm-component.js" afterPath="$PROJECT_DIR$/js/components/searchForm/searchForm-component.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/components/searchForm/searchForm-template.html" afterPath="$PROJECT_DIR$/js/components/searchForm/searchForm-template.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/secretary-views/displaySearch/displaySearch-view.js" afterPath="$PROJECT_DIR$/js/secretary-views/displaySearch/displaySearch-view.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/secretary-views/displaySearch/search-template.html" afterPath="$PROJECT_DIR$/js/secretary-views/displaySearch/search-template.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/utils/datahandler-service.js" afterPath="$PROJECT_DIR$/js/utils/datahandler-service.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/utils/utils-service.js" afterPath="$PROJECT_DIR$/js/utils/utils-service.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/playground.html" afterPath="$PROJECT_DIR$/playground.html" />
     </list>
     <ignored path="amorcePAI.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -44,11 +33,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="nurse-component.css" pinned="false" current-in-tab="true">
+      <file leaf-file-name="nurse-component.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/components/nurse/nurse-component.css">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="68">
               <caret line="4" column="19" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="425">
+              <caret line="25" column="1" selection-start-line="25" selection-start-column="1" selection-end-line="25" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -137,13 +136,13 @@
         <option value="$PROJECT_DIR$/js/secretary-views/displaySearch/search-template.html" />
         <option value="$PROJECT_DIR$/js/secretary-views/displaySearch/displaySearch-view.js" />
         <option value="$PROJECT_DIR$/../README.md" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/js/components/patient/patient-component.js" />
         <option value="$PROJECT_DIR$/js/utils/utils-service.js" />
         <option value="$PROJECT_DIR$/js/components/searchForm/searchForm-template.html" />
         <option value="$PROJECT_DIR$/js/components/nurse/nurse-template.html" />
         <option value="$PROJECT_DIR$/js/components/searchForm/searchForm-component.js" />
         <option value="$PROJECT_DIR$/js/components/nurse/nurse-component.css" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -468,12 +467,12 @@
       <workItem from="1461048117110" duration="14663000" />
       <workItem from="1461069752748" duration="9685000" />
       <workItem from="1461082368092" duration="7278000" />
-      <workItem from="1461133134474" duration="9956000" />
+      <workItem from="1461133134474" duration="10043000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="46375000" />
+    <option name="totallyTimeSpent" value="46462000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="26" width="1366" height="742" extended-state="0" />
@@ -799,14 +798,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" column="98" selection-start-line="25" selection-start-column="98" selection-end-line="25" selection-end-column="98" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../memos/memo-angular.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
@@ -909,6 +900,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="19" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="25" column="1" selection-start-line="25" selection-start-column="1" selection-end-line="25" selection-end-column="1" />
           <folding />
         </state>
       </provider>
