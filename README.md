@@ -17,8 +17,8 @@ Utilisation:
 ### /!\ Les fichiers gulpfile.js et serverCabinetMedical.js ont été modifié.
 
 Réalisé conjointement avec:
-    https://github.com/zer0mode
-    https://github.com/AmiraHamrouni
+* https://github.com/zer0mode
+* https://github.com/AmiraHamrouni
 
 ## Caractéristiques
 * Utilisation de la syntaxe de composant d'Angular
