@@ -1,4 +1,6 @@
 node_modules
 /dist
 /dev
+/nbproject
 /nbproject/private/
+/.idea
