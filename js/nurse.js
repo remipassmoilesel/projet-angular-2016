@@ -1,6 +1,7 @@
 
 // feuille de style principale
 require("../css/start.css");
+require("../css/animate.css");
 
 // Chargement d'angular
 var angular = require("angular");

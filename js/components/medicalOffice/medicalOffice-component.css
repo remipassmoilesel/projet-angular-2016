@@ -39,22 +39,17 @@
 }
 
 
-.slideAnimation{
-    position: absolute;
-    width: 100%;
-}
-
-.slideAnimation.ng-enter,
-.slideAnimation.ng-leave {
+.viewSlideAnimation.ng-enter,
+.viewSlideAnimation.ng-leave {
     animation-duration: 0.7s;
     animation-fill-mode: both;
 }
 
-.slideAnimation.ng-enter {
+.viewSlideAnimation.ng-enter {
     animation-name: slideInLeft;
 }
 
-.slideAnimation.ng-leave {
+.viewSlideAnimation.ng-leave {
     animation-name: slideOutRight;
 }
 

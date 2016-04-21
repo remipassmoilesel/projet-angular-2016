@@ -32,3 +32,17 @@
     padding: 10px;
     font-size: 20px;
 }
+
+.patientAnimation.ng-enter,
+.patientAnimation.ng-leave {
+    animation-duration: 0.7s;
+    animation-fill-mode: both;
+}
+
+.patientAnimation.ng-enter {
+    animation-name: slideInDown;
+}
+
+.patientAnimation.ng-leave {
+    animation-name: slideOutDown;
+}

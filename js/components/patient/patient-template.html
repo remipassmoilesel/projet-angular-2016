@@ -1,9 +1,9 @@
-<md-card class="patientComponent" ng-drop = "true" ng-drop-success="$ctrl.dropHappened($data, $event)">
+<md-card class="patientComponent" ng-drop="true" ng-drop-success="$ctrl.dropHappened($data, $event)">
 
     <!-- La partie haute avec le nom du patient -->
     <md-card-title>
-        <md-card-title-text 
-            ng-class="{'patientFemale': $ctrl.data.gender === 'F', 'patientMale': $ctrl.data.gender === 'M', 'patientOther': $ctrl.data.gender === 'A'}">
+        <md-card-title-text
+                ng-class="{'patientFemale': $ctrl.data.gender === 'F', 'patientMale': $ctrl.data.gender === 'M', 'patientOther': $ctrl.data.gender === 'A'}">
             <span class="md-headline">
                 {{$ctrl.data.name + ' ' + $ctrl.data.firstname}}
             </span>
@@ -14,8 +14,8 @@
     <!-- La partie centrale, différente selon les actions demandées -->
     <md-card-content ng-switch="$ctrl.displayMode" class="patientInformationsContainer"
                      ng-class="{
-                                 patientLargeContent: $ctrl.displayMode !== 'summary',
-                                         patientSmallContent: $ctrl.displayMode === 'summary'
+                                 'patientLargeContent': $ctrl.displayMode !== 'summary',
+                                         'patientSmallContent': $ctrl.displayMode === 'summary'
                              }">
 
         <!-- Affichage des informations de base -->
@@ -30,20 +30,20 @@
 
         <!-- Affichage toutes les informations -->
         <md-content ng-switch-when="complete" flex>
-            <form-patient patient="$ctrl.data" disabled="true" 
-                          nurses = "$ctrl.nurses"></form-patient>
+            <form-patient patient="$ctrl.data" disabled="true"
+                          nurses="$ctrl.nurses"></form-patient>
         </md-content>
 
-        <!-- Modifier le patient. 
+        <!-- Modifier le patient.
         Les données sont différentes de celles qui sont affichées plus haut-->
-        <md-content ng-switch-when="modification" flex >
+        <md-content ng-switch-when="modification" flex>
             <form-patient patient="$ctrl.modificationsData" disabled="false"
                           on-form-validated="$ctrl.formHasBeenValidated()"
-                          nurses = "$ctrl.nurses"></form-patient>
+                          nurses="$ctrl.nurses"></form-patient>
         </md-content>
 
         <!-- Affichage toutes les visites -->
-        <md-content  ng-switch-when="visits" flex >
+        <md-content ng-switch-when="visits" flex>
             <visit ng-repeat="(kinfo, info) in $ctrl.data.visits" data='info'></visit>
             <span ng-show="$ctrl.data.visits.length < 1">Aucune visite à afficher</span>
         </md-content>
@@ -53,10 +53,11 @@
     <!-- La partie basse avec les boutons d'action -->
     <md-card-actions layout="row" layout-align="end center">
 
-        <md-button 
-            ng-show="$ctrl.displayMode !== 'summary'"
-            ng-click="$ctrl.setDisplayMode('summary')">
-            Replier</md-button>
+        <md-button
+                ng-show="$ctrl.displayMode !== 'summary'"
+                ng-click="$ctrl.setDisplayMode('summary')">
+            Replier
+        </md-button>
 
         <md-button ng-click="$ctrl.showPatientAdressInDialog()">Carte</md-button>
         <md-button ng-click="$ctrl.setDisplayMode('visits')">Visites</md-button>
