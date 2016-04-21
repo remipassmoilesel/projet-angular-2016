@@ -27,10 +27,10 @@
     <!-- espace de travail central -->
     <md-content flex class="medicalOfficeWorkspace">
 
-        <!-- La ou le contenu sera affiché -->
-        <div ng-view></div>
-
-        <div flex></div>
+        <!-- La ou le contenu sera affiché
+            Position abolue pour éviter les bug graphique lors des animations -->
+        <div ng-view class="slideAnimation" style="position: absolute;"
+            flex="90" flex-offset="5"></div>
 
     </md-content>
 

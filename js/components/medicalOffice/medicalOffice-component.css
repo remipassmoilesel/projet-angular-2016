@@ -1,4 +1,4 @@
-.medicalOffice{
+.medicalOffice {
     height: 100%;
     padding: 15px;
 }
@@ -19,7 +19,7 @@
     color: white;
 }
 
-.medicalOfficeDebugIndicator{
+.medicalOfficeDebugIndicator {
     margin-bottom: 25px;
     font-size: 11px;
     font-weight: bolder;
@@ -27,13 +27,34 @@
     text-align: center;
 }
 
-.medicalOfficeMenuButton{
+.medicalOfficeMenuButton {
     width: 90%;
     text-align: left;
 }
 
-.medicalOfficeWorkspace h1{
+.medicalOfficeWorkspace h1 {
     text-align: center;
     color: darkgray;
     font-size: 25px;
 }
+
+
+.slideAnimation{
+    position: absolute;
+    width: 100%;
+}
+
+.slideAnimation.ng-enter,
+.slideAnimation.ng-leave {
+    animation-duration: 0.7s;
+    animation-fill-mode: both;
+}
+
+.slideAnimation.ng-enter {
+    animation-name: slideInLeft;
+}
+
+.slideAnimation.ng-leave {
+    animation-name: slideOutRight;
+}
+

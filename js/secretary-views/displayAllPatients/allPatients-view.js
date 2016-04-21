@@ -3,6 +3,7 @@
  */
 
 var constants = require('../../utils/constants.js');
+require('./allPatients-template.css');
 
 module.exports = {
     label: "Liste de tous les patients",

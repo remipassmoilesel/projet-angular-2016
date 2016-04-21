@@ -10,7 +10,7 @@
   "main": "serverCabinetMedical.js",
   "dependencies": {
     "angular": "^1.5.3",
-    "angular-animate": "^1.5.3",
+    "angular-animate": "^1.5.5",
     "angular-aria": "^1.5.3",
     "angular-material": "^1.0.7",
     "angular-messages": "^1.5.3",
@@ -28,6 +28,7 @@
     "xmldom": "^0.1.19"
   },
   "devDependencies": {
+    "angular-animate": "^1.5.5",
     "css-loader": "^0.23.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",

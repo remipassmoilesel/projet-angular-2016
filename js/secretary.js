@@ -1,5 +1,6 @@
 // feuille de style principale
 require("../css/secretary.css");
+require("../css/animate.css");
 
 // Chargement d'angular
 var angular = require("angular");
@@ -11,13 +12,13 @@ require("angular-material/angular-material.css");
 // Messages d'erreur pour champs input
 require("angular-messages");
 
-// Transition douces animées
-require("angular-animate");
-
 // gestion des urls
 require("angular-route");
 
-// gestion des urls
+// Transition douces animées
+require("angular-animate");
+
+// drag and drop
 require("ng-draggable");
 
 // injection de HTML
@@ -28,8 +29,8 @@ require("angular-sanitize");
  */
 
 // déclarer le module cabinet medical, avec ses dépendances
-var medicalOfficeModule = angular.module("officeModule", ['ngRoute', angularMaterial,
-    'ngMessages', 'ngAnimate', "ngDraggable", "ngSanitize"]);
+var medicalOfficeModule = angular.module("officeModule", ['ngRoute', 'ngAnimate', angularMaterial,
+    'ngMessages', "ngDraggable", "ngSanitize"]);
 
 // utilitaires divers
 require("./utils/utils-service.js")(medicalOfficeModule);

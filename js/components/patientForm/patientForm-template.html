@@ -29,6 +29,8 @@
                 </td>
             </tr>
 
+            <tr><td>&nbsp;</td></tr>
+
             <!-- Genre du patient -->
             <tr>
                 <td class="formPatientLabel">Genre:</td>
@@ -40,8 +42,8 @@
                                ng-model="$ctrl.prettyGender"/>
                     </md-input-container>
 
-                    <md-radio-group ng-switch-default ng-model="$ctrl.patient.gender" name="gender"
-                    ="row">
+                    <md-radio-group ng-switch-default ng-model="$ctrl.patient.gender"
+                                    name="gender" layout="row">
                     <md-radio-button value="F" ng-disabled="$ctrl.disabled">Femme</md-radio-button>
                     <md-radio-button value="M" ng-disabled="$ctrl.disabled">Homme</md-radio-button>
                     <md-radio-button value="A" ng-disabled="$ctrl.disabled">Autre</md-radio-button>
@@ -55,7 +57,7 @@
                 <td class="formPatientLabel">Infirmier associé:</td>
                 <td>
                     <md-select ng-model="$ctrl.patient.nurseId" ng-disabled="$ctrl.disabled"
-                            style="width: 200px">
+                            style="width: 60%">
                         <md-option ng-repeat="nurse in $ctrl.nurses"
                                    value="{{nurse.id}}">
                             {{nurse.name + ' ' + nurse.firstname}}
@@ -71,8 +73,7 @@
                     <md-datepicker ng-model="$ctrl.patient.birthdate"
                                    md-placeholder="Date de naissance" ng-disabled="$ctrl.disabled"
                                    md-min-date="$ctrl.lowestDate" md-max-date="$ctrl.highestDate"
-                                   autocomplete="off"
-                    />
+                                   autocomplete="off" style="width: 60%"/>
                     </md-datepicker>
                 </td>
             </tr>
