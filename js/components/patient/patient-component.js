@@ -70,7 +70,7 @@ PatientController.prototype.dropHappened = function (nurse, event) {
         });
 
 
-}
+};
 
 /**
  * Modifier l'affichage du composant. Par exemple: seulement qqu informations,
@@ -144,8 +144,8 @@ PatientController.prototype.showPatientAdressInDialog = function () {
     var vm = this;
     this.$mdDialog.show({
         controller: function () {
-            this.adress = vm.data.adressNumber + " " + vm.data.adressStreet + ", "
-                + " " + vm.data.adressPostcode + " " + vm.data.adressCity + ", France";
+            this.adress = vm.data.adressNumber + " " + vm.data.adressStreet + ", " +
+             " " + vm.data.adressPostcode + " " + vm.data.adressCity + ", France";
             this.patientIdentity = vm.data.name + " " + vm.data.firstname;
             this.hide = function (answer) {
                 vm.$mdDialog.hide(answer);
