@@ -17,22 +17,23 @@ module.exports = {
         constants.serviceUtils,
         constants.serviceMdToast,
 
-        function (datah, utils, toasts) {
+        function(datah, utils, toasts) {
 
             var vm = this;
 
             /**
-             * Mise à jour des données 
+             * Mise à jour des données
              */
-            this.updateDatas = function () {
+            this.updateDatas = function() {
 
                 // récupérer les patients non affectés
                 utils.newDistantRepetedRequest(
                     toasts,
-                    function () {
+                    function() {
                         return datah.getNonAffectedPatients();
                     },
-                    function (response) {
+
+                    function(response) {
                         // mettre à jour le modèle
                         vm.nonAffectedPatients = response;
                     });
@@ -40,25 +41,25 @@ module.exports = {
                 // récupérer les infirmieres
                 utils.newDistantRepetedRequest(
                     toasts,
-                    function () {
+                    function() {
                         return datah.getNurses();
                     },
-                    function (response) {
+
+                    function(response) {
 
                         // mettre à jour le modèle
                         vm.allNurses = response;
 
                         // fonction d'affectation du nombre de patients
-                        var patientsForNurse = function (nurse) {
+                        var patientsForNurse = function(nurse) {
 
-                            datah.searchPatients({nurseId: nurse.id})
-                                .then(function (patients) {
+                            datah.searchPatients({
+                                    nurseId: nurse.id
+                                })
+                                .then(function(patients) {
                                     nurse.patientNbr = patients.length;
                                 })
 
-                                .catch(function (response) {
-                                    console.log(patients);
-                                });
                         };
 
                         // iterer les infirmieres
@@ -73,5 +74,6 @@ module.exports = {
             // premiere mise à jour
             this.updateDatas();
 
-        }]
+        }
+    ]
 };

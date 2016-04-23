@@ -11,7 +11,6 @@ require('./patient-component.css');
 // utilitaires et constantes
 var constants = require('../../utils/constants.js');
 
-
 var PatientController = function ($mdDialog, $scope, datah, utils, serviceMdToast) {
 
     // utilitaires

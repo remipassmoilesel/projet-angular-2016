@@ -9,7 +9,7 @@ require('./nurse-component.css');
 // utilitaires et constantes
 var constants = require('../../utils/constants.js');
 
-var NurseController = function ($mdDialog, $scope, datah, $mdToast) {
+var NurseController = function($mdDialog, $scope, datah, $mdToast) {
 
     // utilitaires
     this.datah = datah;
@@ -24,7 +24,9 @@ var NurseController = function ($mdDialog, $scope, datah, $mdToast) {
     this.setDisplayMode("summary");
 
     var vm = this;
-    datah.searchPatients({nurseId: this.data.id}).then(function (patients) {
+    datah.searchPatients({
+        nurseId: this.data.id
+    }).then(function(patients) {
         vm.affectedPatients = patients;
     });
 
@@ -33,12 +35,12 @@ var NurseController = function ($mdDialog, $scope, datah, $mdToast) {
 NurseController.$inject = ["$mdDialog", "$scope", constants.serviceDataHandler, "$mdToast"];
 
 /**
- * Modifier l'affichage du composant. Par exemple: seulement qqu informations, 
+ * Modifier l'affichage du composant. Par exemple: seulement qqu informations,
  * ou le tout
  * @param {type} mode
  * @returns {undefined}
  */
-NurseController.prototype.setDisplayMode = function (mode) {
+NurseController.prototype.setDisplayMode = function(mode) {
 
     if (this.availablesDisplayModes.indexOf(mode) === -1) {
         throw constants.INVALID_ARGUMENT + ": " + mode;
@@ -46,13 +48,16 @@ NurseController.prototype.setDisplayMode = function (mode) {
     this.displayMode = mode;
 };
 
-module.exports = function (angularMod) {
+module.exports = function(angularMod) {
 
     angularMod.component("nurse", {
         template: template,
         bindings: {
-            // Les informations de l'infirmier a afficher
-            data: "<"
+            /**
+             * Les informations de l'infirmier a afficher
+             * @type {String}
+             */
+            data: "<",
         },
         controller: NurseController
     });

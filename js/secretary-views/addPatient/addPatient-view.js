@@ -14,19 +14,22 @@ module.exports = {
         constants.serviceDataHandler,
         constants.serviceUtils,
         constants.serviceMdToast,
-        function (datah, utils, toasts) {
+        function(datah, utils, toasts) {
 
             var vm = this;
+
             utils.newDistantRepetedRequest(
                 toasts,
-                function () {
+                function() {
                     return datah.getNurses();
                 },
-                function (response) {
+
+                function(response) {
                     // mettre à jour le modèle
                     vm.allNurses = response;
                 });
 
-        }]
+        }
+    ]
 
 };

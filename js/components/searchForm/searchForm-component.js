@@ -115,7 +115,7 @@ SearchFormController.prototype.showFormMessage = function (msg, timeDisplayMs) {
 
 SearchFormController.prototype.getSearchUrl = function () {
 
-    var output = "#/search";
+    var output = "/search";
     var params = [this.personName, this.personFirstname, this.personId];
 
     for (var i = 0; i < params.length; i++) {

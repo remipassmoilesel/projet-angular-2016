@@ -24,7 +24,7 @@ var DisplayOfficeInfosController = function ($http, datah, $scope) {
     });
 
     // récupérer des statistiques
-    datah.getAllPatients().then(function (response) {
+    datah.getPatients().then(function (response) {
         vm.totalPatients = response.length;
     });
     datah.getNurses().then(function (response) {

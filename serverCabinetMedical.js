@@ -126,9 +126,9 @@ function init(port, applicationServerIP, applicationServerPort) {
     }
 
     /**
-     * Distribution de la page d'accueil.
+     * Distribution des ressource GET
      */
-    app.get('/', function(req, res) { // req contains the HTTP request, res is the response stream
+    app.get(/\/.*/, function(req, res) {
         serveStartPage(res);
     });
 
@@ -199,7 +199,8 @@ function init(port, applicationServerIP, applicationServerPort) {
     }
 
     /**
-     * URL Racine. Attend un login et un mot de passe, et sert la page à laquelle l'utilisateur à accés. La procédure est simplifiée,
+     * URL de connexion. Attend un login et un mot de passe, et sert la page à laquelle
+     *  l'utilisateur à accés. La procédure est simplifiée,
      * elle necessiterait l'usage de cookies etc...
      *
      */

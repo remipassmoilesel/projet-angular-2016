@@ -16,18 +16,24 @@ module.exports = {
         constants.serviceUtils,
         constants.serviceMdToast,
 
-        function (datah, utils, toasts) {
+        function(datah, utils, toasts) {
 
             var vm = this;
-            this.updateDatas = function () {
+
+            /**
+             * Mettre à jour les données en demandant de nouvelle données au serveur.
+             * @return {[type]} [description]
+             */
+            this.askForNewDatas = function() {
 
                 // mise à jour des infirmières
                 utils.newDistantRepetedRequest(
                     toasts,
-                    function () {
+                    function() {
                         return datah.getNurses();
                     },
-                    function (response) {
+
+                    function(response) {
 
                         // mettre à jour le modèle
                         vm.allNurses = response;
@@ -35,19 +41,56 @@ module.exports = {
                         // mise à jour des patients
                         utils.newDistantRepetedRequest(
                             toasts,
-                            function () {
-                                return datah.getAllPatients();
+                            function() {
+                                return datah.getUpdatedPatients();
                             },
-                            function (response) {
+
+                            function(response) {
                                 // mettre à jour le modèle
                                 vm.allPatients = response;
                             });
+
                     });
 
             }
 
             // première mise à jour
-            this.updateDatas();
+            datah.getPatients().then(function(response) {
+                vm.allPatients = response;
+            });
+            datah.getNurses().then(function(response) {
+                vm.allNurses = response;
+            });
 
-        }]
+            /**
+             * Fonction d'essai d'indisponibilité de serveur
+             * @return {[type]} [description]
+             */
+            this.testServerInterruption = function() {
+                var count = 0;
+                var max = 10;
+
+                // mise à jour des patients
+                utils.newDistantRepetedRequest(
+                    toasts,
+                    function() {
+                        return new Promise(function(resolve, reject) {
+                            if (count > max) {
+                                resolve();
+                            } else {
+                                console.log("count");
+                                console.log(count);
+                                setTimeout(reject, 500);
+                                count++;
+                            }
+                        });
+                    },
+                    function(response) {
+                        // mettre à jour le modèle
+                        vm.allPatients = response;
+                    });
+            }
+
+        }
+    ]
 };

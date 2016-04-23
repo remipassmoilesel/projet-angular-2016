@@ -9,24 +9,35 @@ require('./visit-component.css');
 
 var constants = require('../../utils/constants.js');
 
-var VisitController = function ($http, datah, $scope) {
+var VisitController = function($http, datah, $scope) {
 
     // conserver les références des services
     this.$http = $http;
     this.datah = datah;
     this.$scope = $scope;
 
+    console.log(this.nurses);
+
 };
 // injection de dépendance sous forme d'un tableau de chaine de caractères
 VisitController.$inject = ["$http", constants.serviceDataHandler, "$scope"];
 
-module.exports = function (angularMod) {
+module.exports = function(angularMod) {
 
     angularMod.component("visit", {
         template: template,
         controller: VisitController,
         bindings: {
-            data: "<"
+            /**
+             * Les données de la visite
+             * @type {String}
+             */
+            data: "<",
+            /**
+             * La liste des infirmiers, passées ici en paramètre pour éviter les appels à
+             * répétition
+             */
+            nurses: "<"
         }
     });
 };

@@ -8,17 +8,14 @@
 
 var constants = require('../utils/constants.js');
 
-function Utils() {
-    this.SERVICE_RESTORATION = "SERVICE_RESTORATION";
-    this.SERVICE_INTERRUPTION = "SERVICE_INTERRUPTION";
-}
+function Utils() {}
 
 /**
  * Retourne une date formattée sous la forme dd/mm/yyyy
  * @param {type} date
  * @returns {String|Utils.prototype.getPrettyDate.sep}
  */
-Utils.prototype.getPrettyDate = function (date) {
+Utils.prototype.getPrettyDate = function(date) {
 
     var sep = "/";
 
@@ -26,9 +23,7 @@ Utils.prototype.getPrettyDate = function (date) {
         date = new Date();
     }
 
-    return date.getDate()
-        + sep + date.getMonth()
-        + sep + date.getFullYear();
+    return date.getDate() + sep + date.getMonth() + sep + date.getFullYear();
 
 };
 
@@ -37,7 +32,7 @@ Utils.prototype.getPrettyDate = function (date) {
  * @param {type} stringDate
  * @returns {undefined}
  */
-Utils.prototype.stringToDateObject = function (stringDate) {
+Utils.prototype.stringToDateObject = function(stringDate) {
     return new Date(stringDate.trim());
 };
 
@@ -46,7 +41,7 @@ Utils.prototype.stringToDateObject = function (stringDate) {
  * @param {type} stringDate
  * @returns {undefined}
  */
-Utils.prototype.dateObjectToString = function (objectDate) {
+Utils.prototype.dateObjectToString = function(objectDate) {
     return objectDate.toISOString().substr(0, 10);
 };
 
@@ -62,82 +57,80 @@ Utils.prototype.dateObjectToString = function (objectDate) {
  *
  * Si elle échoue plus de 4 fois un message averti l'utilisateur.
  *
- * /!\ funcPromise s'éxécute dans l'environnement du controlleur
+ * /!\ Attention à l'environnement dans lequel s'éxécute funcPromise
  *
  * Test possible: utiliser testServerInterruption.sh
  *
- * @param ctx Le contexte d'execution de la requete. Des variables y sont enregistrées sur le nombre
- * de tentatives effectuées, ...
  * @param toastService Utilisé pour afficher d'éventuels messages
  * @param funcPromise La requete
- * @param cbSuccess Executée en cas de succés
- * @param cbCatch Executée en cas d'echec
  */
-Utils.prototype.newDistantRepetedRequest = function (toastService, funcPromise, cbSuccess, cbCatch) {
+Utils.prototype.newDistantRepetedRequest = function(toastService, funcPromise, cbSuccess, cbCatch) {
 
     var vm = this;
 
-    // initialisation de tableaux de variables pour suivre les requetes en cours
-    if (typeof funcPromise.utilsRequestAttempts === "undefined"
-        || typeof funcPromise.utilsRequestIntervals === "undefined") {
-        funcPromise.utilsRequestAttempts = [];
-        funcPromise.utilsRequestIntervals = [];
+    // initialisation de variables pour suivre les requetes en cours
+    if (typeof funcPromise.utilsRequestAttempts === "undefined") {
+        funcPromise.utilsRequestAttempts = 0;
+        funcPromise.utilsRequestInterval = undefined;
     }
 
     funcPromise()
 
-        // requete réussie
-        .then(function (response) {
+    // requete réussie
+    .then(function(response) {
 
-            // notification de reprise si nécéssaire
-            if (typeof funcPromise.utilsRequestAttempts[funcPromise] !== "undefined" &&
-                funcPromise.utilsRequestAttempts[funcPromise] > 4) {
-                toastService.showServerErrorEnd();
-            }
+        console.log(".then(function(response) {");
 
-            // remettre à zéro les compteurs
-            funcPromise.utilsRequestAttempts[funcPromise] = 0;
-            clearInterval(funcPromise.utilsRequestIntervals[funcPromise]);
-            funcPromise.utilsRequestIntervals[funcPromise] = undefined;
+        // notification de reprise si nécéssaire
+        if (funcPromise.utilsRequestAttempts > 4) {
+            toastService.showServerErrorEnd();
+        }
 
+        // remettre à zéro les compteurs
+        funcPromise.utilsRequestAttempts = 0;
+        clearInterval(funcPromise.utilsRequestInterval);
+        funcPromise.utilsRequestInterval = undefined;
+
+        if (typeof cbSuccess !== "undefined") {
             cbSuccess(response);
+        }
 
-        })
+    })
 
-        // requete ratée: signaler éventuellement puis réessayer
-        .catch(function (response) {
+    // requete ratée: signaler éventuellement puis réessayer
+    .catch(function(response) {
 
-            console.log("Request fail: ", funcPromise, response);
+        console.log("Request fail, tentative: " + funcPromise.utilsRequestAttempts,
+            funcPromise, response);
 
-            // lancer un compteur si aucun compteur correspondant n'est encore lancé
-            if (typeof funcPromise.utilsRequestIntervals[funcPromise] === "undefined") {
+        // lancer un compteur si aucun compteur correspondant n'est encore lancé
+        if (typeof funcPromise.utilsRequestInterval === "undefined") {
 
-                funcPromise.utilsRequestAttempts[funcPromise] = 1;
+            funcPromise.utilsRequestAttempts = 1;
 
-                funcPromise.utilsRequestIntervals[funcPromise] = setInterval(function () {
-                    // re-executer funcPromise
-                    vm.newDistantRepetedRequest(toastService, funcPromise, cbSuccess, cbCatch);
-                }, 700);
-            }
+            funcPromise.utilsRequestInterval = setInterval(function() {
+                // re-executer funcPromise
+                vm.newDistantRepetedRequest(toastService, funcPromise, cbSuccess, cbCatch);
+            }, 700);
+        }
 
-            funcPromise.utilsRequestAttempts[funcPromise]++;
+        funcPromise.utilsRequestAttempts++;
 
-            // notification si arrêt prolongé du service
-            if (funcPromise.utilsRequestAttempts[funcPromise] === 4) {
-                toastService.showServerError();
-            }
+        // notification si arrêt prolongé du service
+        if (funcPromise.utilsRequestAttempts === 4) {
+            toastService.showServerError();
+        }
 
-            // execution du cbCatch
-            if (typeof cbCatch !== "undefined") {
-                cbCatch(response);
-            }
-        });
+        if (typeof cbCatch !== "undefined") {
+            cbCatch(response);
+        }
+
+    });
 
 };
 
-module.exports = function (angularMod) {
+module.exports = function(angularMod) {
     var id = constants.serviceUtils;
     angularMod.service(id, Utils);
     return id;
 };
-
