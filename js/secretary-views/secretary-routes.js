@@ -92,7 +92,8 @@ SecretaryRoutes.prototype.registerRoutesIn = function(angularMod) {
             // route par défaut sur le premier element de la liste
             $routeProvider
                 .otherwise({
-                    redirectTo: vm.views[Object.keys(vm.views)[0]].urlSimpleAccess,
+                    // redirectTo: vm.views[Object.keys(vm.views)[0]].urlSimpleAccess,
+                    redirectTo: vm.views[Object.keys(vm.views)[3]].urlSimpleAccess,
                 });
         }
     ]);

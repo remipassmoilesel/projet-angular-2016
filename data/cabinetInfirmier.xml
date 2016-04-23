@@ -47,8 +47,22 @@
     </infirmiers>
 
     <patients>
-        <patient><nom>Aire</nom><prenom>Axel</prenom><numero>193061305545319</numero><sexe>M</sexe><naissance>1993-06-13T00:00:00.000Z</naissance><visite date="2014-12-08" intervenant="001"/><adresse><etage>4</etage><numero></numero><rue>avenue Felix Viallet</rue><ville>Grenoble</ville><codePostal>38031</codePostal></adresse></patient>
-        <patient><nom>Orouge</nom><prenom>Elvire</prenom><numero>280036902305219</numero><sexe>F</sexe><naissance>1980-03-08T00:00:00.000Z</naissance><visite date="2014-12-08" intervenant="003"/><adresse><etage></etage><numero></numero><rue>Rond-Point de la Croix de Vie</rue><ville>La Tronche</ville><codePostal>38700</codePostal></adresse></patient>
+        <patient><nom>Aire</nom><prenom>Axel</prenom><numero>193061305545319</numero><sexe>M</sexe><naissance>1993-05-31</naissance><visite date="2014-12-08" intervenant="002"/><adresse><etage>4</etage><numero></numero><rue>avenue Felix Viallet</rue><ville>Grenoble</ville><codePostal>38031</codePostal></adresse></patient>
+        <patient>
+            <nom>Orouge</nom>
+            <prenom>Elvire</prenom>
+            <numero>280036902305219</numero>
+            <sexe>F</sexe>
+            <naissance>1980-03-08T00:00:00.000Z</naissance>
+            <visite date="2014-12-08" intervenant="003"/>
+            <adresse>
+                <etage/>
+                <numero/>
+                <rue>Rond-Point de la Croix de Vie</rue>
+                <ville>La Tronche</ville>
+                <codePostal>38700</codePostal>
+            </adresse>
+        </patient>
         <patient>
             <nom>Oscare</nom>
             <prenom>Pien</prenom>
@@ -74,7 +88,20 @@
             </visite>
 
         </patient>
-        <patient><nom>Jean</nom><prenom>Kapoëtla</prenom><numero>110083306303570</numero><sexe>M</sexe><naissance>2010-08-02T00:00:00.000Z</naissance><visite date="2014-12-08" intervenant="002"/><adresse><etage></etage><numero></numero><rue>rue des Martyrs</rue><ville>Grenoble</ville><codePostal>38042</codePostal></adresse></patient>
+        <patient>
+            <nom>Jean</nom>
+            <prenom>Kapoëtla</prenom>
+            <numero>110083306303570</numero>
+            <sexe>M</sexe>
+            <naissance>2010-08-02T00:00:00.000Z</naissance><visite date="2014-12-08" intervenant="002"/>
+            <adresse>
+                <etage/>
+                <numero/>
+                <rue>rue des Martyrs</rue>
+                <ville>Grenoble</ville>
+                <codePostal>38042</codePostal>
+            </adresse>
+        </patient>
         <patient>
             <nom>Peplu</nom>
             <prenom>Jean</prenom>

@@ -1,9 +1,5 @@
 
-Enlever toutes les passage de references "nurses" etc ...
-
-Modifier la requete insistante pour utiliser des promesses au lieu des cb
-
-Fix on patient modified liste de tous les patients
+Vérfier le changement des dates de naissance
 
 Remplacer tous les appels standard utils par des services angular
 

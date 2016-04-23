@@ -1,0 +1,23 @@
+.visitComponent {
+    margin: 20px;
+    cursor: default;
+}
+.visitComponent td {
+    cursor: default;
+}
+.visitComponent th {
+    text-align: left;
+    color: gray;
+    font-size: 14px;
+    cursor: default;
+}
+.visitHeader {
+    font-size: 17px;
+    font-weight: bolder;
+}
+.visitTypeToolTiped:hover {
+    color: gray;
+}
+.visitTypeToolTiped:hover {
+    color: blue;
+}

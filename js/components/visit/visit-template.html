@@ -1,20 +1,34 @@
-<md-card>
+<div class="visitComponent">
 
     <!-- Date de la visite -->
-    <md-card-title>
-        <md-card-title-text>
-            <span class="md-headline">{{$ctrl.data.date}}</span>
-        </md-card-title-text>
-    </md-card-title>
+    <div class="visitHeader"> Le {{$ctrl.data.date}}, {{$ctrl.nurseName}}</div>
 
-    <!-- Contenu -->
-    <md-card-content>
-        {{$ctrl}}
-    </md-card-content>
+    <!-- Actes médicaux -->
+    <table style="width: 100%" >
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Type</th>
+                <th>Coeff.</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-show="$ctrl.data.actions.length > 0" ng-repeat="act in $ctrl.data.actions track by $index">
+                <td>{{act}}</td>
+                <td class="visitTypeToolTiped">
+                    {{$ctrl.actionDescriptions.actions[act]['type'].toLocaleUpperCase()}}
+                    <md-tooltip md-visible="demo.showTooltip" md-direction="{{demo.tipDirection}}">
+                        {{$ctrl.actionDescriptions.types[$ctrl.actionDescriptions.actions[act]['type']]}}
+                    </md-tooltip>
+                </td>
+                <td>{{$ctrl.actionDescriptions.actions[act]['coeff']}}</td>
+                <td>{{$ctrl.actionDescriptions.actions[act]['description']}}</td>
+            </tr>
+            <tr ng-show="$ctrl.data.actions.length < 1">
+                <td colspan="4"><i>Aucun acte médical à afficher.</i></td>
+            </tr>
+        </tbody>
+    </table>
 
-    <!-- Modes d'affichage -->
-    <md-card-actions layout="row" layout-align="end center">
-    </md-card-actions>
-
-
-</md-card>
+</div>
