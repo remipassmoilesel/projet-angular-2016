@@ -88,6 +88,11 @@ DataHandler.prototype.agregate = function(domElement) {
  * @returns {DataHandler.prototype.agregate.output|String}
  */
 DataHandler.prototype.copy = function(o) {
+
+    if (typeof o === "undefined") {
+        throw "Object cannot be undefined";
+    }
+
     return JSON.parse(JSON.stringify(o));
 };
 
@@ -111,7 +116,7 @@ DataHandler.prototype.getOfficeInformations = function() {
     else {
         return this.$q(function(resolve, reject) {
             // renvoyer une copie
-            resolve(vm.copy(this.officeInformations));
+            resolve(vm.copy(vm.officeInformations));
         });
     }
 
