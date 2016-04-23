@@ -19,11 +19,6 @@ var SearchFormController = function ($http, datah, $scope, $rootScope, $timeout)
 
     var vm = this;
 
-    // listes de tous les infirmiers pour le formulaire
-    this.datah.getNurses().then(function (response) {
-        vm.allNurses = response;
-    })
-
     this.search();
 
 };

@@ -23,6 +23,10 @@ Utils.prototype.getPrettyDate = function(date) {
         date = new Date();
     }
 
+    else if (date.constructor !== Date) {
+        date = new Date(date);
+    }
+
     return date.getDate() + sep + date.getMonth() + sep + date.getFullYear();
 
 };
@@ -78,8 +82,6 @@ Utils.prototype.newDistantRepetedRequest = function(toastService, funcPromise, c
 
     // requete réussie
     .then(function(response) {
-
-        console.log(".then(function(response) {");
 
         // notification de reprise si nécéssaire
         if (funcPromise.utilsRequestAttempts > 4) {

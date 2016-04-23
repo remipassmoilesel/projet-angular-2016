@@ -4,9 +4,9 @@
 
 <!-- Liste des infirmières -->
 <div layout="col" layout-align="center center">
-    <small-nurse data="nrs" ng-repeat="nrs in $ctrl.allNurses"></small-nurse>
+    <small-nurse data="nrs" ng-repeat="nrs in $ctrl.nurses"></small-nurse>
 </div>
 
 <!-- Liste des patients -->
 <patient ng-repeat="elmt in $ctrl.nonAffectedPatients" data="elmt"
-         nurses="$ctrl.allNurses" on-patient-modified="$ctrl.updateDatas()"></patient>
+         on-patient-modified="$ctrl.askForNewDatas()"></patient>

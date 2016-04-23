@@ -26,30 +26,16 @@ module.exports = {
              */
             this.askForNewDatas = function() {
 
-                // mise à jour des infirmières
+                // mise à jour des patients
                 utils.newDistantRepetedRequest(
                     toasts,
                     function() {
-                        return datah.getNurses();
+                        return datah.getUpdatedPatients();
                     },
 
                     function(response) {
-
                         // mettre à jour le modèle
-                        vm.allNurses = response;
-
-                        // mise à jour des patients
-                        utils.newDistantRepetedRequest(
-                            toasts,
-                            function() {
-                                return datah.getUpdatedPatients();
-                            },
-
-                            function(response) {
-                                // mettre à jour le modèle
-                                vm.allPatients = response;
-                            });
-
+                        vm.allPatients = response;
                     });
 
             }

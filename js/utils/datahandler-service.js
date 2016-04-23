@@ -60,6 +60,7 @@ DataHandler.prototype.asyncXmlParse = function(dataLocation) {
     });
 
 };
+
 /**
  * Méthode utilitaire permettant d'gréger le contenu de plusieurs balises XML
  * @param {type} domElement
@@ -82,6 +83,15 @@ DataHandler.prototype.agregate = function(domElement) {
 };
 
 /**
+ * Méthode utilitaire permettant de faire une copie profonde resultat
+ * @param {type} domElement
+ * @returns {DataHandler.prototype.agregate.output|String}
+ */
+DataHandler.prototype.copy = function(o) {
+    return JSON.parse(JSON.stringify(o));
+};
+
+/**
  * Obtenir des informations sur le cabinet. Les informations proviennent d'un cache.
  * Renvoi une promesse Angular.
  *
@@ -89,9 +99,8 @@ DataHandler.prototype.agregate = function(domElement) {
  */
 DataHandler.prototype.getOfficeInformations = function() {
 
-    console.log("DataHandler.prototype.getOfficeInformations = function() {");
-
-    var self = this;
+    //console.log("DataHandler.prototype.getOfficeInformations = function() {");
+    var vm = this;
 
     // les données n'existent pas, aller les chercher
     if (typeof this.officeInformations === "undefined") {
@@ -101,7 +110,8 @@ DataHandler.prototype.getOfficeInformations = function() {
     // les données existent, les resservir
     else {
         return this.$q(function(resolve, reject) {
-            resolve(self.officeInformations);
+            // renvoyer une copie
+            resolve(vm.copy(this.officeInformations));
         });
     }
 
@@ -114,22 +124,23 @@ DataHandler.prototype.getOfficeInformations = function() {
  */
 DataHandler.prototype.getUpdatedOfficeInformations = function() {
 
-    console.log("DataHandler.prototype.getUpdatedOfficeInformations = function() {");
+    //console.log("DataHandler.prototype.getUpdatedOfficeInformations = function() {");
 
-    var self = this;
+    var vm = this;
     return this.asyncXmlParse(constants.dataOffice)
         .then(function(xmlDoc) {
 
             // iterer et formatter les informations
             var result = {
                 name: xmlDoc.querySelector("cabinet nom").innerHTML,
-                adressComplete: self.agregate(xmlDoc, "cabinet adresse numero", "cabinet adresse rue", "cabinet adresse ville", "cabinet adresse codePostal")
+                adressComplete: vm.agregate(xmlDoc, "cabinet adresse numero", "cabinet adresse rue", "cabinet adresse ville", "cabinet adresse codePostal")
             };
 
             // mettre à jour le cache
-            self.officeInformations = result;
+            vm.officeInformations = result;
 
-            return result;
+            // renvoyer une copie
+            return vm.copy(result);
         });
 
 };
@@ -143,9 +154,9 @@ DataHandler.prototype.getUpdatedOfficeInformations = function() {
  */
 DataHandler.prototype.getNurses = function() {
 
-    console.log("DataHandler.prototype.getNurses = function() {");
+    //console.log("DataHandler.prototype.getNurses = function() {");
 
-    var self = this;
+    var vm = this;
 
     // les données n'existent pas, aller les chercher
     if (typeof this.nurses === "undefined") {
@@ -155,7 +166,8 @@ DataHandler.prototype.getNurses = function() {
     // les données existent, les resservir
     else {
         return this.$q(function(resolve, reject) {
-            resolve(self.nurses);
+            // renvoyer une copie
+            resolve(vm.copy(vm.nurses));
         });
     }
 
@@ -169,7 +181,7 @@ DataHandler.prototype.getNurses = function() {
  */
 DataHandler.prototype.getUpdatedNurses = function() {
 
-    var self = this;
+    var vm = this;
 
     return this.asyncXmlParse(constants.dataOffice)
         .then(function(xmlDoc) {
@@ -188,9 +200,9 @@ DataHandler.prototype.getUpdatedNurses = function() {
                 });
             }
 
-            self.nurses = output;
+            vm.nurses = output;
 
-            return output;
+            return vm.copy(output);
         });
 };
 
@@ -204,9 +216,8 @@ DataHandler.prototype.getUpdatedNurses = function() {
  */
 DataHandler.prototype.getPatients = function() {
 
-    console.log("DataHandler.prototype.getPatients = function() {");
-
-    var self = this;
+    //console.log("DataHandler.prototype.getPatients = function() {");
+    var vm = this;
 
     // les données n'existent pas, aller les chercher
     if (typeof this.patients === "undefined") {
@@ -216,7 +227,7 @@ DataHandler.prototype.getPatients = function() {
     // les données existent, les resservir
     else {
         return this.$q(function(resolve, reject) {
-            resolve(self.patients);
+            resolve(vm.copy(vm.patients));
         });
     }
 
@@ -231,7 +242,7 @@ DataHandler.prototype.getPatients = function() {
  */
 DataHandler.prototype.getUpdatedPatients = function() {
 
-    console.log("DataHandler.prototype.getUpdatedPatients = function() {");
+    //console.log("DataHandler.prototype.getUpdatedPatients = function() {");
 
     var vm = this;
     return this.asyncXmlParse(constants.dataOffice)
@@ -300,7 +311,7 @@ DataHandler.prototype.getUpdatedPatients = function() {
 
             vm.patients = output;
 
-            return output;
+            return vm.copy(output);
         });
 };
 
@@ -310,9 +321,9 @@ DataHandler.prototype.getUpdatedPatients = function() {
  */
 DataHandler.prototype.getActions = function() {
 
-    console.log("DataHandler.prototype.getActions = function() {");
+    //console.log("DataHandler.prototype.getActions = function() {");
 
-    var self = this;
+    var vm = this;
 
     // les données n'existent pas, aller les chercher
     if (typeof this.actions === "undefined") {
@@ -322,7 +333,7 @@ DataHandler.prototype.getActions = function() {
     // les données existent, les resservir
     else {
         return this.$q(function(resolve, reject) {
-            resolve(self.actions);
+            resolve(vm.copy(vm.actions));
         });
     }
 }
@@ -362,7 +373,7 @@ DataHandler.prototype.getUpdatedActions = function() {
 
             vm.actions = output;
 
-            return output;
+            return vm.copy(output);
         });
 };
 

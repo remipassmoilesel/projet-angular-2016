@@ -16,6 +16,12 @@ var PatientFormController = function ($http, datah, $scope, mdToastService, $tim
     this.$scope = $scope;
     this.mdToastService = mdToastService;
 
+    // récupérer les infirmières en cache (et pas en cash !)
+    var vm = this;
+    datah.getNurses().then(function(nurses) {
+        vm.nurses = nurses;
+    });
+
     // identifiant unique de formulaire
     this.formId = new Date().getTime();
 
@@ -207,12 +213,6 @@ module.exports = function (angularMod) {
              * Si vrai, le formulaire ne fera qu'afficher les informations
              */
             disabled: "<",
-            /**
-             * La listes des infirmiers disponibles. La liste est passée ici en paramètre
-             * pour éviter des appels à répétition en cas d'affichage par exemple d'une
-             * centaine de patients.
-             */
-            nurses: "<",
             /**
              * Si faux, le formulaire empêche de modifier un patient
              */

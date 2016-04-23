@@ -11,7 +11,7 @@ require('./patient-component.css');
 // utilitaires et constantes
 var constants = require('../../utils/constants.js');
 
-var PatientController = function ($mdDialog, $scope, datah, utils, serviceMdToast) {
+var PatientController = function($mdDialog, $scope, datah, utils, serviceMdToast) {
 
     // utilitaires
     this.datah = datah;
@@ -41,14 +41,15 @@ var PatientController = function ($mdDialog, $scope, datah, utils, serviceMdToas
 
 };
 PatientController.$inject = ["$mdDialog", "$scope", constants.serviceDataHandler,
-    constants.serviceUtils, constants.serviceMdToast];
+    constants.serviceUtils, constants.serviceMdToast
+];
 
 /**
  * Fonction déclenchée lors d'un drop d'objet
  * @param nurse
  * @param event
  */
-PatientController.prototype.dropHappened = function (nurse, event) {
+PatientController.prototype.dropHappened = function(nurse, event) {
 
     // vérifier l'objet passé en paramètre, il doit s'agir d'un infirmier
     if (typeof nurse === "undefined" || typeof nurse.id === "undefined") {
@@ -57,13 +58,13 @@ PatientController.prototype.dropHappened = function (nurse, event) {
 
     var vm = this;
     this.datah.affectPatient(this.data.ssid, nurse.id)
-        .then(function () {
+        .then(function() {
             vm.serviceMdToast.showMessage(
                 "Nouvelle attribution: " + vm.data.name + " / " + nurse.name);
 
             vm.onPatientModified();
         })
-        .catch(function () {
+        .catch(function() {
             vm.serviceMdToast.showMessage(
                 "Erreur lors de l'affectation. Veuillez recommencer.");
         });
@@ -77,7 +78,7 @@ PatientController.prototype.dropHappened = function (nurse, event) {
  * @param {type} mode
  * @returns {undefined}
  */
-PatientController.prototype.setDisplayMode = function (mode) {
+PatientController.prototype.setDisplayMode = function(mode) {
 
     if (this.availablesDisplayModes.indexOf(mode) === -1) {
         throw constants.INVALID_ARGUMENT + ": " + mode;
@@ -88,48 +89,48 @@ PatientController.prototype.setDisplayMode = function (mode) {
  * Demande confirmation puis supprime un utilisateur.
  * @returns {undefined}
  */
-PatientController.prototype.deletePatient = function () {
+PatientController.prototype.deletePatient = function() {
 
     // confirmer la suppression avec une boite de dialogue
     var vm = this;
     this.$mdDialog.show({
-            controller: function () {
-                this.data = vm.data;
-                this.hide = function (answer) {
-                    vm.$mdDialog.hide(answer);
-                };
-            },
-            controllerAs: "$ctrl",
-            template: require("./suppressionDialog.html"),
-            clickOutsideToClose: false
-        })
+        controller: function() {
+            this.data = vm.data;
+            this.hide = function(answer) {
+                vm.$mdDialog.hide(answer);
+            };
+        },
+        controllerAs: "$ctrl",
+        template: require("./suppressionDialog.html"),
+        clickOutsideToClose: false
+    })
 
-        // boite fermée, vérifier la réponse
-        .then(function (answer) {
-            if (answer === true) {
+    // boite fermée, vérifier la réponse
+    .then(function(answer) {
+        if (answer === true) {
 
-                // supprimer le patient
-                vm.datah.deletePatient(vm.data)
+            // supprimer le patient
+            vm.datah.deletePatient(vm.data)
 
-                    // suppression effective
-                    .then(function (response) {
-                        vm.serviceMdToast.showMessage("Suppression effective.");
-                    })
+            // suppression effective
+            .then(function(response) {
+                vm.serviceMdToast.showMessage("Suppression effective.");
+            })
 
-                    // erreur lors de la suppression
-                    .catch(function (response) {
-                        vm.serviceMdToast.showMessage(
-                            "Erreur lors de la suppression. Veuillez réessayer.",
-                            6000, true);
+            // erreur lors de la suppression
+            .catch(function(response) {
+                vm.serviceMdToast.showMessage(
+                    "Erreur lors de la suppression. Veuillez réessayer.",
+                    6000, true);
 
-                    });
+            });
 
-                // notification du composant parent si necessaire
-                if (typeof vm.onPatientModified !== "undefined") {
-                    vm.onPatientModified();
-                }
+            // notification du composant parent si necessaire
+            if (typeof vm.onPatientModified !== "undefined") {
+                vm.onPatientModified();
             }
-        });
+        }
+    });
 
 };
 
@@ -137,16 +138,16 @@ PatientController.prototype.deletePatient = function () {
  * Demande confirmation puis supprime un utilisateur.
  * @returns {undefined}
  */
-PatientController.prototype.showPatientAdressInDialog = function () {
+PatientController.prototype.showPatientAdressInDialog = function() {
 
     // confirmer la suppression avec une boite de dialogue
     var vm = this;
     this.$mdDialog.show({
-        controller: function () {
+        controller: function() {
             this.adress = vm.data.adressNumber + " " + vm.data.adressStreet + ", " +
-             " " + vm.data.adressPostcode + " " + vm.data.adressCity + ", France";
+                " " + vm.data.adressPostcode + " " + vm.data.adressCity + ", France";
             this.patientIdentity = vm.data.name + " " + vm.data.firstname;
-            this.hide = function (answer) {
+            this.hide = function(answer) {
                 vm.$mdDialog.hide(answer);
             };
         },
@@ -161,7 +162,7 @@ PatientController.prototype.showPatientAdressInDialog = function () {
  * L'utilisateur vient de modifier le patient, notifier le parent si necessaire
  * @returns {undefined}
  */
-PatientController.prototype.formHasBeenValidated = function () {
+PatientController.prototype.formHasBeenValidated = function() {
 
     // notification du composant parent si necessaire
     if (typeof this.onPatientModified !== "undefined") {
@@ -169,7 +170,7 @@ PatientController.prototype.formHasBeenValidated = function () {
     }
 };
 
-module.exports = function (angularMod) {
+module.exports = function(angularMod) {
 
     angularMod.component("patient", {
         bindings: {
@@ -177,12 +178,6 @@ module.exports = function (angularMod) {
              * Les données du patient à afficher
              */
             data: "<",
-            /**
-             * La listes des infirmiers disponibles. La liste est passée ici en paramètre
-             * pour éviter des appels à répétition en cas d'affichage par exemple d'une
-             * centaine de patients.
-             */
-            nurses: "<",
             /**
              * Une fonction optionnelle qui sera appelée en cas de modification
              */
