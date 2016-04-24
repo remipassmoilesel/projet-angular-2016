@@ -21,43 +21,6 @@ module.exports = {
 
             var vm = this;
 
-            // /**
-            //  * Mettre à jour les infirmiers et le nombre de patient
-            //  * @return {[type]} [description]
-            //  */
-            // this.updateNurses = function() {
-            //
-            //     // récupérer les infirmieres
-            //     utils.newDistantRepetedRequest(
-            //         toasts,
-            //         function() {
-            //             return datah.getNurses();
-            //         },
-            //
-            //         function(response) {
-            //
-            //             // mettre à jour le modèle
-            //             vm.allNurses = response;
-            //
-            //             // fonction d'affectation du nombre de patients
-            //             var patientsForNurse = function(nurse) {
-            //                 datah.searchPatients({
-            //                         nurseId: nurse.id
-            //                     })
-            //                     .then(function(patients) {
-            //                         nurse.patientNbr = patients.length;
-            //                     })
-            //             };
-            //
-            //             // iterer les infirmieres
-            //             for (var i = 0; i < vm.allNurses.length; i++) {
-            //                 var nurse = vm.allNurses[i];
-            //                 patientsForNurse(nurse);
-            //             }
-            //
-            //         });
-            // }
-
             /**
              * Mettre à jour les données en demandant de nouvelle données au serveur.
              * @return {[type]} [description]

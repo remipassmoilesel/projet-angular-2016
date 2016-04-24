@@ -99,7 +99,7 @@
                 <td>
                     <md-input-container>
                         <input ng-model="$ctrl.patient.adressNumber" ng-pattern="$ctrl.ssidPattern"
-                               md-minlength="3" md-maxlength="10" aria-label="Numéro d'adresse"
+                               md-minlength="1" md-maxlength="10" aria-label="Numéro d'adresse"
                                ng-disabled="$ctrl.disabled" autocomplete="off"/>
                     </md-input-container>
 
@@ -136,7 +136,7 @@
                 <td>
                     <md-input-container>
                         <input ng-model="$ctrl.patient.adressFloor" ng-pattern="$ctrl.postalcodePattern"
-                               md-minlength="3" md-maxlength="50"  aria-label="Etage"
+                               md-minlength="1" md-maxlength="10"  aria-label="Etage"
                                ng-disabled="$ctrl.disabled" autocomplete="off"/>
                     </md-input-container>
 
@@ -159,7 +159,7 @@
             <!-- Bouton envoyer, à texte variable et affiché seulement si le formulaire est actif -->
             <tr ng-show="$ctrl.disabled !== true">
                 <td colspan="2" style="text-align: center">
-                    <md-button class="md-raised md-hue-2" type="submit">
+                    <md-button class="md-raised md-primary" type="submit">
                         {{$ctrl.buttonValidText}}
                     </md-button>
                 </td>

@@ -20,7 +20,10 @@ module.exports = {
             utils.newDistantRepetedRequest(
                 toasts,
                 function() {
-                    return datah.getNurses();
+
+                    // Uniquement pour pouvoir tester l'interruption de service
+                    // return datah.getNurses();
+                    return datah.getUpdatedNurses();
                 },
 
                 function(response) {

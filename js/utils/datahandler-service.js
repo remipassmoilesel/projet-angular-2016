@@ -190,6 +190,8 @@ DataHandler.prototype.getUpdatedNurses = function() {
     return this.asyncXmlParse(constants.dataOffice)
         .then(function(xmlDoc) {
 
+            console.log("DataHandler.prototype.getUpdatedNurses = function() {");
+
             var output = [];
             var nurseTags = xmlDoc.querySelector("infirmiers").getElementsByTagName("infirmier");
 
@@ -535,6 +537,9 @@ DataHandler.prototype.searchPatients = function(wanted) {
             testsPartA.push((wanted.ssid || '').toLocaleLowerCase().trim());
             testsPartB.push((p.ssid || '').toLocaleLowerCase().trim());
 
+            var passed = 0;
+            var success = 0;
+
             // iterer les tests
             for (var j = 0; j < testsPartA.length; j++) {
                 var a = testsPartA[j];
@@ -542,13 +547,16 @@ DataHandler.prototype.searchPatients = function(wanted) {
 
                 // verifier que les parties ne soient pas vides
                 if (a.length > 0 && b.length > 0) {
-
+                    passed++;
                     // test
                     if (a === b) {
-                        output.push(p);
-                        break;
+                        success++;
                     }
                 }
+            }
+
+            if (success === passed) {
+                output.push(p);
             }
         }
 
@@ -591,6 +599,9 @@ DataHandler.prototype.searchNurses = function(wanted) {
             testsPartA.push((wanted.id || '').toLocaleLowerCase().trim());
             testsPartB.push((p.id || '').toLocaleLowerCase().trim());
 
+            var passed = 0;
+            var success = 0;
+
             // iterer les tests
             for (var j = 0; j < testsPartA.length; j++) {
                 var a = testsPartA[j];
@@ -598,13 +609,16 @@ DataHandler.prototype.searchNurses = function(wanted) {
 
                 // verifier que les parties ne soient pas vides
                 if (a.length > 0 && b.length > 0) {
-
+                    passed++;
                     // test
                     if (a === b) {
-                        output.push(p);
-                        break;
+                        success++;
                     }
                 }
+            }
+
+            if (success === passed) {
+                output.push(p);
             }
         }
 

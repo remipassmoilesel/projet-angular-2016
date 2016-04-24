@@ -3,26 +3,29 @@
     <table flex>
 
         <!-- affichage des informations -->
-        <tr><td>
+        <tr>
+            <td>
                 <b>Adresse:</b> {{$ctrl.adress}}
             </td>
 
             <td rowspan="2">
-        <md-button flex ng-click="$ctrl.resolveAdress()"
-                   class="md-raised md-primary">{{$ctrl.buttonText}}</md-button></td>
+                <md-button flex ng-click="$ctrl.resolveAdress()" aria-label="Recentrer la carte"
+                class="md-raised md-primary">{{$ctrl.buttonText}}</md-button>
+            </td>
         </tr>
 
-        <tr><td>
+        <tr>
+            <td>
 
                 <span ng-show="$ctrl.errorMessage === ''">
                     <b>Coordonnées:</b> {{$ctrl.adressPosition[0] + ", " + $ctrl.adressPosition[1]}}
                 </span>
 
-                <span ng-show="$ctrl.errorMessage !== ''" class="adressOnMapErrorMessage"
-                        ng-bind-html="$ctrl.errorMessage">
+                <span ng-show="$ctrl.errorMessage !== ''" class="adressOnMapErrorMessage" ng-bind-html="$ctrl.errorMessage">
                 </span>
 
-            </td></tr>
+            </td>
+        </tr>
 
     </table>
 

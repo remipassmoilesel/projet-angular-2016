@@ -38,7 +38,7 @@ MdToastService.prototype.showServerErrorEnd = function () {
  * Afficher un notification de service indisponible
  */
 MdToastService.prototype.showServerError = function () {
-    return this.showMessage("Serveur indisponible, veuillez rafraichir la page.", 10000, true);
+    return this.showMessage("Serveur indisponible, veuillez patienter ou rafraichir la page.", 10000, true);
 };
 
 /**
