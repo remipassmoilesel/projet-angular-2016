@@ -9,7 +9,7 @@ require('./searchForm-component.css');
 
 var constants = require('../../utils/constants.js');
 
-var SearchFormController = function ($http, datah, $scope, $rootScope, $timeout) {
+var SearchFormController = function($http, datah, $scope, $rootScope, $timeout) {
 
     // conserver les références des services
     this.$http = $http;
@@ -29,7 +29,7 @@ SearchFormController.$inject = ["$http", constants.serviceDataHandler, "$scope",
  * Recherche un patient  ou un infirmier et affiche des résultats
  * @returns {undefined}
  */
-SearchFormController.prototype.search = function () {
+SearchFormController.prototype.search = function() {
 
     // enlever les précédents résultats
     this.nurseResults = [];
@@ -56,7 +56,7 @@ SearchFormController.prototype.search = function () {
         firstname: this.personFirstName,
         ssid: this.personId,
     };
-    
+
     var wantedNurse = {
         name: this.personName,
         firstname: this.personFirstName,
@@ -64,20 +64,25 @@ SearchFormController.prototype.search = function () {
     };
 
     var vm = this;
-    this.datah.searchPatients(wantedPatient).then(function (patients) {
+    this.datah.searchPatients(wantedPatient).then(function(patients) {
 
-        vm.datah.searchNurses(wantedNurse).then(function (nurses) {
+        vm.datah.searchNurses(wantedNurse).then(function(nurses) {
 
             if (nurses.length > 0) {
                 vm.nurseResults = nurses;
             }
+
             if (patients.length > 0) {
                 vm.patientResults = patients;
             }
 
             // pas de résultats
-            else {
-                vm.showFormMessage("Aucun résultat ne correspond à vos critères.", 5000);
+            if (patients.length < 1 && nurses.length < 1) {
+                if (vm.personName.match(/\w+/) ||
+                    vm.personFirstname.match(/\w+/) ||
+                    vm.personId.match(/\w+/)) {
+                    vm.showFormMessage("Aucun résultat ne correspond à vos critères.", 5000);
+                }
             }
 
         });
@@ -92,7 +97,7 @@ SearchFormController.prototype.search = function () {
  * @param {type} timeDisplayMs
  * @returns {undefined}
  */
-SearchFormController.prototype.showFormMessage = function (msg, timeDisplayMs) {
+SearchFormController.prototype.showFormMessage = function(msg, timeDisplayMs) {
 
     // afficher le message
     this.controllerMessageSpace = msg;
@@ -101,7 +106,7 @@ SearchFormController.prototype.showFormMessage = function (msg, timeDisplayMs) {
     if (typeof timeDisplayMs !== "undefined") {
 
         var vm = this;
-        setTimeout(function () {
+        setTimeout(function() {
             vm.controllerMessageSpace = " ";
             vm.$scope.$apply();
         }, timeDisplayMs);
@@ -109,7 +114,7 @@ SearchFormController.prototype.showFormMessage = function (msg, timeDisplayMs) {
 
 };
 
-SearchFormController.prototype.getSearchUrl = function () {
+SearchFormController.prototype.getSearchUrl = function() {
 
     var output = "/search";
     var params = [this.personName, this.personFirstname, this.personId];
@@ -120,8 +125,7 @@ SearchFormController.prototype.getSearchUrl = function () {
 
         if (typeof p !== "undefined" && p.length > 0) {
             output += "/" + p;
-        }
-        else {
+        } else {
             // l'espace sera ignoré dans la recherche
             output += "/ ";
         }
@@ -131,7 +135,7 @@ SearchFormController.prototype.getSearchUrl = function () {
     return output;
 }
 
-module.exports = function (angularMod) {
+module.exports = function(angularMod) {
 
     angularMod.component("searchForm", {
         template: template,

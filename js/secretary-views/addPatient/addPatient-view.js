@@ -16,8 +16,29 @@ module.exports = {
         constants.serviceMdToast,
         function(datah, utils, toasts) {
 
-            var vm = this;
+            /**
+             * Mettre à jour les données en demandant de nouvelle données au serveur.
+             * @return {[type]} [description]
+             */
+            this.askForNewDatas = function() {
 
+                // mise à jour des patients
+                utils.newDistantRepetedRequest(
+                    toasts,
+                    function() {
+                        return datah.getUpdatedPatients();
+                    },
+
+                    function(response) {
+                        // mettre à jour le modèle
+                        vm.allPatients = response;
+                    });
+
+            }
+
+
+            // demander les infirmières
+            var vm = this;
             utils.newDistantRepetedRequest(
                 toasts,
                 function() {

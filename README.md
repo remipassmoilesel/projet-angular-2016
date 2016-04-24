@@ -37,4 +37,5 @@ Réalisé conjointement par:
 * L'utilisation des routes Angular, et leur déclaration dynamique
 * L'utilisation du drag & drop pour l'affectation des patients
 * L'utilisation d'outils cartographiques libres: Nominatim (OSM) et Leaflet
-* Un début de possibilité de connexion asynchrone
+* La possibilité de vérification d'identifiants asynchrone (malheureusement non utilisée)
+* L'utilisation d'injection de HTML
