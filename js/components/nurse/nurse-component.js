@@ -1,7 +1,8 @@
 /**
- * Composant de représentation d'un infirmier
+ * Composant de représentation d'un infirmier, avec toutes informations
  * @type Module nurse-template|Module nurse-template
  */
+
 // récuperer le template et le css
 var template = require('./nurse-template.html');
 require('./nurse-component.css');

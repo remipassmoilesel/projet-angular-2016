@@ -1,7 +1,12 @@
+/**
+ *
+ * Point d'entrée des infirmiers
+ *
+ */
+
 
 // feuille de style principale
-require("../css/start.css");
-require("../css/animate.css");
+require("animate.css");
 
 // Chargement d'angular
 var angular = require("angular");

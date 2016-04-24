@@ -1,5 +1,5 @@
 /**
- * Formulaire d'inscription et de modification de patient.
+ * Composant d'affichage des informations du cabinet médical: adresse, ...
  * @type Module formNewPatient-template|Module formNewPatient-template
  */
 

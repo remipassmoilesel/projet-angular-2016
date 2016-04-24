@@ -1,6 +1,7 @@
+/**
+ * Point d'entrée de connexion
+ */
 
-// feuille de style principale
-require("../css/start.css");
 
 // Chargement d'angular
 var angular = require("angular");

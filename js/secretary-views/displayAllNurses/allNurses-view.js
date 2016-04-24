@@ -1,5 +1,5 @@
 /*
- * Afficher le formulaire d'ajout de patient
+ * Afficher tous les infirmiers
  */
 
 var constants = require('../../utils/constants.js');

@@ -1,6 +1,10 @@
+/**
+ * Point d'entrée des secrétaires
+ */
+
+
 // feuille de style principale
-require("../css/secretary.css");
-require("../css/animate.css");
+require("animate.css");
 
 // Chargement d'angular
 var angular = require("angular");
@@ -73,6 +77,3 @@ require("./utils/mdtoast-service.js")(medicalOfficeModule);
 
 // affichage d'infirmier
 require("./components/smallNurse/smallNurse-component.js")(medicalOfficeModule);
-
-
-

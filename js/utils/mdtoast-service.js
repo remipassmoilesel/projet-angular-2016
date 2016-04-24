@@ -3,7 +3,7 @@
  * intempestifs.
  *
  * A l'avenir il serait pratique d'attribuer un "poids" aux mdtoast pour qu'il y ai une gestion plus
- * fine des priorités.
+ * fine des priorités d'affichage.
  *
  */
 

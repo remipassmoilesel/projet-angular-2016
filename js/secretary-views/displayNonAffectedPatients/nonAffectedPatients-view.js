@@ -1,5 +1,5 @@
 /**
- * Afficher les patient non affectés
+ * Afficher tous les patients non affectés
  */
 
 var constants = require('../../utils/constants.js');

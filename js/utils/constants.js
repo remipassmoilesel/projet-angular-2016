@@ -1,6 +1,7 @@
 /**
  * Retourne un objet contenant des constantes ou des variables de configuration.
- * Les scripts et les ressources sont référencées ici pour faciliter les modifications.
+ * Les scripts et les ressources sont référencées ici pour faciliter les modifications
+ * par refactoring.
  */
 module.exports = {
     /*

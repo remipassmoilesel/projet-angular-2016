@@ -1,5 +1,5 @@
 /**
- * Afficher un objet JSON de manière lisible. Supporte les références circulaires.
+ * Afficher un objet JSON de manière lisible, pour debuggage. Supporte les références circulaires.
  *
  * @type Module formNewPatient-template|Module formNewPatient-template
  */

@@ -13,7 +13,7 @@ require('./showAdressOnMap-component.css');
 
 var constants = require('../../utils/constants.js');
 
-// outil cartographique
+// outils cartographiques
 var L = require("leaflet");
 require('leaflet/dist/leaflet.css');
 
@@ -36,7 +36,7 @@ var ShowAdressOnMapController = function ($http, datah, $scope, $timeout) {
     // stockage de la position géographique en latitude longitude
     this.adressPosition = undefined;
 
-    // initialisation tardive de la carte, pour laisser le temps 
+    // initialisation tardive de la carte, pour laisser le temps
     // a angular de traiter l'id du div
     this.mapInitialized = false;
     $timeout(function () {
@@ -82,6 +82,7 @@ ShowAdressOnMapController.prototype.initializeMap = function () {
     // marquer comme initialisée
     this.mapInitialized = true;
 
+    // première resolution d'adresse
     this.resolveAdress();
 
 };
@@ -113,8 +114,7 @@ ShowAdressOnMapController.prototype.resolveAdress = function () {
         .then(function (response) {
 
             if (response.data.length < 1) {
-                console.log("ShowAdressOnMapController.prototype.resolveAdress = function () {");
-                console.log(response);
+                console.log("Erreur lors du géocodage", response);
                 vm.showGeocodingErrorMessage("notFound");
                 return;
             }
@@ -136,7 +136,7 @@ ShowAdressOnMapController.prototype.resolveAdress = function () {
 
         // erreur lors de la résolution
         .catch(function (response) {
-            console.log("ShowAdressOnMapController.prototype.resolveAdress = function () {");
+            console.log("Erreur lors du géocodage");
             console.log(response);
             vm.showGeocodingErrorMessage("serverError");
         });
@@ -189,7 +189,7 @@ ShowAdressOnMapController.prototype.setMapView = function (lat, lng, zoom, messa
     // placer la marque
     this.geoMark.setLatLng(latLon);
 
-    // afficher eventuellement un message 
+    // afficher eventuellement un message
     if (typeof messageHtml !== "undefined") {
         marker.bindPopup(messageHtml).openPopup();
     }
@@ -202,7 +202,7 @@ module.exports = function (angularMod) {
         template: template,
         controller: ShowAdressOnMapController,
         bindings: {
-            adress: "<",
+            adress: "@",
             mapHeight: "@"
         }
     });

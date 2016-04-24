@@ -1,5 +1,5 @@
 /**
- * Formulaire d'inscription et de modification de patient.
+ * Formulaire d'ajout et de modification de patient.
  * @type Module formNewPatient-template|Module formNewPatient-template
  */
 
@@ -40,7 +40,6 @@ var PatientFormController = function($http, datah, $scope, mdToastService, $time
     // conversion string > date
     this.patientBirthdate = typeof this.patient !== "undefined" ? new Date(this.patient.birthdate) : yesterday;
 
-
     // par défaut le bouton affiche ce texte
     this.buttonValidText = "Mettre à jour le patient";
 
@@ -62,6 +61,7 @@ var PatientFormController = function($http, datah, $scope, mdToastService, $time
         "I": "Indéterminé"
     };
     this.prettyGender = this.patient ? genders[this.patient.gender] || genders["I"] : genders["I"];
+
     // messages d'erreur
     this.formErrors = {
         'fillForm': {
@@ -189,7 +189,7 @@ PatientFormController.prototype.validFormAndSendData = function() {
 
 };
 /**
- *
+ * Montrer un message d'erreur à l'aide d'un toast
  * @param {type} message
  * @param {type} delay
  * @returns {undefined}

@@ -2,8 +2,7 @@
 
     <!-- La partie haute avec le nom du patient -->
     <md-card-title>
-        <md-card-title-text
-                ng-class="{'patientFemale': $ctrl.data.gender === 'F', 'patientMale': $ctrl.data.gender === 'M', 'patientOther': $ctrl.data.gender === 'A'}">
+        <md-card-title-text ng-class="{'patientFemale': $ctrl.data.gender === 'F', 'patientMale': $ctrl.data.gender === 'M', 'patientOther': $ctrl.data.gender === 'A'}">
             <span class="md-headline">
                 {{$ctrl.data.name + ' ' + $ctrl.data.firstname}}
             </span>
@@ -12,8 +11,7 @@
 
 
     <!-- La partie centrale, différente selon les actions demandées -->
-    <md-card-content ng-switch="$ctrl.displayMode" class="patientInformationsContainer"
-                     ng-class="{
+    <md-card-content ng-switch="$ctrl.displayMode" class="patientInformationsContainer" ng-class="{
                                  'patientLargeContent': $ctrl.displayMode !== 'summary',
                                          'patientSmallContent': $ctrl.displayMode === 'summary'
                              }">
@@ -30,16 +28,13 @@
 
         <!-- Affichage toutes les informations -->
         <md-content ng-switch-when="complete" flex>
-            <form-patient patient="$ctrl.data" disabled="true"
-                          nurses="$ctrl.nurses"></form-patient>
+            <form-patient patient="$ctrl.data" disabled="true" nurses="$ctrl.nurses"></form-patient>
         </md-content>
 
         <!-- Modifier le patient.
         Les données sont différentes de celles qui sont affichées plus haut-->
         <md-content ng-switch-when="modification" flex>
-            <form-patient patient="$ctrl.modificationsData" disabled="false"
-                          on-form-validated="$ctrl.formHasBeenValidated()"
-                          nurses="$ctrl.nurses"></form-patient>
+            <form-patient patient="$ctrl.modificationsData" disabled="false" on-form-validated="$ctrl.formHasBeenValidated()" nurses="$ctrl.nurses"></form-patient>
         </md-content>
 
         <!-- Affichage toutes les visites -->
@@ -53,17 +48,45 @@
     <!-- La partie basse avec les boutons d'action -->
     <md-card-actions layout="row" layout-align="end center">
 
-        <md-button
-                ng-show="$ctrl.displayMode !== 'summary'"
-                ng-click="$ctrl.setDisplayMode('summary')">
+        <md-button ng-show="$ctrl.displayMode !== 'summary'" ng-click="$ctrl.setDisplayMode('summary')">
             Replier
         </md-button>
 
-        <md-button ng-click="$ctrl.showPatientAdressInDialog()">Carte</md-button>
-        <md-button ng-click="$ctrl.setDisplayMode('visits')">Visites</md-button>
-        <md-button ng-click="$ctrl.setDisplayMode('complete')">Détails</md-button>
-        <md-button ng-click="$ctrl.setDisplayMode('modification')">Modifier</md-button>
-        <md-button ng-click="$ctrl.deletePatient()">Supprimer</md-button>
+        <md-button ng-click="$ctrl.showPatientAdressInDialog()">
+            Carte
+            <md-tooltip md-direction="bottom">
+                Afficher l'adresse du patient sur une carte interactive
+            </md-tooltip>
+        </md-button>
+
+        <md-button ng-click="$ctrl.setDisplayMode('visits')">
+            Visites
+            <md-tooltip md-direction="bottom">
+                Afficher les visites du patient
+            </md-tooltip>
+        </md-button>
+
+        <md-button ng-click="$ctrl.setDisplayMode('complete')">
+            Détails
+            <md-tooltip md-direction="bottom">
+                Afficher les détails du patient
+            </md-tooltip>
+        </md-button>
+
+        <md-button ng-click="$ctrl.setDisplayMode('modification')">
+            Modifier
+            <md-tooltip md-direction="bottom">
+                Modifier le patient
+            </md-tooltip>
+        </md-button>
+
+        <md-button ng-click="$ctrl.deletePatient()">
+            Supprimer...
+            <md-tooltip md-direction="bottom">
+                Supprimer le patient, avec confirmation
+            </md-tooltip>
+        </md-button>
+        
     </md-card-actions>
 
 </md-card>

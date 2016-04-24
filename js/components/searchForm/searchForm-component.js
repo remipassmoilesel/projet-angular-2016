@@ -1,5 +1,5 @@
 /**
- * Afficher un objet JSON de manière lisible
+ * Formulaire de recherche de patient et d'infirmier
  * @type Module formNewPatient-template|Module formNewPatient-template
  */
 
@@ -56,6 +56,7 @@ SearchFormController.prototype.search = function () {
         firstname: this.personFirstName,
         ssid: this.personId,
     };
+    
     var wantedNurse = {
         name: this.personName,
         firstname: this.personFirstName,

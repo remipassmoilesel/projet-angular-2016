@@ -1,5 +1,6 @@
 /**
- * Afficher une infirmière sous un plus petit format, potentiellement draggable (l'infirmière, ha ha ...)
+ * Afficher une infirmière sous un plus petit format,
+ * potentiellement draggable (l'infirmière, ha ha ...)
  *
  * @type
  */
@@ -19,12 +20,12 @@ var SmallNurseController = function($http, datah, $scope) {
     this.$scope = $scope;
 
     var vm = this;
+
+    // récupérer le nombre de patients affectés
     datah.searchPatients({
             nurseId: vm.data.id
         })
         .then(function(patients) {
-            // console.log(".then(function(patients) {");
-            // console.log(patients.length);
             vm.data.patientNbr = patients.length;
         })
 

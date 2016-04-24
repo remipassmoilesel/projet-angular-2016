@@ -1,16 +1,20 @@
-var gulp = require('gulp')
-        , webpack = require("gulp-webpack")
-        , named = require('vinyl-named')
-        , eslint = require('gulp-eslint')
-        , ExtractTextPlugin = require("extract-text-webpack-plugin")
-        , uglify = require('gulp-uglify')
-        , filter = require('gulp-filter')
-        , autoprefixer = require('gulp-autoprefixer')
-        , cleanCSS = require('gulp-clean-css')
-        , gzip = require('gulp-gzip')
-        , through = require('through-gulp')
-        , upath = require("upath")
-        ;
+/**
+ * Une tache "webpack-light" à été ajoutée sans pipe compréssé ni minifié pour
+ * alléger un peu la tâche de nos vilaines et lentes machines
+ */
+
+var gulp = require('gulp'),
+    webpack = require("gulp-webpack"),
+    named = require('vinyl-named'),
+    eslint = require('gulp-eslint'),
+    ExtractTextPlugin = require("extract-text-webpack-plugin"),
+    uglify = require('gulp-uglify'),
+    filter = require('gulp-filter'),
+    autoprefixer = require('gulp-autoprefixer'),
+    cleanCSS = require('gulp-clean-css'),
+    gzip = require('gulp-gzip'),
+    through = require('through-gulp'),
+    upath = require("upath");
 
 var webpackEntries = ['js/secretary.js', 'js/start.js', "js/nurse.js"];
 var filesToLint = ['js/**/*.js', 'serverCabinetMedical.js'];
@@ -30,7 +34,7 @@ function removeProblemFiles(fName) {
 }
 
 function listLinted() {
-    return stream = through(function (file, encoding, callback) {
+    return stream = through(function(file, encoding, callback) {
         this.push(file);
         if (file.eslint) {
             var fName = upath.normalizeSafe(file.cwd + '/' + file.eslint.filePath);
@@ -42,26 +46,25 @@ function listLinted() {
             }
         }
         callback();
-    }, function (callback) {
+    }, function(callback) {
         callback();
     });
 }
 
 function linterPipeline() {
     return gulp.src(problemFiles)
-            .pipe(eslint())
-            .pipe(listLinted())
-            .pipe(eslint.format())
-            ;
+        .pipe(eslint())
+        .pipe(listLinted())
+        .pipe(eslint.format());
 }
 
-gulp.task('lint', function () {
+gulp.task('lint', function() {
     return linterPipeline();
 });
 
-gulp.task('watch', function () {
+gulp.task('watch', function() {
     problemFiles.splice(0, filesToLint.length);
-    gulp.watch(filesToLint, function (event) {
+    gulp.watch(filesToLint, function(event) {
         var fName = upath.normalizeSafe(event.path);
         if (event.type !== 'deleted') {
             appendProblemFiles(fName);
@@ -70,53 +73,57 @@ gulp.task('watch', function () {
     });
 });
 
-gulp.task("webpack", function (callback) {
+gulp.task("webpack", function(callback) {
 
     var wp =
-            gulp.src(webpackEntries)
-            .pipe(named())
-            .pipe(webpack({
-                progress: false,
-                stats: {
-                    colors: true,
-                    modules: false,
-                    reasons: false
-                },
-                watch: true,
-                module: {
-                    loaders: [
-                        {test: /\.css$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader")},
-                        {test: /\.html$/, loader: 'raw-loader'},
-                        {test: /\.(png|woff|jpg|jpeg|gif)$/, loader: 'url-loader?limit=100000'}
-                    ]
-                },
-                plugins: [new ExtractTextPlugin("[name].css")],
-                failOnError: false
-            }));
+        gulp.src(webpackEntries)
+        .pipe(named())
+        .pipe(webpack({
+            progress: false,
+            stats: {
+                colors: true,
+                modules: false,
+                reasons: false
+            },
+            watch: true,
+            module: {
+                loaders: [{
+                    test: /\.css$/,
+                    loader: ExtractTextPlugin.extract("style-loader", "css-loader")
+                }, {
+                    test: /\.html$/,
+                    loader: 'raw-loader'
+                }, {
+                    test: /\.(png|woff|jpg|jpeg|gif)$/,
+                    loader: 'url-loader?limit=100000'
+                }]
+            },
+            plugins: [new ExtractTextPlugin("[name].css")],
+            failOnError: false
+        }));
 
 
     // Split CSS and JS process
-    var css = wp.pipe(filter('*.css'))
-            , js = wp.pipe(filter('*.js'));
+    var css = wp.pipe(filter('*.css')),
+        js = wp.pipe(filter('*.js'));
 
     // CSS process
     css.pipe(autoprefixer());
 
-
     // Split dev and dist
     css.pipe(gulp.dest('dev'))
-            .pipe(cleanCSS())
-            .pipe(gulp.dest('dist'))
-            .pipe(gzip())
-            .pipe(gulp.dest('dist'));
+        .pipe(cleanCSS())
+        .pipe(gulp.dest('dist'))
+        .pipe(gzip())
+        .pipe(gulp.dest('dist'));
 
 
     // JS process
     js.pipe(gulp.dest('dev'))
-            .pipe(uglify())
-            .pipe(gulp.dest('dist'))
-            .pipe(gzip())
-            .pipe(gulp.dest('dist'));
+        .pipe(uglify())
+        .pipe(gulp.dest('dist'))
+        .pipe(gzip())
+        .pipe(gulp.dest('dist'));
     return wp;
 });
 
@@ -127,38 +134,43 @@ gulp.task("webpack", function (callback) {
 /**
  * Tache modifiée pour s'éxecuter plus rapidement. Pas de version de distribution, pas de zip.
  */
-gulp.task("webpack-light", function () {
+gulp.task("webpack-light", function() {
 
     log("\n");
     log("Attention: version modifiée du fichier gulp.js original", true);
     log("\n");
 
     var wp =
-            gulp.src(webpackEntries)
-            .pipe(named())
-            .pipe(webpack({
-                progress: false,
-                stats: {
-                    colors: true,
-                    modules: false,
-                    reasons: false
-                },
-                watch: true,
-                module: {
-                    loaders: [
-                        {test: /\.css$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader")},
-                        {test: /\.html$/, loader: 'raw-loader'},
-                        {test: /\.(png|woff|jpg|jpeg|gif)$/, loader: 'url-loader?limit=100000'}
-                    ]
-                },
-                plugins: [new ExtractTextPlugin("[name].css")],
-                failOnError: false
-            }));
+        gulp.src(webpackEntries)
+        .pipe(named())
+        .pipe(webpack({
+            progress: false,
+            stats: {
+                colors: true,
+                modules: false,
+                reasons: false
+            },
+            watch: true,
+            module: {
+                loaders: [{
+                    test: /\.css$/,
+                    loader: ExtractTextPlugin.extract("style-loader", "css-loader")
+                }, {
+                    test: /\.html$/,
+                    loader: 'raw-loader'
+                }, {
+                    test: /\.(png|woff|jpg|jpeg|gif)$/,
+                    loader: 'url-loader?limit=100000'
+                }]
+            },
+            plugins: [new ExtractTextPlugin("[name].css")],
+            failOnError: false
+        }));
 
 
     // Split CSS and JS process
-    var css = wp.pipe(filter('*.css'))
-            , js = wp.pipe(filter('*.js'));
+    var css = wp.pipe(filter('*.css')),
+        js = wp.pipe(filter('*.js'));
 
     // CSS process
     css.pipe(autoprefixer());
@@ -178,6 +190,7 @@ gulp.task("webpack-light", function () {
  * @type Module safe|Module safe
  */
 var colors = require('colors/safe');
+
 function log(text, inColor) {
 
     if (inColor === undefined) {
@@ -191,9 +204,6 @@ function log(text, inColor) {
 }
 
 //gulp.task('default', ['webpack', 'lint', 'watch'], function () {
-gulp.task('default', ['webpack-light'], function () {
+gulp.task('default', ['webpack-light'], function() {
     console.log("Done.");
 });
-
-
-

@@ -32,6 +32,10 @@
     padding: 10px;
     font-size: 20px;
 }
+/*
+
+Tentative d'animation avortée, manque de temps
+
 
 .patientAnimation .ng-enter,
 .patientAnimation .ng-leave {
@@ -45,4 +49,4 @@
 
 .patientAnimation .ng-leave {
     animation-name: slideOutDown;
-}
+}*/

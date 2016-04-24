@@ -7,7 +7,6 @@
  * d'accéder à des données mises en cache et l'autre d'accéder aux données
  * du serveur. Préférer l'accés au cache.
  *
- *
  * La fonction asyncXmlParse est juste une fonction utilitaire qui permet de
  * réduire un peu le code.
  *
