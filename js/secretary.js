@@ -34,7 +34,29 @@ require("angular-sanitize");
 
 // déclarer le module cabinet medical, avec ses dépendances
 var medicalOfficeModule = angular.module("officeModule", ['ngRoute', 'ngAnimate', angularMaterial,
-    'ngMessages', "ngDraggable", "ngSanitize"]);
+    'ngMessages', "ngDraggable", "ngSanitize"
+]);
+
+/**
+ * Configurer les dates d'Angular Material
+ * @param  {[type]} function($mdDateLocaleProvider [description]
+ * @return {[type]}                                [description]
+ */
+medicalOfficeModule.config(function($mdDateLocaleProvider) {
+    $mdDateLocaleProvider.formatDate = function(date) {
+
+        var sep = "/";
+
+        if (typeof date === "undefined") {
+            date = new Date();
+        } else if (date.constructor !== Date) {
+            date = new Date(date);
+        }
+
+        return date.getDate() + sep + date.getMonth() + sep + date.getFullYear();
+
+    };
+});
 
 // utilitaires divers
 require("./utils/utils-service.js")(medicalOfficeModule);

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<cabinet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.ujf-grenoble.fr/l3miage/cabinet" xsi:schemaLocation="http://www.ujf-grenoble.fr/l3miage/cabinet ../schema/cabinet.xsd">
+<?xml version="1.0" encoding="UTF-8"?><cabinet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.ujf-grenoble.fr/l3miage/cabinet" xsi:schemaLocation="http://www.ujf-grenoble.fr/l3miage/cabinet ../schema/cabinet.xsd">
     <nom>Soins à Grenoble</nom>
     <adresse>
         <numero>60</numero>
@@ -48,19 +47,7 @@
     </infirmiers>
 
     <patients>
-        <patient>
-            <nom>Aire</nom>
-            <prenom>Axel</prenom>
-            <numero>193061305545319</numero>
-            <sexe>M</sexe>
-            <naissance>1993-05-31</naissance><visite date="2014-12-08" intervenant="002"/>
-            <adresse>
-                <etage>4</etage><numero/>
-                <rue>avenue Felix Viallet</rue>
-                <ville>Grenoble</ville>
-                <codePostal>38031</codePostal>
-            </adresse>
-        </patient>
+        <patient><nom>Aire</nom><prenom>Axel</prenom><numero>193061305545319</numero><sexe>M</sexe><naissance>1993-05-17</naissance><visite date="2014-12-08" intervenant="002"/><adresse><etage>4</etage><numero></numero><rue>avenue Felix Viallet</rue><ville>Grenoble</ville><codePostal>38031</codePostal></adresse></patient>
         <patient>
             <nom>Orouge</nom>
             <prenom>Elvire</prenom>
@@ -134,33 +121,5 @@
             </visite>
 
         </patient>
-        <patient>
-            <nom>Jean</nom>
-            <prenom>Claude</prenom>
-            <numero>111122525252112</numero>
-            <sexe>F</sexe>
-            <naissance>2016-04-13</naissance><visite date="2014-12-08" intervenant="002"/>
-            <adresse>
-                <etage></etage>
-                <numero></numero>
-                <rue></rue>
-                <ville></ville>
-                <codePostal></codePostal>
-            </adresse>
-        </patient>
-        <patient>
-            <nom>Claude</nom>
-            <prenom>Jules</prenom>
-            <numero>849449494949984</numero>
-            <sexe>M</sexe>
-            <naissance>2016-04-23</naissance><visite date="2014-12-08" intervenant="003"/>
-            <adresse>
-                <etage></etage>
-                <numero></numero>
-                <rue></rue>
-                <ville></ville>
-                <codePostal></codePostal>
-            </adresse>
-        </patient>
-    </patients>
+    <patient><nom>Jean</nom><prenom>Claude</prenom><numero>111122525252112</numero><sexe>F</sexe><naissance>2016-04-13</naissance><visite date="2014-12-08" intervenant="002"/><adresse><etage></etage><numero></numero><rue></rue><ville></ville><codePostal></codePostal></adresse></patient><patient><nom>Claude</nom><prenom>Jules</prenom><numero>849449494949984</numero><sexe>M</sexe><naissance>2016-04-23</naissance><visite date="2014-12-08" intervenant="003"/><adresse><etage></etage><numero></numero><rue></rue><ville></ville><codePostal></codePostal></adresse></patient></patients>
 </cabinet>

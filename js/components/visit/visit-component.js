@@ -9,7 +9,7 @@ require('./visit-component.css');
 
 var constants = require('../../utils/constants.js');
 
-var VisitController = function($http, datah, $scope) {
+var VisitController = function($http, datah, $scope, utils) {
 
     // conserver les références des services
     this.$http = $http;
@@ -30,9 +30,11 @@ var VisitController = function($http, datah, $scope) {
         vm.actionDescriptions = response;
     });
 
+    this.prettyDate = utils.getPrettyDate(this.data.date);
+
 };
 // injection de dépendance sous forme d'un tableau de chaine de caractères
-VisitController.$inject = ["$http", constants.serviceDataHandler, "$scope"];
+VisitController.$inject = ["$http", constants.serviceDataHandler, "$scope", constants.serviceUtils];
 
 module.exports = function(angularMod) {
 

@@ -21,3 +21,7 @@
 .visitTypeToolTiped:hover {
     color: blue;
 }
+
+.visitNoVisitMessage{
+    padding-top: 15px;
+}

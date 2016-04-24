@@ -1,7 +1,7 @@
 <div class="visitComponent">
 
     <!-- Date de la visite -->
-    <div class="visitHeader"> Le {{$ctrl.data.date}}, {{$ctrl.nurseName}}</div>
+    <div class="visitHeader"> Le {{$ctrl.prettyDate}}. Intervenant: {{$ctrl.nurseName}}.</div>
 
     <!-- Actes médicaux -->
     <table style="width: 100%" >
@@ -14,19 +14,28 @@
             </tr>
         </thead>
         <tbody>
+
+            <!-- Actex medicaux -->
             <tr ng-show="$ctrl.data.actions.length > 0" ng-repeat="act in $ctrl.data.actions track by $index">
+
                 <td>{{act}}</td>
+
                 <td class="visitTypeToolTiped">
                     {{$ctrl.actionDescriptions.actions[act]['type'].toLocaleUpperCase()}}
                     <md-tooltip md-visible="demo.showTooltip" md-direction="{{demo.tipDirection}}">
                         {{$ctrl.actionDescriptions.types[$ctrl.actionDescriptions.actions[act]['type']]}}
                     </md-tooltip>
                 </td>
+
                 <td>{{$ctrl.actionDescriptions.actions[act]['coeff']}}</td>
+
                 <td>{{$ctrl.actionDescriptions.actions[act]['description']}}</td>
+
             </tr>
+
+            <!-- Rien a afficher -->
             <tr ng-show="$ctrl.data.actions.length < 1">
-                <td colspan="4"><i>Aucun acte médical à afficher.</i></td>
+                <td colspan="4" class="visitNoVisitMessage"><i>Aucun acte médical à afficher.</i></td>
             </tr>
         </tbody>
     </table>

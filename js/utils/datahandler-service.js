@@ -190,7 +190,7 @@ DataHandler.prototype.getUpdatedNurses = function() {
     return this.asyncXmlParse(constants.dataOffice)
         .then(function(xmlDoc) {
 
-            console.log("DataHandler.prototype.getUpdatedNurses = function() {");
+            //console.log("DataHandler.prototype.getUpdatedNurses = function() {");
 
             var output = [];
             var nurseTags = xmlDoc.querySelector("infirmiers").getElementsByTagName("infirmier");

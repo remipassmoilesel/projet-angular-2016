@@ -69,13 +69,15 @@
 
             <!-- Date de naissance -->
             <tr>
-                <td class="formPatientLabel">Date de naissance:</td>
+                <td class="formPatientLabel">Date de naissance: </td>
                 <td>
                     <md-datepicker ng-model="$ctrl.patientBirthdate"
                                    md-placeholder="Date de naissance" ng-disabled="$ctrl.disabled"
                                    md-min-date="$ctrl.lowestDate" md-max-date="$ctrl.highestDate"
                                    autocomplete="off" style="width: 60%"/>
                     </md-datepicker>
+
+
                 </td>
             </tr>
 
@@ -98,8 +100,8 @@
                 <td class="formPatientLabel">Numéro (adresse):</td>
                 <td>
                     <md-input-container>
-                        <input ng-model="$ctrl.patient.adressNumber" ng-pattern="$ctrl.ssidPattern"
-                               md-minlength="1" md-maxlength="10" aria-label="Numéro d'adresse"
+                        <input ng-model="$ctrl.patient.adressNumber" ng-pattern="/^ *[0-9]{1,3} *$/"
+                               md-minlength="1" md-maxlength="3" aria-label="Numéro d'adresse"
                                ng-disabled="$ctrl.disabled" autocomplete="off"/>
                     </md-input-container>
 
@@ -135,8 +137,8 @@
                 <td class="formPatientLabel">Etage:</td>
                 <td>
                     <md-input-container>
-                        <input ng-model="$ctrl.patient.adressFloor" ng-pattern="$ctrl.postalcodePattern"
-                               md-minlength="1" md-maxlength="10"  aria-label="Etage"
+                        <input ng-model="$ctrl.patient.adressFloor" ng-pattern="/^ *[0-9]{1,3} *$/"
+                               md-minlength="1" md-maxlength="3"  aria-label="Etage"
                                ng-disabled="$ctrl.disabled" autocomplete="off"/>
                     </md-input-container>
 

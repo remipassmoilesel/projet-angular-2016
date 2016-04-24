@@ -24,7 +24,7 @@ var PatientFormController = function($http, datah, $scope, mdToastService, $time
     });
 
     // identifiant unique de formulaire
-    this.formId = new Date().getTime();
+    this.formId = "patientForm" + new Date().getTime();
 
     // pattern affectant les champs de texte
     this.patientInfoPattern = constants.patientInformationPattern;
@@ -119,6 +119,7 @@ PatientFormController.prototype.validFormAndSendData = function() {
      * /!\ Penser à vérifier si les variables sont indéfinies, ou le test regex passera
      */
     var simpleInfoPattern = new RegExp(this.patientInfoPattern);
+
     // verifier le nom
     if (typeof this.patient.name === "undefined" || simpleInfoPattern.test(this.patient.name) === false) {
         this.showFormError("name");
@@ -162,12 +163,12 @@ PatientFormController.prototype.validFormAndSendData = function() {
                 vm.mdToastService.showMessage("Erreur lors de l'enregistrement.", undefined, true);
             });
 
-
     };
 
     // Si la modification n'est pas autorisée, verifier si le patient existe deja
 
     if (this.allowModifyExistingPatient === "false") {
+
         this.datah.searchPatients({
                 ssid: this.patient.ssid
             })
