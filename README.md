@@ -42,6 +42,6 @@ Réalisé conjointement par:
 * Verification du numéro du patient en cas d'ajout
 
 ## Les (tous) petits moins
-Toutes les vérifications des formulaire n'ont pas été faites, par manque de temps.
-Le code n'a pas été testé, par manque de temps.
-Pas de tests unitaires.
+* Toutes les vérifications des formulaires n'ont pas été faites,
+* Le code n'a pas été complètement testé,
+* Pas de tests unitaires.
