@@ -8,14 +8,16 @@ var template = require('./patientForm-template.html');
 require('./patientForm-component.css');
 var constants = require('../../utils/constants');
 
-var PatientFormController = function($http, datah, $scope, mdToastService, $timeout, utils) {
+var PatientFormController = function($http, datah, $scope, mdToastService, $timeout, utils, $location) {
 
     // conserver les références des services
     this.$http = $http;
+    this.$location = $location;
     this.datah = datah;
     this.$scope = $scope;
     this.mdToastService = mdToastService;
     this.utils = utils;
+    this.$timeout = $timeout;
 
     // récupérer les infirmières en cache (et pas en cash !)
     var vm = this;
@@ -87,7 +89,7 @@ var PatientFormController = function($http, datah, $scope, mdToastService, $time
 
     };
 
-    // option de désaffectation, à ajouter tardivement
+    // option supplémentaire de désaffectation, à ajouter tardivement
     var vm = this;
     $timeout(function() {
         vm.nurses.push({
@@ -101,7 +103,7 @@ var PatientFormController = function($http, datah, $scope, mdToastService, $time
 
 // injection de dépendance sous forme d'un tableau de chaine de caractères
 PatientFormController.$inject = ["$http", constants.serviceDataHandler, "$scope",
-    constants.serviceMdToast, "$timeout", constants.serviceUtils
+    constants.serviceMdToast, "$timeout", constants.serviceUtils, "$location"
 ];
 
 /**
@@ -151,12 +153,20 @@ PatientFormController.prototype.validFormAndSendData = function() {
         vm.datah.addPatient(vm.patient).then(
                 // réussi
                 function(response) {
+
                     vm.mdToastService.showMessage("Enregistrement réussi.", undefined, true);
 
                     // notification du composant parent
                     if (typeof vm.onFormValidated !== "undefined") {
                         vm.onFormValidated();
                     }
+
+                    // afficher le patient tardivement, à améliorer
+                    vm.$timeout(function(){
+                        vm.$location.path('/search/' + vm.patient.name + "/"
+                            + vm.patient.fistname + "/" + vm.patient.ssid);
+                    }, 700);
+
                 })
             // non réussi
             .catch(function(response) {

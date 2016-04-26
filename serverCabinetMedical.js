@@ -136,7 +136,7 @@ function init(port, applicationServerIP, applicationServerPort) {
     /**
      * Distribution des ressource GET
      */
-    app.get(/\/.*/, function(req, res) {
+    app.get(/^\/.*/, function(req, res) {
         serveStartPage(res);
     });
 

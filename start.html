@@ -4,23 +4,32 @@
 
 <html lang="fr" ng-app="welcomeModule">
 
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Bienvenue !</title>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Bienvenue !</title>
 
-        <link rel="stylesheet" href="dev/start.css"/>
-        <script src="dev/start.js"></script>
-    </head>
+    <link rel="stylesheet" href="dev/start.css" />
+    <script src="dev/start.js"></script>
 
-    <body>
-        <div>
-            <div layout="row" >
-                <connexion-form flex="30" flex-offset="35"
-                                layout-align="center"></connexion-form>
-            </div>
-            <h5 style="text-align: center">Identifiants secrétaire faciles: 'a' 'b'</h5>
-            <h5 style="text-align: center">Identifiants infirmier faciles: 'nouiee' 'azerty'</h5>
+    <style type="text/css">
+        h5 {
+            text-align: center;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div>
+        <div layout="row">
+            <connexion-form flex="30" flex-offset="35" layout-align="center"></connexion-form>
         </div>
+        <h5>Identifiants secrétaire faciles: 'a' 'b'</h5>
+        <h5>Identifiants infirmier faciles: 'nouiee' 'azerty'</h5>
+        <p>&nbsp;</p>
+        <h5 style="color: rgb(135, 69, 0)">Système optimisé pour Google Chrome</h5>
+    </div>
 
-    </body>
+</body>
+
 </html>
