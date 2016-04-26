@@ -21,13 +21,11 @@ Utils.prototype.getPrettyDate = function(date) {
 
     if (typeof date === "undefined") {
         date = new Date();
-    }
-
-    else if (date.constructor !== Date) {
+    } else if (date.constructor !== Date) {
         date = new Date(date);
     }
 
-    return date.getDate() + sep + date.getMonth() + sep + date.getFullYear();
+    return date.getDate() + sep + (date.getMonth() + 1) + sep + date.getFullYear();
 
 };
 
@@ -42,11 +40,25 @@ Utils.prototype.stringToDateObject = function(stringDate) {
 
 /**
  * Conversion de date vers le format YYYY-MM-DD
+ *
+ * Bricolé car new Date(objectDate).toISOString().substr(0, 10); retourne
+ * la date UTC soit souvent une journée de moins, voir plus si affinité
+ *
  * @param {type} stringDate
  * @returns {undefined}
  */
 Utils.prototype.dateObjectToString = function(objectDate) {
-    return objectDate.toISOString().substr(0, 10);
+
+    function pad(number) {
+        var r = String(number);
+        if (r.length === 1) {
+            r = '0' + r;
+        }
+        return r;
+    }
+
+    var output = objectDate.getUTCFullYear() + '-' + pad(objectDate.getUTCMonth() + 1) + '-' + pad(objectDate.getDate());
+    return output;
 };
 
 /**

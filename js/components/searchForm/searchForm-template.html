@@ -47,7 +47,8 @@
         <nurse data="elmt" ng-repeat="elmt in $ctrl.nurseResults"></nurse>
 
         <h2 ng-if="$ctrl.patientResults.length > 0">Patients</h2>
-        <patient data="elmt" ng-repeat="elmt in $ctrl.patientResults"></patient>
+        <patient data="elmt" ng-repeat="elmt in $ctrl.patientResults"
+            on-patient-modified="$ctrl.refreshDatas()"></patient>
 
     </div>
 

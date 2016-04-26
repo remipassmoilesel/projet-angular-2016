@@ -255,12 +255,13 @@ function init(port, applicationServerIP, applicationServerPort) {
     });
 
     /**
-     * Procédure simplifiée de vérificatio d'identifiant, destinnée à un usage asynchrone. Pas utilisée malheureusement !
+     * Procédure simplifiée de vérificatio d'identifiant, destinnée à un usage asynchrone.
+     * Pas utilisée malheureusement !
      *
      */
     app.post('/lightCheckAccess', function(req, res) {
 
-        console.log("/rapidCheckAccess, \nreq.body:\n\t", req.body, "\n_______________________");
+        console.log("/lightCheckAccess, \nreq.body:\n\t", req.body, "\n_______________________");
 
         // vérifier le mot de passe et le login
         var accessTo = checkAccess(req.body.login, req.body.password);

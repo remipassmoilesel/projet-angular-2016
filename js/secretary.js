@@ -53,7 +53,9 @@ medicalOfficeModule.config(function($mdDateLocaleProvider) {
             date = new Date(date);
         }
 
-        return date.getDate() + sep + date.getMonth() + sep + date.getFullYear();
+        var output = date.getDate() + sep + (date.getMonth() + 1) + sep + date.getFullYear();
+
+        return output;
 
     };
 });

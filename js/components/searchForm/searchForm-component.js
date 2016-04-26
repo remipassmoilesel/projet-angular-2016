@@ -26,6 +26,21 @@ var SearchFormController = function($http, datah, $scope, $rootScope, $timeout) 
 SearchFormController.$inject = ["$http", constants.serviceDataHandler, "$scope", "$rootScope", "$timeout"];
 
 /**
+ * Mise à jour du cache de datahandler après une modification
+ * @return {[type]} [description]
+ */
+SearchFormController.prototype.refreshDatas = function() {
+
+    var vm = this;
+
+    this.datah.getUpdatedPatients()
+    .then(function(){
+        vm.search();
+    });
+
+}
+
+/**
  * Recherche un patient  ou un infirmier et affiche des résultats
  * @returns {undefined}
  */

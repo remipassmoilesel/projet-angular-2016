@@ -39,8 +39,8 @@ var PatientFormController = function($http, datah, $scope, mdToastService, $time
     this.lowestDate = new Date(1900, 01, 01);
     this.highestDate = new Date();
 
-    // conversion string > date
-    this.patientBirthdate = typeof this.patient !== "undefined" ? new Date(this.patient.birthdate) : yesterday;
+    // Modèle du selecteur de date
+    this.patientBirthdateModel = typeof this.patient !== "undefined" ? new Date(this.patient.birthdate) : yesterday;
 
     // par défaut le bouton affiche ce texte
     this.buttonValidText = "Mettre à jour le patient";
@@ -98,7 +98,6 @@ var PatientFormController = function($http, datah, $scope, mdToastService, $time
         });
     });
 
-
 };
 
 // injection de dépendance sous forme d'un tableau de chaine de caractères
@@ -141,7 +140,7 @@ PatientFormController.prototype.validFormAndSendData = function() {
         return;
     }
 
-    this.patient.birthdate = this.utils.dateObjectToString(this.patientBirthdate);
+    this.patient.birthdate = this.utils.dateObjectToString(this.patientBirthdateModel);
 
     // ajout du patient, déclenché plus bas en fonction de l'autorisation de modification
     var vm = this;
@@ -162,10 +161,11 @@ PatientFormController.prototype.validFormAndSendData = function() {
                     }
 
                     // afficher le patient tardivement, à améliorer
-                    vm.$timeout(function(){
-                        vm.$location.path('/search/' + vm.patient.name + "/"
-                            + vm.patient.fistname + "/" + vm.patient.ssid);
-                    }, 700);
+                    if (vm.goToSearchAfterValidate === "true") {
+                        vm.$timeout(function() {
+                            vm.$location.path('/search/' + vm.patient.name + "/" + vm.patient.firstname + "/" + vm.patient.ssid);
+                        }, 700);
+                    }
 
                 })
             // non réussi
@@ -245,7 +245,12 @@ module.exports = function(angularMod) {
             /*
              * Fonction optionnelle qui sera appelée lors de l'envoi du formulaire
              */
-            onFormValidated: "&"
+            onFormValidated: "&",
+            /**
+             * Si vrai alors le compsant redirigera vers la page de recherche après validation
+             * @type {String}
+             */
+            goToSearchAfterValidate: "@"
         }
     });
 };
