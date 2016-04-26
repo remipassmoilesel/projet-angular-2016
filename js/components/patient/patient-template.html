@@ -39,8 +39,11 @@
 
         <!-- Affichage toutes les visites -->
         <md-content ng-switch-when="visits" flex>
-            <visit ng-repeat="(kinfo, info) in $ctrl.data.visits" data='info'></visit>
-            <span ng-show="$ctrl.data.visits.length < 1">Aucune visite à afficher</span>
+            <visit ng-hide="$ctrl.data.visits.length > 0 && $ctrl.data.visits[0].idNurse != ''"
+                ng-repeat="(kinfo, info) in $ctrl.data.visits" data='info'></visit>
+            <div ng-show="$ctrl.data.visits.length < 1 || $ctrl.data.visits[0].idNurse != ''"
+                style="margin: 20px; font-weight: bolder; color: gray; font-style: italic">
+                Aucune visite à afficher</div>
         </md-content>
 
     </md-card-content>
@@ -86,7 +89,7 @@
                 Supprimer le patient, avec confirmation
             </md-tooltip>
         </md-button>
-        
+
     </md-card-actions>
 
 </md-card>

@@ -11,6 +11,8 @@ var constants = require('../../utils/constants.js');
 
 var VisitController = function($http, datah, $scope, utils) {
 
+    console.log(this);
+
     // conserver les références des services
     this.$http = $http;
     this.datah = datah;
@@ -22,15 +24,18 @@ var VisitController = function($http, datah, $scope, utils) {
     datah.searchNurses({
         id: vm.data.idNurse
     }).then(function(response) {
-        vm.nurse = response;
-        vm.nurseName = response[0].name + " " + response[0].firstname;
+
+        if (response.length > 0) {
+            vm.nurse = response;
+            vm.nurseName = response[0].name + " " + response[0].firstname;
+        }
     });
 
     datah.getActions().then(function(response) {
         vm.actionDescriptions = response;
     });
 
-    this.prettyDate = utils.getPrettyDate(this.data.date);
+    this.prettyDate = this.data.date != "" ? utils.getPrettyDate(this.data.date) : "";
 
 };
 // injection de dépendance sous forme d'un tableau de chaine de caractères

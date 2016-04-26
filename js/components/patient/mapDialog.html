@@ -1,4 +1,4 @@
-<md-dialog aria-label="Carte interactive"  ng-cloak>
+<md-dialog aria-label="Carte interactive" style="width: 70%" ng-cloak>
 
     <!-- partie haute, avec le titre -->
     <md-toolbar>
@@ -14,7 +14,7 @@
     <!-- partie centrale, avec l'explication -->
     <md-dialog-content>
         <div class="md-dialog-content">
-            <show-adress-on-map adress='{{$ctrl.adress}}' popup='$ctrl.patientIdentity' 
+            <show-adress-on-map adress='{{$ctrl.adress}}' popup='$ctrl.patientIdentity'
                                 map-height='300px'></show-adress-on-map>
         </div>
     </md-dialog-content>

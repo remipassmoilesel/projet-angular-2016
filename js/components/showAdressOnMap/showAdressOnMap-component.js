@@ -100,6 +100,12 @@ ShowAdressOnMapController.prototype.resolveAdress = function () {
         return;
     }
 
+    var empty = /^\s*$/i;
+    if (this.adress.match(empty)){
+        vm.showGeocodingErrorMessage("invalidAddress");
+        return;
+    }
+
     // résoudre la position géographique de l'adresse
     this.$http({
             url: 'http://nominatim.openstreetmap.org/search',
@@ -160,6 +166,12 @@ ShowAdressOnMapController.prototype.showGeocodingErrorMessage = function (messag
         this.errorMessage = "Adresse non trouvée. Tentez votre " +
             "chance <a href='https://www.google.fr/maps/place/" + this.adress + "'" +
             " target='_blank'>ailleurs</a>.";
+        this.buttonText = "Rafraichir";
+        this.adressPosition = undefined;
+    }
+
+    else if (messageType === "invalidAddress") {
+        this.errorMessage = "Adresse non valide.";
         this.buttonText = "Rafraichir";
         this.adressPosition = undefined;
     }

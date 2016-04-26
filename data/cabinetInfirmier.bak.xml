@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<cabinet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.ujf-grenoble.fr/l3miage/cabinet"
-         xsi:schemaLocation="http://www.ujf-grenoble.fr/l3miage/cabinet ../schema/cabinet.xsd">
+<cabinet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.ujf-grenoble.fr/l3miage/cabinet" xsi:schemaLocation="http://www.ujf-grenoble.fr/l3miage/cabinet ../schema/cabinet.xsd">
     <nom>Soins à Grenoble</nom>
     <adresse>
         <numero>60</numero>
@@ -131,6 +130,11 @@
                 <acte id="104"/>
             </visite>
 
+            <visite date="2014-11-08" intervenant="001">
+                <acte id="101"/>
+                <acte id="105"/>
+            </visite>
+
         </patient>
         <patient>
             <nom>Xavier</nom>
@@ -152,6 +156,12 @@
             -->
             <visite date="2014-12-08" intervenant="001">
                 <acte id="111"/>
+            </visite>
+            <visite date="2014-12-08" intervenant="001">
+                <acte id="401"/>
+            </visite>
+            <visite date="2013-12-08" intervenant="001">
+                <acte id="400"/>
             </visite>
 
         </patient>

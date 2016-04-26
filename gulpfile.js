@@ -137,7 +137,7 @@ gulp.task("webpack", function(callback) {
 gulp.task("webpack-light", function() {
 
     log("\n");
-    log("Attention: version modifiée du fichier gulp.js original", true);
+    log("Attention: version modifiée du fichier gulp.js original destinée au développement (pas de lint, pas de version de distribution) ", true);
     log("\n");
 
     var wp =

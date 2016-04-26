@@ -12,8 +12,9 @@
     cursor: default;
 }
 .visitHeader {
-    font-size: 17px;
+    font-size: 15px;
     font-weight: bolder;
+    margin-bottom: 10px;
 }
 .visitTypeToolTiped:hover {
     color: gray;

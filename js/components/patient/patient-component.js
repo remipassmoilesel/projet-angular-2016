@@ -144,9 +144,27 @@ PatientController.prototype.showPatientAdressInDialog = function() {
     var vm = this;
     this.$mdDialog.show({
         controller: function() {
-            this.adress = vm.data.adressNumber + " " + vm.data.adressStreet + ", " +
-                " " + vm.data.adressPostcode + " " + vm.data.adressCity + ", France";
+
+            // mettre en forme l'adresse, uniquement si il y a de quoi le faire
+            var empty = /^\s*$/i;
+            if (vm.data.adressNumber.match(empty) &&
+                vm.data.adressStreet.match(empty) &&
+                vm.data.adressCity.match(empty) &&
+                vm.data.adressPostcode.match(empty)) {
+                this.adress = "";
+            } else {
+                this.adress = vm.data.adressNumber + " " + vm.data.adressStreet + ", " +
+                    " " + vm.data.adressPostcode + " " + vm.data.adressCity + ", France";
+            }
+
+            // Nom du patient
             this.patientIdentity = vm.data.name + " " + vm.data.firstname;
+
+            /**
+             * Masquage du dialogue
+             * @param  {[type]} answer [description]
+             * @return {[type]}        [description]
+             */
             this.hide = function(answer) {
                 vm.$mdDialog.hide(answer);
             };

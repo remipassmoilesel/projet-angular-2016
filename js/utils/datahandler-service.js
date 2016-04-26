@@ -555,7 +555,7 @@ DataHandler.prototype.searchPatients = function(wanted) {
                 }
             }
 
-            if (success === passed) {
+            if (passed > 0 && success === passed ) {
                 output.push(p);
             }
         }
@@ -617,7 +617,7 @@ DataHandler.prototype.searchNurses = function(wanted) {
                 }
             }
 
-            if (success === passed) {
+            if (passed > 0 && success === passed ) {
                 output.push(p);
             }
         }
