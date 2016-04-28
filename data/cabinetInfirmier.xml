@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><cabinet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.ujf-grenoble.fr/l3miage/cabinet" xsi:schemaLocation="http://www.ujf-grenoble.fr/l3miage/cabinet ../schema/cabinet.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<cabinet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.ujf-grenoble.fr/l3miage/cabinet" xsi:schemaLocation="http://www.ujf-grenoble.fr/l3miage/cabinet ../schema/cabinet.xsd">
     <nom>Soins à Grenoble</nom>
     <adresse>
         <numero>60</numero>
@@ -47,8 +48,111 @@
     </infirmiers>
 
     <patients>
-        <patient><nom>Aire</nom><prenom>Axel</prenom><numero>193061305545319</numero><sexe>M</sexe><naissance>1993-05-31</naissance><visite date="2014-12-08" intervenant="002"/><adresse><etage>4</etage><numero></numero><rue>avenue Felix Viallet</rue><ville>Grenoble</ville><codePostal>38031</codePostal></adresse></patient>
-        <patient><nom>Orougess</nom><prenom>Elvire</prenom><numero>280036902305219</numero><sexe>F</sexe><naissance>1980-03-08</naissance><visite date="2014-12-08" intervenant="003"/><adresse><etage></etage><numero></numero><rue>Rond-Point de la Croix de Vie</rue><ville>La Tronche</ville><codePostal>38700</codePostal></adresse></patient>
+        <patient>
+            <nom>Aire</nom>
+            <prenom>Axel</prenom>
+            <sexe>M</sexe>
+            <naissance>1993-06-13</naissance>
+            <!-- Homme, ne en juin 93 en France, à Marseille (n° 55 en bouches du rhône)
+            453e naissance (cle calculee: 19)-->
+            <numero>193061305545319</numero>
+            <adresse>
+                <etage>4</etage>
+                <numero>46</numero>
+                <rue>avenue Felix Viallet</rue>
+                <ville>Grenoble</ville>
+                <codePostal>38031</codePostal>
+            </adresse>
+            <visite date="2014-12-08" intervenant="001">
+                <acte id="109"/>
+                <acte id="201"/>
+                <acte id="401"/>
+            </visite>
+            <visite date="2014-12-01" intervenant="002">
+                <acte id="102"/>
+                <acte id="203"/>
+                <acte id="402"/>
+            </visite>
+            <visite date="2014-11-04" intervenant="003">
+                <acte id="105"/>
+                <acte id="202"/>
+                <acte id="403"/>
+            </visite>
+
+        </patient>
+
+        <patient>
+            <nom>Bedel</nom>
+            <prenom>Paul</prenom>
+            <sexe>M</sexe>
+            <naissance>1893-06-13</naissance>
+            <numero>185061305545319</numero>
+            <adresse>
+                <etage></etage>
+                <numero>4</numero>
+                <rue>rue Jules Ferry</rue>
+                <ville>Grenoble</ville>
+                <codePostal>38100</codePostal>
+            </adresse>
+            <visite date="2014-12-08" intervenant=""></visite>
+        </patient>
+
+        <patient>
+            <nom>Lelouche</nom>
+            <prenom>Paul</prenom>
+            <sexe>M</sexe>
+            <naissance>1953-06-13</naissance>
+            <numero>185025305545319</numero>
+            <adresse>
+                <etage></etage>
+                <numero>8</numero>
+                <rue>rue Vicor Hugo</rue>
+                <ville>Grenoble</ville>
+                <codePostal>38000</codePostal>
+            </adresse>
+            <visite date="2014-12-08" intervenant=""></visite>
+        </patient>
+
+        <patient>
+            <nom>Chirac</nom>
+            <prenom>Jacques</prenom>
+            <sexe>M</sexe>
+            <naissance>1978-06-13</naissance>
+            <numero>185025305589319</numero>
+            <adresse>
+                <etage></etage>
+                <numero>4</numero>
+                <rue>rue au blé</rue>
+                <ville>Cherbourg-Octeville</ville>
+                <codePostal>50000</codePostal>
+            </adresse>
+            <visite date="2014-12-08" intervenant=""></visite>
+        </patient>
+
+        <patient>
+            <nom>Orouge</nom>
+            <prenom>Elvire</prenom>
+            <sexe>F</sexe>
+            <naissance>1980-03-08</naissance>
+            <!-- Femme, nee en mars 80 en France, à Lyon (n° 23 dans le rhône)
+            52e naissance (cle calculee: 19)-->
+            <numero>280036902305219</numero>
+            <adresse>
+                <rue>Rond-Point de la Croix de Vie</rue>
+                <ville>La Tronche</ville>
+                <codePostal>38700</codePostal>
+            </adresse>
+            <!--
+            Elvire a ete gravement brulee, et l'intervenant doit changer son
+            pansement tous les 2 jours
+            (Pansement de brûlure etendue ou de plaie chimique ou thermique etendue,
+                sur une surface superieure à 5 % de la surface corporelle.....)
+            -->
+            <visite date="2014-12-08" intervenant="003">
+                <acte id="300"/>
+            </visite>
+
+        </patient>
         <patient>
             <nom>Oscare</nom>
             <prenom>Pien</prenom>
@@ -73,20 +177,40 @@
                 <acte id="104"/>
             </visite>
 
+            <visite date="2014-11-08" intervenant="001">
+                <acte id="101"/>
+                <acte id="105"/>
+            </visite>
+
         </patient>
         <patient>
-            <nom>Jean</nom>
+            <nom>Xavier</nom>
             <prenom>Kapoëtla</prenom>
-            <numero>110083306303570</numero>
             <sexe>M</sexe>
-            <naissance>2010-08-02T00:00:00.000Z</naissance><visite date="2014-12-08" intervenant="002"/>
+            <naissance>2010-08-02</naissance>
+            <!-- Garçon (4 ans) ne en août 2010 en France, à Bordeaux (n° 63 dans la Gironde)
+            35e naissance (cle calculee: 70)-->
+            <numero>110083306303570</numero>
             <adresse>
-                <etage/>
-                <numero/>
+                <numero>25</numero>
                 <rue>rue des Martyrs</rue>
                 <ville>Grenoble</ville>
                 <codePostal>38042</codePostal>
             </adresse>
+            <!--
+            Le jeune Xavier est en cours de desensibilation alergique.
+            Il doit recevoir tous les jours, l'injection de plusieurs allergenes, etc.
+            -->
+            <visite date="2014-12-08" intervenant="001">
+                <acte id="111"/>
+            </visite>
+            <visite date="2014-12-08" intervenant="001">
+                <acte id="401"/>
+            </visite>
+            <visite date="2013-12-08" intervenant="001">
+                <acte id="400"/>
+            </visite>
+
         </patient>
         <patient>
             <nom>Peplu</nom>
@@ -107,5 +231,5 @@
             </visite>
 
         </patient>
-    <patient><nom>Jean</nom><prenom>Claude</prenom><numero>111122525252112</numero><sexe>F</sexe><naissance>2016-04-13</naissance><visite date="2014-12-08" intervenant="002"/><adresse><etage/><numero/><rue/><ville/><codePostal/></adresse></patient><patient><nom>Claude</nom><prenom>Jules</prenom><numero>849449494949984</numero><sexe>M</sexe><naissance>2016-04-23</naissance><visite date="2014-12-08" intervenant="003"/><adresse><etage/><numero/><rue/><ville/><codePostal/></adresse></patient><patient><nom>aaa</nom><prenom>aaaa</prenom><numero>111111111111111</numero><sexe/><naissance>2016-04-25</naissance><visite date="2014-12-08" intervenant="001"/><adresse><etage/><numero/><rue/><ville/><codePostal/></adresse></patient></patients>
+    </patients>
 </cabinet>

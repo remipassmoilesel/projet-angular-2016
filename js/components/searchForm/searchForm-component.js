@@ -34,9 +34,9 @@ SearchFormController.prototype.refreshDatas = function() {
     var vm = this;
 
     this.datah.getUpdatedPatients()
-    .then(function(){
-        vm.search();
-    });
+        .then(function() {
+            vm.search();
+        });
 
 }
 
@@ -68,15 +68,20 @@ SearchFormController.prototype.search = function() {
 
     var wantedPatient = {
         name: this.personName,
-        firstname: this.personFirstName,
+        firstname: this.personFirstname,
         ssid: this.personId,
     };
 
     var wantedNurse = {
         name: this.personName,
-        firstname: this.personFirstName,
+        firstname: this.personFirstname,
         id: this.personId,
     };
+
+
+    // console.log(wantedPatient);
+    // console.log(wantedNurse);
+
 
     var vm = this;
     this.datah.searchPatients(wantedPatient).then(function(patients) {

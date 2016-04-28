@@ -21,6 +21,9 @@ var DisplayOfficeInfosController = function ($http, datah, $scope) {
     var vm = this;
     datah.getOfficeInformations().then(function (response) {
         vm.informations = response;
+    })
+    .catch(function(repsonse){
+        // message d'erreur
     });
 
     // récupérer des statistiques

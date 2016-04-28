@@ -11,8 +11,6 @@ var constants = require('../../utils/constants.js');
 
 var VisitController = function($http, datah, $scope, utils) {
 
-    console.log(this);
-
     // conserver les références des services
     this.$http = $http;
     this.datah = datah;

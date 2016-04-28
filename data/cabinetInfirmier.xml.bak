@@ -63,25 +63,72 @@
                 <ville>Grenoble</ville>
                 <codePostal>38031</codePostal>
             </adresse>
-            <!-- Ici, j'ai choisi d'identifier l'infirmiere par un numero.
-            Un prenom peut porter à confusion.
-            Un login peut etre ok -->
-
-            <!--
-            Axel a eu un accident de moto à cause duquel il a dû etre opere.
-            Il est immobilise pour un mois et doit donc recevoir des injections
-            sous-cutanees d'anti-coagulant tous les jours pendant une semaine pour eviter les flebites.
-            (Q: Peut-on ajouter la contrainte qu'elles doievent etre faites à la meme heure chaque jour ?)
-            L'intervenant qui prend en charge Axel est le n°2. Cet intervenant
-            ne travaille pas le mercredi et doit donc ceder sa place à l'intervenant
-            n°1 ce jour là.
-            Lors de la derniere visite, l'intervenant doit aussi enlever les 25 points de suture de son operation.
-            -->
             <visite date="2014-12-08" intervenant="001">
                 <acte id="109"/>
+                <acte id="201"/>
+                <acte id="401"/>
+            </visite>
+            <visite date="2014-12-01" intervenant="002">
+                <acte id="102"/>
+                <acte id="203"/>
+                <acte id="402"/>
+            </visite>
+            <visite date="2014-11-04" intervenant="003">
+                <acte id="105"/>
+                <acte id="202"/>
+                <acte id="403"/>
             </visite>
 
         </patient>
+
+        <patient>
+            <nom>Bedel</nom>
+            <prenom>Paul</prenom>
+            <sexe>M</sexe>
+            <naissance>1893-06-13</naissance>
+            <numero>185061305545319</numero>
+            <adresse>
+                <etage></etage>
+                <numero>4</numero>
+                <rue>rue Jules Ferry</rue>
+                <ville>Grenoble</ville>
+                <codePostal>38100</codePostal>
+            </adresse>
+            <visite date="2014-12-08" intervenant=""></visite>
+        </patient>
+
+        <patient>
+            <nom>Lelouche</nom>
+            <prenom>Paul</prenom>
+            <sexe>M</sexe>
+            <naissance>1953-06-13</naissance>
+            <numero>185025305545319</numero>
+            <adresse>
+                <etage></etage>
+                <numero>8</numero>
+                <rue>rue Vicor Hugo</rue>
+                <ville>Grenoble</ville>
+                <codePostal>38000</codePostal>
+            </adresse>
+            <visite date="2014-12-08" intervenant=""></visite>
+        </patient>
+
+        <patient>
+            <nom>Chirac</nom>
+            <prenom>Jacques</prenom>
+            <sexe>M</sexe>
+            <naissance>1978-06-13</naissance>
+            <numero>185025305589319</numero>
+            <adresse>
+                <etage></etage>
+                <numero>4</numero>
+                <rue>rue au blé</rue>
+                <ville>Cherbourg-Octeville</ville>
+                <codePostal>50000</codePostal>
+            </adresse>
+            <visite date="2014-12-08" intervenant=""></visite>
+        </patient>
+
         <patient>
             <nom>Orouge</nom>
             <prenom>Elvire</prenom>

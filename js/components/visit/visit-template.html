@@ -4,7 +4,7 @@
     <div class="visitHeader"> Le {{$ctrl.prettyDate}}. Intervenant: {{$ctrl.nurseName}}.</div>
 
     <!-- Actes médicaux -->
-    <table style="width: 100%" >
+    <table style="width: 100%">
         <thead>
             <tr>
                 <th>ID</th>
@@ -15,10 +15,8 @@
         </thead>
         <tbody>
 
-            <!-- Actex medicaux -->
+            <!-- Actes medicaux -->
             <tr ng-show="$ctrl.data.actions.length > 0" ng-repeat="act in $ctrl.data.actions track by $index">
-
-                <td>{{act}}</td>
 
                 <td class="visitTypeToolTiped">
                     {{$ctrl.actionDescriptions.actions[act]['type'].toLocaleUpperCase()}}

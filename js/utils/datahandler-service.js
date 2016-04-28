@@ -540,6 +540,9 @@ DataHandler.prototype.searchPatients = function(wanted) {
             var passed = 0;
             var success = 0;
 
+            // console.log(testsPartA);
+            // console.log(testsPartB);
+
             // iterer les tests
             for (var j = 0; j < testsPartA.length; j++) {
                 var a = testsPartA[j];
@@ -548,12 +551,16 @@ DataHandler.prototype.searchPatients = function(wanted) {
                 // verifier que les parties ne soient pas vides
                 if (a.length > 0 && b.length > 0) {
                     passed++;
+
                     // test
                     if (a === b) {
                         success++;
                     }
                 }
+
             }
+
+
 
             if (passed > 0 && success === passed ) {
                 output.push(p);

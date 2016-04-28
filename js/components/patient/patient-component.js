@@ -83,6 +83,7 @@ PatientController.prototype.setDisplayMode = function(mode) {
     if (this.availablesDisplayModes.indexOf(mode) === -1) {
         throw constants.INVALID_ARGUMENT + ": " + mode;
     }
+
     this.displayMode = mode;
 };
 /**
