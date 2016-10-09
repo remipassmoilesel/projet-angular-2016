@@ -19,6 +19,7 @@
     "animate.css": "^3.5.1",
     "body-parser": "^1.13.3",
     "circular-json": "^0.3.0",
+    "colors": "^1.1.2",
     "express": "^4.13.3",
     "fs-extra": "^0.24.0",
     "http-static-gzip-regexp": "0.0.2",
